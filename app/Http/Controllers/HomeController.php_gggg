@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Section;
+use App\Models\Post;
+use App\Models\Section_item;
+use Illuminate\Support\Facades\Http;
+
+class HomeController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        $post = Post::where('status','active')->orderBy('created_at', 'DESC')->get();
+        $section = Section::where('status','active')->orderBy('sequence', 'ASC')->get();
+        $data=[];
+        foreach($section as $sec){
+            $Section_item = Section_item::select('id','section_item_name','section_item_value')->where('status','active')->where('section_id',$sec->id)->orderBy('sequence', 'ASC')->get();
+            $sec->section_item = $Section_item;
+            array_push($data, $sec);
+        }
+        $array = json_decode(json_encode($data), true);
+        return view('home')->with('data',$array)->with('post',$post);
+    }
+
+
+    public function editSection($id,$sectionId)
+    {
+        dd($id);
+
+        // $paramn = 'error';
+        // $response = Http::get('https://personal-website.iudyog.com/edit-section-api/', [
+        //     "data" => [
+        //         "id" => $id,
+        //         "sectionId" => $sectionId,
+        //     ]
+        // ]);
+        // $details = $response->json();
+
+        // dd($details);
+        
+
+		// $curl = curl_init();
+		// curl_setopt($curl, CURLOPT_URL, 'https://personal-website.iudyog.com/edit-section-api/'.$id.'/'.$sectionId);
+		// curl_setopt($curl, CURLOPT_POST, TRUE);
+		// curl_setopt($curl, CURLOPT_TIMEOUT, 3000);
+		// curl_setopt($curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+		// curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+		// curl_setopt($curl, CURLOPT_HEADER, 0);
+		// curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		// curl_setopt($curl, CURLOPT_HTTP_VERSION, 'CURL_HTTP_VERSION_1_1');
+		// $data = curl_exec($curl);
+		// $result = json_decode($data);
+		// dd($result);
+		// curl_close($curl);
+    }
+}
