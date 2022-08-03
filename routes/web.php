@@ -29,4 +29,5 @@ Route::get('/auth/google/callback', [App\Http\Controllers\GoogleController::clas
 
 
 Route::post('/send-comment', [App\Http\Controllers\CommentController::class, 'sendComment'])->name('sendComment');
+Route::post('/send-reply', [App\Http\Controllers\CommentController::class, 'sendReply'])->name('sendReply');
 

@@ -2,6 +2,15 @@
 @section('css')
 @endsection
 
+<style>
+    .modal-open .modal{
+        background: transparent;
+    }
+    .modal.show #modal-dialog{
+        margin-right: 30px;
+    }
+</style>
+
 @section('content')
 <div class="pw-body">
     @if (Auth::check())
@@ -203,14 +212,51 @@
                                        <div class="col-12 mb-3" style="">
                                             {{$comm->user_name}} <br>
                                             <div class="row">
-                                                <div class="col-8" style="word-wrap: break-word">
+                                                <div class="col-6" style="word-wrap: break-word">
                                                     <b>{{$comm->comments}}</b>
+                                                </div>
+                                                <div class="col-2">
+                                                    @if(Auth::user())  
+                                                    <a data-toggle="collapse" data-target="#reply_view{{$comm['id']}}" href="javaScript:void(0);" class="comment_icon " style="background: transparent;color:gray" title="Reply">
+                                                        <i class="ti-share-alt"></i>
+                                                    </a>
+                                                    @endif
                                                 </div>
                                                 <div class="col-4">
                                                     {{-- {{moment($comm->created_at).startOf('hour').fromNow();   }} --}}
-                                                    {{date('D-M-Y H:i',strtotime($comm->created_at))}}
+                                                    {{$comm->created_at->diffForHumans()}}
                                                 </div>
                                             </div>
+                                       </div>
+                                        <div class="co-12 collapse header-clp mb-3" id="reply_view{{$comm->id}}">
+                                            <form action="" id="reply{{$comm->id}}">
+                                                <div class="row">
+                                                    <div class="col-8 ">
+                                                        <input type="hidden" name="reply_for_comment" id="reply_for_comment" value="{{$comm->id}}">
+                                                        <input type="text" name="reply_message" id="reply_message{{$comm->id}}" class="form-control" placeholder="Reply on comment">
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <button type="submit" class="btn btn-outline-primary btn-sm" onclick="submitReply('{{$comm->id}}')">Reply</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-12 mb-3 mt-0" id="replyview{{$comm->id}}">
+                                        
+                                            @foreach($comm['all_reply'] as $reply)
+                                                <div class="col-12 mb-2">
+                                                    Reply by : <span><strong>{{$reply->user_name}}</strong></span>
+                                                    <div class="row">
+                                                        <div class="col-8" style="word-wrap: break-word">
+                                                        {{$reply->replys}} 
+                                                        </div>
+                                                        <div class="col-4">
+                                                            {{$reply->created_at->diffForHumans()}}
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                            @endforeach
+                                          
                                        </div>
                                     @empty
                                         <div class="text-center" id="nocomment-{{$post->id}}">No comments.</div>
@@ -588,7 +634,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="modal_action">
+                <div class="publish_post">
                     <button class="publish_post">Publish</button>
                 </div>
             </form>
@@ -785,17 +831,34 @@
         <div class="modal-body">
          <input type="file" name="change_profile" id="change_profile" class="form-control">
         </div>
-        {{-- <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="save_sign"> changes</button>
-        </div> --}}
+        
       </div>
     </div>
   </div>
 
+ 
 
 @endif
 @endsection
 
+@if(!Auth::user())
+        <div class="modal fade" id="loginwithgooglemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document" id="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sign in with Google</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closemodal()" >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                <div class="modal-body">
+                    <a href="{{ url('auth/google') }}" class="btn btn-outline-primary btn-block btn-lg google">Continue with &nbsp;<i class="fa-brands fa-google-plus-g"></i>  &nbsp; </a>
+                </div>
+            
+            </div>
+            </div>
+        </div>
+@endif
 @section('js')
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
@@ -831,18 +894,18 @@
             
             // alert(form_data.id);                             
             // form_data.append('file', file);
-            $.ajax({
-                url: '{{route('editSection')}}', // point to server-side PHP script 
-                dataType: 'json',  // what to expect back from the PHP script, if anything
-                cache: false,
-                contentType: false,
-                processData: false,
-                data:form_data,                         
-                type: 'post',
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                success: function(){
-                }
-            });
+            // $.ajax({
+            //     url: '{{route('editSection')}}', // point to server-side PHP script 
+            //     dataType: 'json',  // what to expect back from the PHP script, if anything
+            //     cache: false,
+            //     contentType: false,
+            //     processData: false,
+            //     data:form_data,                         
+            //     type: 'post',
+            //     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            //     success: function(){
+            //     }
+            // });
         });
 
 
@@ -866,7 +929,11 @@
 </script>
 <script>
 
-    $(document).ready(function () {
+    setTimeout(function () {
+            $(document).ready(function () {
+                    $("#loginwithgooglemodal").modal('show');
+                    $('.modal-backdrop').remove();
+                }, 10000);
         
         $(".comment_icon").click(function (event) {
             var id = $(this).data('id');
@@ -876,6 +943,11 @@
             $('#post_new_id').val(id);
         });
     });
+
+    function closemodal()
+    {
+        $('#loginwithgooglemodal').modal('hide');
+    }
 
     function submitForm(id)
         {
@@ -911,7 +983,36 @@
             });
             event.preventDefault();
             event.stopImmediatePropagation();
-        });
+            });
+        }
+
+        function submitReply(id){
+            $("#reply"+id).submit(function (event) {
+            var formData = {
+                "_token": "{{ csrf_token() }}",
+                reply_message: $("#reply_message"+id).val(),
+                comment_id: id,
+            };
+            // alert(formData.reply_message);
+            // alert(formData.comment_id);
+           
+            $.ajax({
+                type: "POST",
+                url: "{{route('sendReply')}}",
+                data: formData,
+                dataType: "json",
+                encode: true,
+                success: function(res){
+                if(res.success==true){ 
+                        $('#replyview'+id).prepend(res.data);
+                        $('#reply_message'+id).val('');
+                    }
+                    
+                },
+            });
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            });
         }
    
 </script>

@@ -8,7 +8,7 @@ use App\Models\Post;
 use App\Models\Section_item;
 use Illuminate\Support\Facades\Http;
 use App\Models\Comment;
-
+use App\Models\Replys;
 
 class HomeController extends Controller
 {
@@ -35,7 +35,16 @@ class HomeController extends Controller
             $all_comments = Comment::where('post_id',$val->id)->orderBy('id','desc')->get();
             $post[$key]->total_comment = $comments;
             $post[$key]->all_comments = $all_comments;
+
+            foreach($all_comments as $key2=>$comm)
+            {
+                $reply = Replys::where('comment_id',$comm->id)->orderBy('id','desc')->get();
+                $all_comments[$key2]->all_reply = $reply;
+            }
+
         }
+
+        // dd($post);  
 
         $section = Section::where('status','active')->orderBy('sequence', 'ASC')->get();
         $data=[];

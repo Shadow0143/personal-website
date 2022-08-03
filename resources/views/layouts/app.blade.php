@@ -26,6 +26,11 @@
 
     <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
     <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     
 
     <link rel="icon" href="" type="image/gif" sizes="">
@@ -55,6 +60,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    @include('sweetalert::alert')
+    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
+
     @include('layouts.header')
     @yield('content')
     @yield('js')
