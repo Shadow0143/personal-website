@@ -89,9 +89,7 @@
     <div class="authentication">
         <div class="container">
             <div class="row">
-                @if (Session('error'))
-                    <p class="text-danger">{{ session('error') }}</p>
-                @endif
+               
                 <div class="col-lg-4 col-sm-12">
                     <form method="POST" action="{{ route('login') }}" class="card auth_form">
                         @csrf
@@ -154,6 +152,10 @@
             </div>
         </div>
     </div>
+
+    @if (Session('error'))
+      <p class="text-danger">{{ session('error') }}</p>
+    @endif
     <script src="{{ asset('admin/bundles/libscripts.bundle.js') }}"></script>
     <script src="{{ asset('admin/bundles/vendorscripts.bundle.js') }}"></script>
 </body>

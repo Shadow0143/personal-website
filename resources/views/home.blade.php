@@ -207,6 +207,7 @@
                                                     <b>{{$comm->comments}}</b>
                                                 </div>
                                                 <div class="col-4">
+                                                    {{-- {{moment($comm->created_at).startOf('hour').fromNow();   }} --}}
                                                     {{date('D-M-Y H:i',strtotime($comm->created_at))}}
                                                 </div>
                                             </div>
@@ -264,89 +265,128 @@
                     <a href="" type="button" onclick="openForm2()" data-toggle="modal" data-target="#myModal2">Add
                         Section</a>
                     <a href="" type="button" onclick="openForm3()" data-toggle="modal" data-target="#myModal3">Add Item</a>
-                    <div class="hsLeft">
-                        <p>
-                            @foreach ($data['section_item'] as $item)
-                              
+                  
+                        <div class="hsLeft">
+                            <p>
+                                @foreach ($data['section_item'] as $item)
+                                    @if(!empty(Auth::user()->id))
+                                        @if ($item['section_item_name'] == 'Greeting')
+                                            <form action="" id="greating_form">
+                                                <input type="hidden" name="greating_id" id="greating_id" value="{{$item['id']}}">
+                                                <input type="text" name="section_name" id="section_name" value="{{ $item['section_item_value'] }}">
+                                            </form>
+                                        @endif
+                                    @else
+                                        @if ($item['section_item_name'] == 'Greeting')
+                                            {{ $item['section_item_value'] }}
+                                        @endif
+                                    @endif
+                                @endforeach
+
+                                @foreach ($data['section_item'] as $item)
+                                    @if ($item['section_item_name'] == 'Signature')
+                                        @if(!empty(Auth::user()->id))
+                                            <form action="">
+                                                <input type="hidden" name="change_signature_id" id="change_signature_id" value="{{$item['id']}}">
+                                                <input type="file" name="change_signature" id="change_signature" class=""> 
+                                                <span class="text-danger text-left">
+                                                    <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" id="imgPreview" />
+                                                </span>
+                                            </form>
+                                        @else
+                                            <span>
+                                                <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" />
+                                            </span>
+                                        @endif
+                                    @endif
+                                @endforeach
+                                @foreach ($data['section_item'] as $item)
                                 @if(!empty(Auth::user()->id))
-                                    @if ($item['section_item_name'] == 'Greeting')
-                                    <input type="text" name="" id="" value="{{ $item['section_item_value'] }}">
+                                    @if ($item['section_item_name'] == 'Degree')
+                                        <form action="">
+                                            <input type="hidden" name="section_descr_id" id="section_descr_id" value="{{$item['id']}}">
+                                            <textarea name="section_descr" id="section_descr" cols="30" rows="5">{{ $item['section_item_value'] }}</textarea>
+                                        </form>
                                     @endif
                                 @else
-                                    @if ($item['section_item_name'] == 'Greeting')
+                                    @if ($item['section_item_name'] == 'Degree')
                                         {{ $item['section_item_value'] }}
                                     @endif
                                 @endif
-                            @endforeach
-                            @foreach ($data['section_item'] as $item)
-                                @if ($item['section_item_name'] == 'Signature')
-                                    @if(!empty(Auth::user()->id))
-                                        <span class="text-danger text-left">
-                                            <a href="javaScript:void(0);" class="btn btn-sm btn-outline-light"  data-toggle="modal" data-target="#signaturemodal" >Change Signature</a>
-                                            <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" id="imgPreview" />
-                                        </span>
-                                    @else
-                                        <span>
-                                            <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" />
-                                        </span>
-                                    @endif
-                                @endif
-                            @endforeach
-                            @foreach ($data['section_item'] as $item)
-                            @if(!empty(Auth::user()->id))
-                                @if ($item['section_item_name'] == 'Degree')
-                                    <textarea name="" id="" cols="30" rows="5">{{ $item['section_item_value'] }}</textarea>
-                                @endif
-                            @else
-                                @if ($item['section_item_name'] == 'Degree')
-                                    {{ $item['section_item_value'] }}
-                                @endif
-                            @endif
-                               
-                            @endforeach
-                        </p>
-                        <div class="socialFooter">
-                            <ul>
-                                <li>
-                                    <a href=""><i class="ti-twitter-alt"></i></a>
-                                    @if(Auth::user())
-                                        <input type="url" name="twitter_link" id="twitter_link" class="form-control">
-                                    @endif
-                                </li>
-                                <li>
-                                    <a href=""><i class="ti-facebook"></i></a>
-                                    @if(Auth::user())
-                                        <input type="url" name="facebook_link" id="facebook_link" class="form-control">
-                                    @endif
-                                </li>
-                                <li>
-                                    <a href=""><i class="ti-linkedin"></i></a>
-                                    @if(Auth::user())
-                                        <input type="url" name="linkdin_link" id="linkdin_link" class="form-control">
-                                    @endif
-                                </li>
-                                <li>
-                                    <a href=""><i class="ti-youtube"></i></a>
-                                    @if(Auth::user())
-                                        <input type="url" name="youtube_link" id="youtube_link" class="form-control">
-                                    @endif
-                                </li>
-                            </ul>
+                                
+                                @endforeach
+                            </p>
+                            <div class="socialFooter">
+                                <ul>
+                                    <li>
+                                        <a href=""><i class="ti-twitter-alt"></i></a>
+                                        @foreach ($data['section_item'] as $item)
+                                            @if(Auth::user())
+                                            <form action=""> 
+                                                @if ($item['section_item_name'] == 'Twitter_Link')
+                                                        <input type="hidden" name="twitter_id" id="twitter_id" value="{{$item['id']}}">
+                                                        <input type="url" name="twitter_link" id="twitter_link" class="form-control" value="{{$item['section_item_value']}}">
+                                                    @endif
+                                                </form>
+                                            @endif
+                                        @endforeach
+                                    </li>
+                                    <li>
+                                        <a href=""><i class="ti-facebook"></i></a>
+                                        @foreach ($data['section_item'] as $item)
+                                            @if(Auth::user())
+                                                <form action=""> 
+                                                    @if ($item['section_item_name'] == 'Facebook_Link')
+                                                        <input type="hidden" name="facebook_id" id="facebook_id" value="{{$item['id']}}">
+                                                        <input type="url" name="facebook_link" id="facebook_link" class="form-control" value="{{$item['section_item_value']}}">
+                                                    @endif
+                                                </form>
+                                            @endif
+                                        @endforeach
+                                    </li>
+                                    <li>
+                                        <a href=""><i class="ti-linkedin"></i></a>
+                                        @foreach ($data['section_item'] as $item)
+                                            @if(Auth::user())
+                                                <form action=""> 
+                                                    @if ($item['section_item_name'] == 'Linkdin_Link')
+                                                        <input type="hidden" name="linkdin_id" id="linkdin_id" value="{{$item['id']}}">
+                                                        <input type="url" name="linkdin_link" id="linkdin_link" class="form-control" value="{{$item['section_item_value']}}">
+                                                    @endif
+                                                </form>
+                                            @endif
+                                        @endforeach
+                                    </li>
+                                    <li>
+                                        <a href=""><i class="ti-youtube"></i></a>
+                                        @foreach ($data['section_item'] as $item)
+                                            @if(Auth::user())
+                                                <form action=""> 
+                                                    @if ($item['section_item_name'] == 'Youtube_Link')
+                                                        <input type="hidden" name="youtube_id" id="youtube_id" value="{{$item['id']}}">
+                                                        <input type="url" name="youtube_link" id="youtube_link" class="form-control" value="{{$item['section_item_value']}}">
+                                                    @endif
+                                                </form>
+                                            @endif
+                                        @endforeach
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
+                        @foreach ($data['section_item'] as $item)
+                            @if ($item['section_item_name'] == 'Profile Image')
+                                <div class="hsRight">
+                                    @if(!empty(Auth::user()))
+                                    <a href="javaScript:void(0);" class="btn btn-sm btn-outline-light"  data-toggle="modal" data-target="#profilemodal" >Change Profile</a>
+                                    <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" id="profileimgPreview" />
+                                    @else
+                                    <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}"/>
+                                    @endif
+                                </div>
+                            @endif
+                        @endforeach
                     </div>
-                    @foreach ($data['section_item'] as $item)
-                    @if ($item['section_item_name'] == 'Profile Image')
-                    <div class="hsRight">
-                        @if(!empty(Auth::user()))
-                        <a href="javaScript:void(0);" class="btn btn-sm btn-outline-light"  data-toggle="modal" data-target="#profilemodal" >Change Profile</a>
-                        <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" id="profileimgPreview" />
-                        @else
-                        <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}"/>
-                        @endif
-                    </div>
-                    @endif
-                    @endforeach
-                </div>
+                 
             </div>
             @endif
             @if ($data['section_name'] == 'Biography')
@@ -730,24 +770,7 @@
 
 
   <!-- Modal -->
-  <div class="modal fade" id="signaturemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Upload Signature</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-         <input type="file" name="change_signature" id="change_signature" class="form-control">
-        </div>
-        {{-- <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="save_sign"> changes</button>
-        </div> --}}
-      </div>
-    </div>
-  </div>
+  
 
 
   <div class="modal fade" id="profilemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -781,6 +804,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
+
+
 <script>
     $(document).ready(() => {
         $("#change_signature").change(function () {
@@ -794,6 +819,30 @@
                 reader.readAsDataURL(file);
             }
             $("#signaturemodal").modal('hide');
+            $('.modal-backdrop').remove();
+
+            var form_data = {
+                "_token": "{{ csrf_token() }}",
+                id: $("#change_signature_id").val(),
+                type:'image',
+                value:$("#change_signature").val()
+              
+            };                   
+            
+            // alert(form_data.id);                             
+            // form_data.append('file', file);
+            $.ajax({
+                url: '{{route('editSection')}}', // point to server-side PHP script 
+                dataType: 'json',  // what to expect back from the PHP script, if anything
+                cache: false,
+                contentType: false,
+                processData: false,
+                data:form_data,                         
+                type: 'post',
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success: function(){
+                }
+            });
         });
 
 
@@ -808,29 +857,27 @@
                 reader.readAsDataURL(file);
             }
             $("#profilemodal").modal('hide');
+            $('.modal-backdrop').remove();
+
         });
 
 
     });
-
-   
-    
 </script>
-
 <script>
 
-$(document).ready(function () {
-      
-    $(".comment_icon").click(function (event) {
-        var id = $(this).data('id');
-        var first_value = $('#commentCount-'+id).text();
-        var value = parseInt(first_value);
-        var counter = $('#commentCountbox'+id).val(value);
-        $('#post_new_id').val(id);
+    $(document).ready(function () {
+        
+        $(".comment_icon").click(function (event) {
+            var id = $(this).data('id');
+            var first_value = $('#commentCount-'+id).text();
+            var value = parseInt(first_value);
+            var counter = $('#commentCountbox'+id).val(value);
+            $('#post_new_id').val(id);
+        });
     });
-});
 
-function submitForm(id)
+    function submitForm(id)
         {
             var counter = $('#commentCountbox'+id).val();
             var incr = parseInt(counter) + 1 ;
@@ -868,6 +915,140 @@ function submitForm(id)
         }
    
 </script>
+
+
+
+<script>
+    $("#section_name").blur(function (event) {
+        var formData = {
+            "_token": "{{ csrf_token() }}",
+            id: $("#greating_id").val(),
+            value: $("#section_name").val(),
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "{{route('editSection')}}",
+            data: formData,
+            dataType: "json",
+            encode: true,
+            success: function(res){
+                alert('Save changes.');
+            },
+        });
+        event.preventDefault();
+        event.stopImmediatePropagation();
+    });
+
+    $("#section_descr").blur(function (event) {
+        var formData = {
+            "_token": "{{ csrf_token() }}",
+            id: $("#section_descr_id").val(),
+            value: $("#section_descr").val(),
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "{{route('editSection')}}",
+            data: formData,
+            dataType: "json",
+            encode: true,
+            success: function(res){
+                alert('Save changes.');
+            },
+        });
+        event.preventDefault();
+        event.stopImmediatePropagation();
+    });
+
+    $("#twitter_link").blur(function (event) {
+        var formData = {
+            "_token": "{{ csrf_token() }}",
+            id: $("#twitter_id").val(),
+            value: $("#twitter_link").val(),
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "{{route('editSection')}}",
+            data: formData,
+            dataType: "json",
+            encode: true,
+            success: function(res){
+                alert('Save changes.');
+            },
+        });
+        event.preventDefault();
+        event.stopImmediatePropagation();
+    });
+
+    $("#facebook_link").blur(function (event) {
+        var formData = {
+            "_token": "{{ csrf_token() }}",
+            id: $("#facebook_id").val(),
+            value: $("#facebook_link").val(),
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "{{route('editSection')}}",
+            data: formData,
+            dataType: "json",
+            encode: true,
+            success: function(res){
+                alert('Save changes.');
+            },
+        });
+        event.preventDefault();
+        event.stopImmediatePropagation();
+    });
+
+    $("#linkdin_link").blur(function (event) {
+        var formData = {
+            "_token": "{{ csrf_token() }}",
+            id: $("#linkdin_id").val(),
+            value: $("#linkdin_link").val(),
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "{{route('editSection')}}",
+            data: formData,
+            dataType: "json",
+            encode: true,
+            success: function(res){
+                alert('Save changes.');
+            },
+        });
+        event.preventDefault();
+        event.stopImmediatePropagation();
+    });
+
+    $("#youtube_link").blur(function (event) {
+        var formData = {
+            "_token": "{{ csrf_token() }}",
+            id: $("#youtube_id").val(),
+            value: $("#youtube_link").val(),
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "{{route('editSection')}}",
+            data: formData,
+            dataType: "json",
+            encode: true,
+            success: function(res){
+                alert('Save changes.');
+            },
+        });
+        event.preventDefault();
+        event.stopImmediatePropagation();
+    });
+
+</script>
+
+
+
 <script>
     $('#edit1section').click(function() {
         var id = $(this).data('id');

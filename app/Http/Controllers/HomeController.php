@@ -44,6 +44,8 @@ class HomeController extends Controller
             $sec->section_item = $Section_item;
             array_push($data, $sec);
         }
+
+        // dd($Section_item);
         $array = json_decode(json_encode($data), true);
         return view('home')->with('data',$array)->with('post',$post);
     }
@@ -51,14 +53,10 @@ class HomeController extends Controller
 
     public function editSection(Request $request)
     {
-
-        $response = Http::get('https://personal-website.iudyog.com/edit-section-api', [
-            'id' => $request->id,
-            'sectionId' => $request->sectionId,
-        ]);
-        $details = $response->json();
-        
-        return $details;
-        
+        dd($request->all());
+        $update = Section_item::find($request->id);
+        $update->section_item_value = $request->value;
+        $update->save();
+        return back();
     }
 }

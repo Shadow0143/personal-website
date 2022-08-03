@@ -23,6 +23,11 @@
     <script src="{{ asset('js/jquery.bxslider.js') }}"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
 
+
+    <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+    
+
     <link rel="icon" href="" type="image/gif" sizes="">
     @yield('css')
     <style>
