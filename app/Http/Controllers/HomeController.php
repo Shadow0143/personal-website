@@ -9,6 +9,8 @@ use App\Models\Section_item;
 use Illuminate\Support\Facades\Http;
 use App\Models\Comment;
 use App\Models\Replys;
+use App\Models\postImages;
+use Postimages as GlobalPostimages;
 
 class HomeController extends Controller
 {
@@ -29,7 +31,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $post = Post::where('status','active')->orderBy('created_at', 'DESC')->get();
+        $post = Post::where('posts.status','active')->orderBy('posts.created_at', 'DESC')->get();
         foreach($post as $key=>$val){
             $comments = Comment::where('post_id',$val->id)->count('comments');
             $all_comments = Comment::where('post_id',$val->id)->orderBy('id','desc')->get();
@@ -41,6 +43,11 @@ class HomeController extends Controller
                 $reply = Replys::where('comment_id',$comm->id)->orderBy('id','desc')->get();
                 $all_comments[$key2]->all_reply = $reply;
             }
+
+            $post[$key]->tags = json_decode($val->tag,true);
+
+            $post_image = postImages::where('post_id',$val->id)->get();
+            $post[$key]->post_image = $post_image;
 
         }
 

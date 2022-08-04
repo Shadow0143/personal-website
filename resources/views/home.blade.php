@@ -9,6 +9,10 @@
     .modal.show #modal-dialog{
         margin-right: 30px;
     }
+
+    .select2-dropdown.increasezindex {
+    z-index:99999;
+}
 </style>
 
 @section('content')
@@ -177,100 +181,117 @@
         <div class="iContainer">
             <div class="postsDisplay">
                 @foreach ($post as $post)
-                <div class="col-lg-12 col-md-12 col-sm-12 embeded_post">
-                    {!! $post['post_content'] !!}
-                    <div class="postFtr">
-                        <ul class="pftrList">
-                            <!-- Button trigger modal -->
-                            <li><a href=""><i class="ti-heart"></i> <span>22</span></a></li>
-                            <li>
-                                <a href="javaScript:void(0);" class="comment_icon" data-id="{{$post['id']}}"   data-toggle="collapse" data-target="#comments_view{{$post['id']}}" >
-                                    {{-- data-toggle="modal" data-target="#commentModal" --}}
-                                    <i class="ti-comment"></i> 
-                                    <span id="commentCount-{{$post->id}}">{{$post['total_comment']}}
-                                    </span>
-                                </a>
-                                <input type="hidden" id="commentCountbox{{$post->id}}" value="0">
-                            </li>
-                            <li><a href=""><i class="ti-flag-alt"></i> <span>Art & Entertainment</span></a>
-                            </li>
-                            <div id="comments_view{{$post['id']}}" class="collapse header-clp mt-5 mb-5">
-                                <div class="mt-3">
-                                    <form action="" id="commet_form{{$post['id']}}" class="commet_form" method="POST">
-                                        <div class="row mb-2">
-                                            <div class="col-10">
-                                                <input type="hidden" name="post_new_id" id="post_new_id" >
-                                                <input type="text" name="" id="comment_message{{$post['id']}}" class="form-control" placeholder="Write comments">  
-                                            </div>
-                                            <div class="col-2">
-                                                <button type="submit" class="btn btn-outline-primary" onClick="submitForm(`{{$post->id}}`)">Send</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <div id="commentId-{{$post->id}}" style=" height:200px; overflow-y: scroll;">
-                                    @forelse ($post['all_comments'] as $comm)
-                                       <div class="col-12 mb-3" style="">
-                                            {{$comm->user_name}} <br>
-                                            <div class="row">
-                                                <div class="col-6" style="word-wrap: break-word">
-                                                    <b>{{$comm->comments}}</b>
+                    <div class="col-lg-12 col-md-12 col-sm-12 embeded_post">
+                        {!! $post['post_content'] !!}
+                        <div class="col-12">
+                            @foreach($post->post_image as $image)
+                                <img src="{{asset('uploads')}}/{{$image->image}}" alt="post-image" style="width:100px;height:100px;margin:10px">
+                            @endforeach
+                        </div>
+                        <div class="postFtr">
+                            <ul class="pftrList">
+                                <!-- Button trigger modal -->
+                                <li><a href=""><i class="ti-heart"></i> <span>22</span></a></li>
+                                <li>
+                                    <a href="javaScript:void(0);" class="comment_icon" data-id="{{$post['id']}}"   data-toggle="collapse" data-target="#comments_view{{$post['id']}}" >
+                                        {{-- data-toggle="modal" data-target="#commentModal" --}}
+                                        <i class="ti-comment"></i> 
+                                        <span id="commentCount-{{$post->id}}">{{$post['total_comment']}}
+                                        </span>
+                                    </a>
+                                    <input type="hidden" id="commentCountbox{{$post->id}}" value="0">
+                                </li>
+                                <li><a href=""><i class="ti-flag-alt"></i> <span>Art & Entertainment</span></a>
+                                </li>
+                                <div id="comments_view{{$post['id']}}" class="collapse header-clp mt-5 mb-5">
+                                    <div class="mt-3">
+                                        <form action="" id="commet_form{{$post['id']}}" class="commet_form" method="POST">
+                                            <div class="row mb-2">
+                                                <div class="col-10">
+                                                    <input type="hidden" name="post_new_id" id="post_new_id" >
+                                                    <input type="text" name="" id="comment_message{{$post['id']}}" class="form-control" placeholder="Write comments">  
                                                 </div>
                                                 <div class="col-2">
-                                                    @if(Auth::user())  
-                                                    <a data-toggle="collapse" data-target="#reply_view{{$comm['id']}}" href="javaScript:void(0);" class="comment_icon " style="background: transparent;color:gray" title="Reply">
-                                                        <i class="ti-share-alt"></i>
-                                                    </a>
-                                                    @endif
-                                                </div>
-                                                <div class="col-4">
-                                                    {{-- {{moment($comm->created_at).startOf('hour').fromNow();   }} --}}
-                                                    {{$comm->created_at->diffForHumans()}}
+                                                    <button type="submit" class="btn btn-outline-primary" onClick="submitForm(`{{$post->id}}`)">Send</button>
                                                 </div>
                                             </div>
-                                       </div>
-                                        <div class="co-12 collapse header-clp mb-3" id="reply_view{{$comm->id}}">
-                                            <form action="" id="reply{{$comm->id}}">
+                                        </form>
+                                        <div id="commentId-{{$post->id}}" style=" height:200px; overflow-y: scroll;">
+                                        @forelse ($post['all_comments'] as $comm)
+                                        <div class="col-12 mb-3" style="">
+                                                {{$comm->user_name}} <br>
                                                 <div class="row">
-                                                    <div class="col-8 ">
-                                                        <input type="hidden" name="reply_for_comment" id="reply_for_comment" value="{{$comm->id}}">
-                                                        <input type="text" name="reply_message" id="reply_message{{$comm->id}}" class="form-control" placeholder="Reply on comment">
+                                                    <div class="col-6" style="word-wrap: break-word">
+                                                        <b>{{$comm->comments}}</b>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        @if(Auth::user())  
+                                                        <a data-toggle="collapse" data-target="#reply_view{{$comm['id']}}" href="javaScript:void(0);" class="comment_icon " style="background: transparent;color:gray" title="Reply">
+                                                            <i class="ti-share-alt"></i>
+                                                        </a>
+                                                        @endif
                                                     </div>
                                                     <div class="col-4">
-                                                        <button type="submit" class="btn btn-outline-primary btn-sm" onclick="submitReply('{{$comm->id}}')">Reply</button>
+                                                        {{-- {{moment($comm->created_at).startOf('hour').fromNow();   }} --}}
+                                                        {{$comm->created_at->diffForHumans()}}
                                                     </div>
                                                 </div>
-                                            </form>
                                         </div>
-                                        <div class="col-12 mb-3 mt-0" id="replyview{{$comm->id}}">
-                                        
-                                            @foreach($comm['all_reply'] as $reply)
-                                                <div class="col-12 mb-2">
-                                                    Reply by : <span><strong>{{$reply->user_name}}</strong></span>
+                                            <div class="co-12 collapse header-clp mb-3" id="reply_view{{$comm->id}}">
+                                                <form action="" id="reply{{$comm->id}}">
                                                     <div class="row">
-                                                        <div class="col-8" style="word-wrap: break-word">
-                                                        {{$reply->replys}} 
+                                                        <div class="col-8 ">
+                                                            <input type="hidden" name="reply_for_comment" id="reply_for_comment" value="{{$comm->id}}">
+                                                            <input type="text" name="reply_message" id="reply_message{{$comm->id}}" class="form-control" placeholder="Reply on comment">
                                                         </div>
                                                         <div class="col-4">
-                                                            {{$reply->created_at->diffForHumans()}}
+                                                            <button type="submit" class="btn btn-outline-primary btn-sm" onclick="submitReply('{{$comm->id}}')">Reply</button>
                                                         </div>
-                                                    </div> 
-                                                </div>
-                                            @endforeach
-                                          
-                                       </div>
-                                    @empty
-                                        <div class="text-center" id="nocomment-{{$post->id}}">No comments.</div>
-                                    @endforelse
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="col-12 mb-3 mt-0" id="replyview{{$comm->id}}">
+                                            
+                                                @foreach($comm['all_reply'] as $reply)
+                                                    <div class="col-12 mb-2">
+                                                        Reply by : <span><strong>{{$reply->user_name}}</strong></span>
+                                                        <div class="row">
+                                                            <div class="col-8" style="word-wrap: break-word">
+                                                            {{$reply->replys}} 
+                                                            </div>
+                                                            <div class="col-4">
+                                                                {{$reply->created_at->diffForHumans()}}
+                                                            </div>
+                                                        </div> 
+                                                    </div>
+                                                @endforeach
+                                            
+                                        </div>
+                                        @empty
+                                            <div class="text-center" id="nocomment-{{$post->id}}">No comments.</div>
+                                        @endforelse
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <li><a href=""><i class="ti-tag"></i> <span>Entertainment</span>
-                                    <span>Art</span>
-                                    <span>Hobbies</span>
-                                    <span>Self Care</span></a></li>
-                        </ul>
+                                <li>
+                                    <a href="">
+                                        <i class="ti-tag"></i> 
+                                        @if (is_array($post->tags) || is_object($post->tags))
+                                            @foreach($post->tags as $val_tag)
+                                                <span>{{ucfirst($val_tag)}}</span>
+                                            @endforeach
+                                        @endif
+                                        {{-- <span>{{$post->tags}}</span> --}}
+                                        {{-- @for($i=0; $i<= $post->tags; $i++ )
+                                            {{$post->tags['0']}}
+                                            
+                                        @endfor --}}
+                                       
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
                 @endforeach
                 {{-- <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="eachBlog col2BlogPost">
@@ -570,7 +591,7 @@
 <div class="modal fade pw_modal" id="myModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('createPost') }}" method="post">
+            <form action="{{ route('createPost') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header">
                     <h4 class="modal-title">Create Post</h4>
@@ -584,7 +605,7 @@
                             </figure>
                             <h4>Kamal Kalra</h4>
                         </div>
-                        <select class="user_post_type" name="postType" id="postType">
+                        <select class="user_post_type " name="postType" id="postType">
                             <option value="post">Post</option>
                             <option value="blog">Blog</option>
                             <option value="twitter">Twitter</option>
@@ -598,22 +619,36 @@
                     </div>
                     <div id="blogEditor" name="blogEditor">
                         <div class="fieldrow">
-                            <input type="text" placeholder="Title" />
+                            <input type="text" placeholder="Title"  name="blog_title" />
                         </div>
                         <div class="fieldrow">
-                            <input type="text" placeholder="Subtitle" />
+                            <input type="text" placeholder="Subtitle" name="blog_subtitle" />
                         </div>
-                        <textarea id="editor" name="editor1"></textarea>
+                        <textarea id="editor" name="blog_post"></textarea>
                     </div>
                     <div class="post_options">
                         <h3>Add to Your Post</h3>
                         <ul>
-                            <li><a href="#"><i class="fa fa-picture-o" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-tag" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-smile-o"></i></a></a></li>
+                            <li>
+                                <a href="javaScript:void(0);" class="btn btn-sm btn-outline-primary" onclick="postImageModal()">
+                                    <i class="fa fa-picture-o"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <label for="tags">Select Tags</label>
+                                <select name="tags[]" id="tags" class="select2 form-control" multiple="multiple" style="width:300px">
+                                    <option value="entertainment">Entertainment</option>
+                                    <option value="art">Art</option>
+                                    <option value="hobbies">Hobbies</option>
+                                    <option value="self care">Self Care</option>
+                                </select>
+                            </li>
+                            {{-- <li><a href="#"><i class="fa fa-smile-o"></i></a></a></li> --}}
                         </ul>
+                       
                     </div>
-                    <ul class="uploaded_img">
+                    <div class="gallery uploaded_img"></div>
+                    {{-- <ul class="uploaded_img">
                         <li>
                             <img src="https://personal-website.iudyog.com/images/profile.jpg" alt="">
                             <button class="remove_img">
@@ -632,10 +667,27 @@
                                 <i class="ti-close" aria-hidden="true"></i>
                             </button>
                         </li>
-                    </ul>
+                    </ul> --}}
                 </div>
-                <div class="publish_post">
-                    <button class="publish_post">Publish</button>
+                <div class="publish_post text-center mb-3 mt-2">
+                    <button class="publish_post btn btn-outline-primary ">Publish</button>
+                </div>
+
+                <div class="modal fade" id="post_Image" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document" id="">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Select Images</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closemodal()" >
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                        <div class="modal-body">
+                            <input type="file" name="post_image[]" id="post_image" class="form-control" multiple>
+                        </div>
+                    
+                    </div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -852,7 +904,7 @@
                     </button>
                   </div>
                 <div class="modal-body">
-                    <a href="{{ url('auth/google') }}" class="btn btn-outline-primary btn-block btn-lg google">Continue with &nbsp;<i class="fa-brands fa-google-plus-g"></i>  &nbsp; </a>
+                    <a href="{{ route('redirectToGoogle') }}" class="btn btn-outline-primary btn-block btn-lg google">Continue with &nbsp;<i class="fa-brands fa-google-plus-g"></i>  &nbsp; </a>
                 </div>
             
             </div>
@@ -866,8 +918,35 @@
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+<script>
+    $(function() {
+    // Multiple images preview in browser
+    var imagesPreview = function(input, placeToInsertImagePreview) {
 
+        if (input.files) {
+            var filesAmount = input.files.length;
+
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+
+                reader.onload = function(event) {
+                    $($.parseHTML('<img style="width:100px;height:100px;margin:20px">')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                }
+
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+
+    };
+
+    $('#post_image').on('change', function() {
+        imagesPreview(this, 'div.gallery');
+    });
+});
+</script>
 
 <script>
     $(document).ready(() => {
@@ -927,10 +1006,16 @@
 
     });
 </script>
+
 <script>
+    $(document).ready(function() {
+        $('.select2').select2({dropdownCssClass:'increasezindex'});
+    });
+
 
     setTimeout(function () {
             $(document).ready(function () {
+
                     $("#loginwithgooglemodal").modal('show');
                     $('.modal-backdrop').remove();
                 }, 10000);
@@ -944,9 +1029,18 @@
         });
     });
 
+    $('#post_image').change(function(event){
+        $('#post_Image').modal('hide');
+    });
+
     function closemodal()
     {
         $('#loginwithgooglemodal').modal('hide');
+    }
+
+    function postImageModal(){
+        $('#post_Image').modal('show');
+
     }
 
     function submitForm(id)

@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        'Intervention\Image\ImageServiceProvider',
 
         /*
          * Package Service Providers...
@@ -233,6 +234,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        'Image' => 'Intervention\Image\Facades\Image'
 
 
     ],
