@@ -37,9 +37,10 @@ class PostController extends Controller
 					$input['imagename'] ='PostImage-'.Auth::user()->id. '-'.rand(000, 5000) . '.' . $postImagearry[$k]->getClientOriginalExtension();
 					$destinationPath_selected = public_path('/uploads');
 					$img2 = Image::make($postImagearry[$k]->getRealPath());
-					$img2->resize(1024, 768, function ($constraint2) {
-						$constraint2->aspectRatio();
-					})->save($destinationPath_selected . '/' . $input['imagename']);
+					// $img2->resize(1024, 768, function ($constraint2) {
+					// 	$constraint2->aspectRatio();
+					// })
+                    $img2->save($destinationPath_selected . '/' . $input['imagename']);
 		
                     $postimage = new postImages();
                     $postimage->user_id = Auth::user()->id;

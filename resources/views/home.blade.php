@@ -17,6 +17,16 @@
     a:link  {
         text-decoration: none;
     }
+    .scrollable {
+        scrollbar-color: #6969dd #e0e0e0;
+        scrollbar-width: thin;
+    }
+
+    .scrollable::-webkit-scrollbar-thumb {
+        background-image: linear-gradient(180deg, #D0368A 0%, #708AD4 99%);
+        box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+        border-radius: 100px;
+    }
 </style>
 
 @section('content')
@@ -189,9 +199,8 @@
                         {!! $post['post_content'] !!}
                         <div class="col-12" id="lightGallery">
                             @foreach($post->post_image as $image)
-                                <a href="{{asset('uploads')}}/{{$image->image}}" class="col-sm-4">
-               
-                                    <img src="{{asset('uploads')}}/{{$image->image}}" alt="post-image" style="width:100px;height:100px;margin:10px" data-toggle="lightbox">
+                                <a href="{{asset('uploads')}}/{{$image->image}}" class="col-sm-4" >
+                                    <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" style="width:100px;height:100px;margin:5px"  class="img-responsive">
                                 </a>
                             @endforeach
 
@@ -233,7 +242,7 @@
                                                 </div>
                                             </div>
                                         </form>
-                                        <div id="commentId-{{$post->id}}" style=" height:200px; overflow-y: scroll;">
+                                        <div id="commentId-{{$post->id}}" style=" max-height:200px; overflow-y: scroll;" class="scrollable">
                                         @forelse ($post['all_comments'] as $comm)
                                         <div class="col-12 mb-3" style="">
                                                 {{$comm->user_name}} <br>
@@ -1008,6 +1017,7 @@
                 var reader = new FileReader();
 
                 reader.onload = function(event) {
+                    $('.gallery').show();
                     $($.parseHTML('<img style="width:100px;height:100px;margin:20px">')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
                 }
 
@@ -1026,6 +1036,7 @@
 
 function removeImage(){
     $('#post_image').val('');
+    $('.gallery').html('');
     $('.gallery').hide();
     $('#imageremovebtn').hide();
 
