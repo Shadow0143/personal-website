@@ -31,6 +31,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js" integrity="sha512-Y2IiVZeaBwXG1wSV7f13plqlmFOx8MdjuHyYFVoYzhyRr3nH/NMDjTBSswijzADdNzMyWNetbLMfOpIPl6Cv9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     {{-- Shakil Added  End--}}
         
     
@@ -68,6 +69,26 @@
     @include('layouts.header')
     @yield('content')
     @yield('js')
+
+
+
+    <script>
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+
+            $(this).ekkoLightbox({
+                alwaysShowClose: true,
+                onShown: function() {
+                    console.log('Checking our the events huh?');
+                },
+                onNavigate: function(direction, itemIndex)
+                    console.log('Navigating '+direction+'. Current item: '+itemIndex);
+                }
+                ...
+            });
+    </script>
 </body>
 
 </html>

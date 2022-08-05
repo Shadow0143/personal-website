@@ -26,7 +26,9 @@ class PostController extends Controller
             $post->post_content = $request->post;
         }
         $tag = json_encode($request->tags,true);
+        $categ = json_encode($request->categories,true);
         $post->tag = $tag;
+        $post->category = $categ;
         $post->save();
 
         $postImagearry = $request->post_image;

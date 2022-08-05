@@ -12,7 +12,11 @@
 
     .select2-dropdown.increasezindex {
     z-index:99999;
-}
+    }
+
+    a:link  {
+        text-decoration: none;
+    }
 </style>
 
 @section('content')
@@ -185,8 +189,13 @@
                         {!! $post['post_content'] !!}
                         <div class="col-12">
                             @foreach($post->post_image as $image)
-                                <img src="{{asset('uploads')}}/{{$image->image}}" alt="post-image" style="width:100px;height:100px;margin:10px">
+                                <a href="{{asset('uploads')}}/{{$image->image}}" target="_blank" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4">
+               
+                                    <img src="{{asset('uploads')}}/{{$image->image}}" alt="post-image" style="width:100px;height:100px;margin:10px" data-toggle="lightbox">
+                                </a>
                             @endforeach
+
+
                         </div>
                         <div class="postFtr">
                             <ul class="pftrList">
@@ -194,14 +203,22 @@
                                 <li><a href=""><i class="ti-heart"></i> <span>22</span></a></li>
                                 <li>
                                     <a href="javaScript:void(0);" class="comment_icon" data-id="{{$post['id']}}"   data-toggle="collapse" data-target="#comments_view{{$post['id']}}" >
-                                        {{-- data-toggle="modal" data-target="#commentModal" --}}
+                                        
                                         <i class="ti-comment"></i> 
                                         <span id="commentCount-{{$post->id}}">{{$post['total_comment']}}
                                         </span>
                                     </a>
                                     <input type="hidden" id="commentCountbox{{$post->id}}" value="0">
                                 </li>
-                                <li><a href=""><i class="ti-flag-alt"></i> <span>Art & Entertainment</span></a>
+                                <li><a href="">
+                                    @if (is_array($post->categ) || is_object($post->categ))
+                                        <i class="ti-flag-alt"></i> 
+                                            @foreach($post->categ as $val_tag)
+                                                <span>{{ucfirst($val_tag)}}</span>  &nbsp;
+                                            @endforeach
+                                        @endif
+                                    
+                                </a>
                                 </li>
                                 <div id="comments_view{{$post['id']}}" class="collapse header-clp mt-5 mb-5">
                                     <div class="mt-3">
@@ -275,8 +292,8 @@
                                 </div>
                                 <li>
                                     <a href="">
-                                        <i class="ti-tag"></i> 
                                         @if (is_array($post->tags) || is_object($post->tags))
+                                            <i class="ti-tag"></i> 
                                             @foreach($post->tags as $val_tag)
                                                 <span>{{ucfirst($val_tag)}}</span>
                                             @endforeach
@@ -628,26 +645,43 @@
                     </div>
                     <div class="post_options">
                         <h3>Add to Your Post</h3>
-                        <ul>
-                            <li>
-                                <a href="javaScript:void(0);" class="btn btn-sm btn-outline-primary" onclick="postImageModal()">
+                        <div class="row">
+                            <div class="col-4">
+                                {{-- <a href="javaScript:void(0);" class="btn btn-sm btn-outline-primary" onclick="postImageModal()">
                                     <i class="fa fa-picture-o"></i>
-                                </a>
-                            </li>
-                            <li>
+                                </a> --}}
+                                <label for="tags">Select Image </label>
+                                <input type="file" name="post_image[]" id="post_image" class="form-control" multiple>
+
+                            </div>
+                            <div class="col-4">
                                 <label for="tags">Select Tags</label>
-                                <select name="tags[]" id="tags" class="select2 form-control" multiple="multiple" style="width:300px">
+                                <select name="tags[]" id="tags" class="select2 form-control" multiple="multiple" style="width:150px">
                                     <option value="entertainment">Entertainment</option>
                                     <option value="art">Art</option>
                                     <option value="hobbies">Hobbies</option>
                                     <option value="self care">Self Care</option>
                                 </select>
-                            </li>
-                            {{-- <li><a href="#"><i class="fa fa-smile-o"></i></a></a></li> --}}
-                        </ul>
+                            </div>
+                            <div class="col-4">
+                                <label for="categories">Select Categories</label>
+                                <select name="categories[]" id="categories" class="select2 form-control" multiple="multiple" style="width:150px">
+                                    <option value="entertainment">Entertainment</option>
+                                    <option value="art">Art</option>
+                                    <option value="hobbies">Hobbies</option>
+                                    <option value="self care">Self Care</option>
+                                </select></div>
+                        </div>
+                       
                        
                     </div>
-                    <div class="gallery uploaded_img"></div>
+                    <div class="row">
+                        <div class="gallery uploaded_img">
+                        </div>
+                        <div class="col-4 text-left" style="display: none" id="imageremovebtn">
+                            <a href="javaScript:void(0);" class="btn btn-outline-danger btn-sm" onclick="removeImage()">Remove Image</a>
+                        </div>
+                    </div>
                     {{-- <ul class="uploaded_img">
                         <li>
                             <img src="https://personal-website.iudyog.com/images/profile.jpg" alt="">
@@ -673,7 +707,7 @@
                     <button class="publish_post btn btn-outline-primary ">Publish</button>
                 </div>
 
-                <div class="modal fade" id="post_Image" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                {{-- <div class="modal fade" id="post_Image" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document" id="">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -688,7 +722,7 @@
                     
                     </div>
                     </div>
-                </div>
+                </div> --}}
             </form>
         </div>
     </div>
@@ -944,8 +978,17 @@
 
     $('#post_image').on('change', function() {
         imagesPreview(this, 'div.gallery');
+        $('#imageremovebtn').show();
     });
 });
+
+
+function removeImage(){
+    $('#post_image').val('');
+    $('.gallery').hide();
+    $('#imageremovebtn').hide();
+
+}
 </script>
 
 <script>
@@ -1038,10 +1081,10 @@
         $('#loginwithgooglemodal').modal('hide');
     }
 
-    function postImageModal(){
-        $('#post_Image').modal('show');
+    // function postImageModal(){
+    //     $('#post_Image').modal('show');
 
-    }
+    // }
 
     function submitForm(id)
         {

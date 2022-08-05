@@ -45,6 +45,7 @@ class HomeController extends Controller
             }
 
             $post[$key]->tags = json_decode($val->tag,true);
+            $post[$key]->categ = json_decode($val->category,true);
 
             $post_image = postImages::where('post_id',$val->id)->get();
             $post[$key]->post_image = $post_image;
