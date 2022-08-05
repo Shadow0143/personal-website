@@ -187,9 +187,9 @@
                 @foreach ($post as $post)
                     <div class="col-lg-12 col-md-12 col-sm-12 embeded_post">
                         {!! $post['post_content'] !!}
-                        <div class="col-12">
+                        <div class="col-12" id="lightGallery">
                             @foreach($post->post_image as $image)
-                                <a href="{{asset('uploads')}}/{{$image->image}}" target="_blank" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4">
+                                <a href="{{asset('uploads')}}/{{$image->image}}" class="col-sm-4">
                
                                     <img src="{{asset('uploads')}}/{{$image->image}}" alt="post-image" style="width:100px;height:100px;margin:10px" data-toggle="lightbox">
                                 </a>
@@ -242,10 +242,12 @@
                                                         <b>{{$comm->comments}}</b>
                                                     </div>
                                                     <div class="col-2">
-                                                        @if(Auth::user())  
-                                                        <a data-toggle="collapse" data-target="#reply_view{{$comm['id']}}" href="javaScript:void(0);" class="comment_icon " style="background: transparent;color:gray" title="Reply">
-                                                            <i class="ti-share-alt"></i>
-                                                        </a>
+                                                        @if(Auth::user())
+                                                            @if(Auth::user()->role=='owner')  
+                                                            <a data-toggle="collapse" data-target="#reply_view{{$comm['id']}}" href="javaScript:void(0);" class="comment_icon " style="background: transparent;color:gray" title="Reply">
+                                                                <i class="ti-share-alt"></i>
+                                                            </a>
+                                                            @endif
                                                         @endif
                                                     </div>
                                                     <div class="col-4">
@@ -343,8 +345,10 @@
             @if ($data['section_name'] == 'Intro')
             <div class="helloSec">
                 <div class="iContainer">
-                    @if(!empty(Auth::user()))
-                    <a href="javaScript:void(0);" type="button" id="edit1section" data-id="{{Auth::user()->id}}" data-type="{{ $data['id'] }}">Edit {{ $data['id'] }}</a>
+                    @if(Auth::user())
+                        @if(Auth::user()->role=='owner')
+                            <a href="javaScript:void(0);" type="button" id="edit1section" data-id="{{Auth::user()->id}}" data-type="{{ $data['id'] }}">Edit {{ $data['id'] }}</a>
+                        @endif
                     @endif
                     <a href="" type="button" onclick="openForm2()" data-toggle="modal" data-target="#myModal2">Add
                         Section</a>
@@ -354,11 +358,17 @@
                             <p>
                                 @foreach ($data['section_item'] as $item)
                                     @if(!empty(Auth::user()->id))
-                                        @if ($item['section_item_name'] == 'Greeting')
-                                            <form action="" id="greating_form">
-                                                <input type="hidden" name="greating_id" id="greating_id" value="{{$item['id']}}">
-                                                <input type="text" name="section_name" id="section_name" value="{{ $item['section_item_value'] }}">
-                                            </form>
+                                        @if(Auth::user()->role=='owner')
+                                            @if ($item['section_item_name'] == 'Greeting')
+                                                <form action="" id="greating_form">
+                                                    <input type="hidden" name="greating_id" id="greating_id" value="{{$item['id']}}">
+                                                    <input type="text" name="section_name" id="section_name" value="{{ $item['section_item_value'] }}">
+                                                </form>
+                                            @endif
+                                        @else
+                                            @if ($item['section_item_name'] == 'Greeting')
+                                                {{ $item['section_item_value'] }}
+                                            @endif
                                         @endif
                                     @else
                                         @if ($item['section_item_name'] == 'Greeting')
@@ -370,13 +380,19 @@
                                 @foreach ($data['section_item'] as $item)
                                     @if ($item['section_item_name'] == 'Signature')
                                         @if(!empty(Auth::user()->id))
-                                            <form action="">
-                                                <input type="hidden" name="change_signature_id" id="change_signature_id" value="{{$item['id']}}">
-                                                <input type="file" name="change_signature" id="change_signature" class=""> 
-                                                <span class="text-danger text-left">
-                                                    <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" id="imgPreview" />
+                                            @if(Auth::user()->role=='owner')
+                                                <form action="">
+                                                    <input type="hidden" name="change_signature_id" id="change_signature_id" value="{{$item['id']}}">
+                                                    <input type="file" name="change_signature" id="change_signature" class=""> 
+                                                    <span class="text-danger text-left">
+                                                        <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" id="imgPreview" />
+                                                    </span>
+                                                </form>
+                                            @else
+                                                <span>
+                                                    <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" />
                                                 </span>
-                                            </form>
+                                            @endif
                                         @else
                                             <span>
                                                 <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" />
@@ -386,11 +402,17 @@
                                 @endforeach
                                 @foreach ($data['section_item'] as $item)
                                 @if(!empty(Auth::user()->id))
-                                    @if ($item['section_item_name'] == 'Degree')
-                                        <form action="">
-                                            <input type="hidden" name="section_descr_id" id="section_descr_id" value="{{$item['id']}}">
-                                            <textarea name="section_descr" id="section_descr" cols="30" rows="5">{{ $item['section_item_value'] }}</textarea>
-                                        </form>
+                                    @if(Auth::user()->role=='owner')
+                                        @if ($item['section_item_name'] == 'Degree')
+                                            <form action="">
+                                                <input type="hidden" name="section_descr_id" id="section_descr_id" value="{{$item['id']}}">
+                                                <textarea name="section_descr" id="section_descr" cols="30" rows="5">{{ $item['section_item_value'] }}</textarea>
+                                            </form>
+                                        @endif
+                                    @else
+                                        @if ($item['section_item_name'] == 'Degree')
+                                            {{ $item['section_item_value'] }}
+                                        @endif
                                     @endif
                                 @else
                                     @if ($item['section_item_name'] == 'Degree')
@@ -406,12 +428,14 @@
                                         <a href=""><i class="ti-twitter-alt"></i></a>
                                         @foreach ($data['section_item'] as $item)
                                             @if(Auth::user())
-                                            <form action=""> 
-                                                @if ($item['section_item_name'] == 'Twitter_Link')
-                                                        <input type="hidden" name="twitter_id" id="twitter_id" value="{{$item['id']}}">
-                                                        <input type="url" name="twitter_link" id="twitter_link" class="form-control" value="{{$item['section_item_value']}}">
-                                                    @endif
-                                                </form>
+                                                @if(Auth::user()->role=='owner')
+                                                    <form action=""> 
+                                                        @if ($item['section_item_name'] == 'Twitter_Link')
+                                                            <input type="hidden" name="twitter_id" id="twitter_id" value="{{$item['id']}}">
+                                                            <input type="url" name="twitter_link" id="twitter_link" class="form-control" value="{{$item['section_item_value']}}">
+                                                        @endif
+                                                    </form>
+                                                @endif
                                             @endif
                                         @endforeach
                                     </li>
@@ -419,12 +443,14 @@
                                         <a href=""><i class="ti-facebook"></i></a>
                                         @foreach ($data['section_item'] as $item)
                                             @if(Auth::user())
-                                                <form action=""> 
-                                                    @if ($item['section_item_name'] == 'Facebook_Link')
-                                                        <input type="hidden" name="facebook_id" id="facebook_id" value="{{$item['id']}}">
-                                                        <input type="url" name="facebook_link" id="facebook_link" class="form-control" value="{{$item['section_item_value']}}">
-                                                    @endif
-                                                </form>
+                                                @if(Auth::user()->role=='owner')
+                                                    <form action=""> 
+                                                        @if ($item['section_item_name'] == 'Facebook_Link')
+                                                            <input type="hidden" name="facebook_id" id="facebook_id" value="{{$item['id']}}">
+                                                            <input type="url" name="facebook_link" id="facebook_link" class="form-control" value="{{$item['section_item_value']}}">
+                                                        @endif
+                                                    </form>
+                                                @endif
                                             @endif
                                         @endforeach
                                     </li>
@@ -432,12 +458,14 @@
                                         <a href=""><i class="ti-linkedin"></i></a>
                                         @foreach ($data['section_item'] as $item)
                                             @if(Auth::user())
-                                                <form action=""> 
-                                                    @if ($item['section_item_name'] == 'Linkdin_Link')
-                                                        <input type="hidden" name="linkdin_id" id="linkdin_id" value="{{$item['id']}}">
-                                                        <input type="url" name="linkdin_link" id="linkdin_link" class="form-control" value="{{$item['section_item_value']}}">
-                                                    @endif
-                                                </form>
+                                                @if(Auth::user()->role=='owner')
+                                                    <form action=""> 
+                                                        @if ($item['section_item_name'] == 'Linkdin_Link')
+                                                            <input type="hidden" name="linkdin_id" id="linkdin_id" value="{{$item['id']}}">
+                                                            <input type="url" name="linkdin_link" id="linkdin_link" class="form-control" value="{{$item['section_item_value']}}">
+                                                        @endif
+                                                    </form>
+                                                @endif
                                             @endif
                                         @endforeach
                                     </li>
@@ -445,12 +473,14 @@
                                         <a href=""><i class="ti-youtube"></i></a>
                                         @foreach ($data['section_item'] as $item)
                                             @if(Auth::user())
-                                                <form action=""> 
-                                                    @if ($item['section_item_name'] == 'Youtube_Link')
-                                                        <input type="hidden" name="youtube_id" id="youtube_id" value="{{$item['id']}}">
-                                                        <input type="url" name="youtube_link" id="youtube_link" class="form-control" value="{{$item['section_item_value']}}">
-                                                    @endif
-                                                </form>
+                                                @if(Auth::user()->role=='owner')
+                                                    <form action=""> 
+                                                        @if ($item['section_item_name'] == 'Youtube_Link')
+                                                            <input type="hidden" name="youtube_id" id="youtube_id" value="{{$item['id']}}">
+                                                            <input type="url" name="youtube_link" id="youtube_link" class="form-control" value="{{$item['section_item_value']}}">
+                                                        @endif
+                                                    </form>
+                                                @endif
                                             @endif
                                         @endforeach
                                     </li>
@@ -460,9 +490,13 @@
                         @foreach ($data['section_item'] as $item)
                             @if ($item['section_item_name'] == 'Profile Image')
                                 <div class="hsRight">
-                                    @if(!empty(Auth::user()))
-                                    <a href="javaScript:void(0);" class="btn btn-sm btn-outline-light"  data-toggle="modal" data-target="#profilemodal" >Change Profile</a>
-                                    <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" id="profileimgPreview" />
+                                    @if(Auth::user())
+                                        @if(!empty(Auth::user()->role=='owner'))
+                                            <a href="javaScript:void(0);" class="btn btn-sm btn-outline-light"  data-toggle="modal" data-target="#profilemodal" >Change Profile</a>
+                                        <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" id="profileimgPreview" />
+                                        @else
+                                        <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}"/>
+                                        @endif
                                     @else
                                     <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}"/>
                                     @endif
@@ -955,6 +989,13 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+
+
+<script>
+    $(document).ready(function() {
+        $("#lightGallery").lightGallery();
+    });
+</script>
 <script>
     $(function() {
     // Multiple images preview in browser
