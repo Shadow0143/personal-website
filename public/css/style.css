@@ -1416,6 +1416,12 @@ input[type="submit"]:hover {
     display: block !important;
 }
 
+.embeded_post {
+    border-bottom: 2px solid #000;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+}
+
 
 /** Style for Custom Modal Design **/
 

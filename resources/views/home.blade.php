@@ -195,9 +195,46 @@
         <div class="iContainer">
             <div class="postsDisplay">
                 @foreach ($post as $post)
-                <div class="col-lg-12 col-md-12 col-sm-12 embeded_post">
-                    {!! $post['post_content'] !!}
+               
+                <div class="col-lg-12 col-md-12 col-sm-12 embeded_post ">
+                    {{date('d-M-Y',strtotime($post->created_at))}} <br>
+                    @if(!empty($post->title))
+                        <h2>{{ucfirst($post->title)}}</h2>
+                    @endif
+                    @if(!empty($post->sub_title))
+                        <h4>{{ucfirst($post->sub_title)}}</h4>
+                    @endif
+                 
 
+                    @if(!empty($post->title))
+                            @if (!empty($post['post_content']))
+                                <?php
+                                $rem_len = str_word_count($post['post_content']);
+                                $extract_data = implode(' ', array_slice(explode(' ', $post['post_content']), 0, 50));
+                                $remain_data = implode(' ', array_slice(explode(' ', $post['post_content']), 50, $rem_len));
+                                ?>
+                            @if($rem_len > 50)                                              
+                                <p>{!! $extract_data !!}
+                            <span id="rdmr{{$post->id}}" style="display: none;">
+                                {!! $remain_data !!}
+                            </span>
+
+
+                            <a id="rdmrbutton{{$post->id}}"
+                                href="javascript:void(0)"
+                                onclick="readmore('{{$post->id}}')">Read More
+                                </a>
+                                </p>
+                            
+                                @else
+                                    {!! $post['post_content'] !!}
+                                @endif
+
+                            @endif
+
+                        @else
+                            {!! $post['post_content'] !!}
+                        @endif
                     @if(count($post->post_image) == 1)
                     <div class="light_gallery gitem" id="lightGallery">
                         @foreach($post->post_image as $image)
@@ -300,7 +337,7 @@
                                     @if (is_array($post->categ) || is_object($post->categ))
                                     <i class="ti-flag-alt"></i>
                                     @foreach($post->categ as $val_tag)
-                                    <span>{{ucfirst($val_tag)}}</span> &nbsp;
+                                            <span >{{ucfirst($val_tag)}}</span> &nbsp;
                                     @endforeach
                                     @endif
 
@@ -381,10 +418,10 @@
                             <li>
                                 <a href="">
                                     @if (is_array($post->tags) || is_object($post->tags))
-                                    <i class="ti-tag"></i>
-                                    @foreach($post->tags as $val_tag)
-                                    <span>{{ucfirst($val_tag)}}</span>
-                                    @endforeach
+                                        <i class="ti-tag"></i>
+                                        @foreach($post->tags as $val_tag)
+                                            <span>{{ucfirst($val_tag)}}</span>
+                                        @endforeach
                                     @endif
                                     {{-- <span>{{$post->tags}}</span> --}}
                                     {{-- @for($i=0; $i<= $post->tags; $i++ )
@@ -397,6 +434,7 @@
                         </ul>
                     </div>
                 </div>
+                
                 @endforeach
                 {{-- <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="eachBlog col2BlogPost">
@@ -716,9 +754,9 @@
 
 
 
-        <div class="poweredBy">
+        {{-- <div class="poweredBy">
             <div class="iContainer">Powered By BlueHorse</div>
-        </div>
+        </div> --}}
     </div>
 </div>
 @endif
@@ -1095,6 +1133,20 @@
            },
         });
     }
+
+
+
+
+
+    function readmore(readmore_id) {
+        $("#rdmr" + readmore_id).slideToggle(function(e) {
+            $(this).is(":visible") ? $("#rdmrbutton" + readmore_id).text('Read Less') : $("#rdmrbutton" +
+                readmore_id).text('Read More');
+        });
+    }
+
+
+
 </script>
 <script>
     $(function() {
