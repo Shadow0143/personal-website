@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Http;
 use App\Models\Comment;
 use App\Models\Replys;
 use App\Models\postImages;
-use Postimages as GlobalPostimages;
+use App\Models\Likes;
+use Illuminate\Support\Facades\Auth;
+
 
 class HomeController extends Controller
 {
@@ -34,9 +36,22 @@ class HomeController extends Controller
         $post = Post::where('posts.status','active')->orderBy('posts.created_at', 'DESC')->get();
         foreach($post as $key=>$val){
             $comments = Comment::where('post_id',$val->id)->count('comments');
+            $likes = Likes::where('post_id',$val->id)->count('likes');
+
+            if(Auth::user())
+            {
+
+                $likeExist = Likes::where('post_id',$val->id)->where('user_id',Auth::user()->id)->first();
+            }
+            else{
+                $likeExist = '';
+            }
+            
             $all_comments = Comment::where('post_id',$val->id)->orderBy('id','desc')->get();
             $post[$key]->total_comment = $comments;
             $post[$key]->all_comments = $all_comments;
+            $post[$key]->likes = $likes;
+            $post[$key]->likeExist = $likeExist;
 
             foreach($all_comments as $key2=>$comm)
             {
@@ -75,5 +90,20 @@ class HomeController extends Controller
         $update->section_item_value = $request->value;
         $update->save();
         return back();
+    }
+
+
+    public function likes(Request $request){
+
+        $likes = new Likes();
+        $likes->user_id = Auth::user()->id;
+        $likes->post_id = $request->postid;
+        $likes->likes = '1';
+        $likes->save();
+
+        $like_count = Likes::where('post_id',$request->postid)->count('likes');
+        return $like_count;
+
+
     }
 }

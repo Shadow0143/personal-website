@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/edit-section', [App\Http\Controllers\HomeController::class, 'editSection'])->name('editSection');
+Route::get('/post-likes', [App\Http\Controllers\HomeController::class, 'likes'])->name('likes');
 Route::get('/blogs', [App\Http\Controllers\BlogsController::class, 'index'])->name('blogs');
 Auth::routes();
 Route::get('/dashboard', [App\Http\Controllers\admin\DashboardContoller::class, 'dashboard'])->name('dashboard');
