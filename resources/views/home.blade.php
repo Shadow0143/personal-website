@@ -192,276 +192,285 @@
                 </div>
             </div>
         </div>
-        <div class="iContainer">
+        <div class="iContainer" id="mainDiv">
             <div class="postsDisplay">
                 @foreach ($post as $post)
-               
-                <div class="col-lg-12 col-md-12 col-sm-12 embeded_post ">
-                    {{date('d-M-Y',strtotime($post->created_at))}} <br>
-                    @if(!empty($post->title))
-                        <h2>{{ucfirst($post->title)}}</h2>
-                    @endif
-                    @if(!empty($post->sub_title))
-                        <h4>{{ucfirst($post->sub_title)}}</h4>
-                    @endif
-                 
+                    <div class="col-lg-12 col-md-12 col-sm-12 embeded_post ">
+                        {{date('d-M-Y',strtotime($post->created_at))}} <br>
+                        @if(!empty($post->title))
+                            <h2>{{ucfirst($post->title)}}</h2>
+                        @endif
+                        @if(!empty($post->sub_title))
+                            <h4>{{ucfirst($post->sub_title)}}</h4>
+                        @endif
+                    
 
-                    @if(!empty($post->title))
-                            @if (!empty($post['post_content']))
-                                <?php
-                                $rem_len = str_word_count($post['post_content']);
-                                $extract_data = implode(' ', array_slice(explode(' ', $post['post_content']), 0, 50));
-                                $remain_data = implode(' ', array_slice(explode(' ', $post['post_content']), 50, $rem_len));
-                                ?>
-                            @if($rem_len > 50)                                              
-                                <p>{!! $extract_data !!}
-                            <span id="rdmr{{$post->id}}" style="display: none;">
-                                {!! $remain_data !!}
-                            </span>
+                        @if(!empty($post->title))
+                                @if (!empty($post['post_content']))
+                                    <?php
+                                    $rem_len = str_word_count($post['post_content']);
+                                    $extract_data = implode(' ', array_slice(explode(' ', $post['post_content']), 0, 50));
+                                    $remain_data = implode(' ', array_slice(explode(' ', $post['post_content']), 50, $rem_len));
+                                    ?>
+                                @if($rem_len > 50)                                              
+                                    <p>{!! $extract_data !!}
+                                <span id="rdmr{{$post->id}}" style="display: none;">
+                                    {!! $remain_data !!}
+                                </span>
 
 
-                            <a id="rdmrbutton{{$post->id}}"
-                                href="javascript:void(0)"
-                                onclick="readmore('{{$post->id}}')">Read More
-                                </a>
-                                </p>
-                            
-                                @else
-                                    {!! $post['post_content'] !!}
+                                <a id="rdmrbutton{{$post->id}}"
+                                    href="javascript:void(0)"
+                                    onclick="readmore('{{$post->id}}')">Read More
+                                    </a>
+                                    </p>
+                                
+                                    @else
+                                        {!! $post['post_content'] !!}
+                                    @endif
+
                                 @endif
 
-                            @endif
-
-                        @else
-                            {!! $post['post_content'] !!}
-                        @endif
-                    @if(count($post->post_image) == 1)
-                    <div class="light_gallery gitem" id="lightGallery">
-                        @foreach($post->post_image as $image)
-                        <a href="{{asset('uploads')}}/{{$image->image}}">
-                            <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
-                            <div class="more_img_overlay">
-                               
-                            </div>
-                        </a>
-                        @endforeach
-                    </div>  
-                    @endif
-                    @if(count($post->post_image) == 2)
-                    <div class="light_gallery gitem2" id="lightGallery">
-                        @foreach($post->post_image as $image)
-                        <a href="{{asset('uploads')}}/{{$image->image}}">
-                            <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
-                            <div class="more_img_overlay">
-                               
-                            </div>
-                        </a>
-                        @endforeach
-                    </div>  
-                    @endif
-                    @if(count($post->post_image) == 3)
-                    <div class="light_gallery gitem3" id="lightGallery">
-                        @foreach($post->post_image as $image)
-                        <a href="{{asset('uploads')}}/{{$image->image}}">
-                            <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
-                            <div class="more_img_overlay">
-                               
-                            </div>
-                        </a>
-                        @endforeach
-                    </div>  
-                    @endif
-                    @if(count($post->post_image) == 4) 
-                    <div class="light_gallery gitem4" id="lightGallery">
-                        @foreach($post->post_image as $image)
-                        <a href="{{asset('uploads')}}/{{$image->image}}">
-                            <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
-                            <div class="more_img_overlay">
-                               
-                            </div>
-                        </a>
-                        @endforeach
-                    </div>  
-                    @endif
-                    @if(count($post->post_image) > 5) 
-                        <div class="light_gallery gitem5" id="lightGallery">
+                            @else
+                                {!! $post['post_content'] !!}
+                            @endif  
+                        @if(count($post->post_image) == 1)
+                        <div class="light_gallery gitem" id="lightGallery">
                             @foreach($post->post_image as $image)
                             <a href="{{asset('uploads')}}/{{$image->image}}">
                                 <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
                                 <div class="more_img_overlay">
-                                    <span>+{{count($post->post_image)-5}}</span>
+                                
                                 </div>
                             </a>
                             @endforeach
-                        </div>
-                    @endif  
+                        </div>  
+                        @endif
+                        @if(count($post->post_image) == 2)
+                        <div class="light_gallery gitem2" id="lightGallery">
+                            @foreach($post->post_image as $image)
+                            <a href="{{asset('uploads')}}/{{$image->image}}">
+                                <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
+                                <div class="more_img_overlay">
+                                
+                                </div>
+                            </a>
+                            @endforeach
+                        </div>  
+                        @endif
+                        @if(count($post->post_image) == 3)
+                        <div class="light_gallery gitem3" id="lightGallery">
+                            @foreach($post->post_image as $image)
+                            <a href="{{asset('uploads')}}/{{$image->image}}">
+                                <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
+                                <div class="more_img_overlay">
+                                
+                                </div>
+                            </a>
+                            @endforeach
+                        </div>  
+                        @endif
+                        @if(count($post->post_image) == 4) 
+                        <div class="light_gallery gitem4" id="lightGallery">
+                            @foreach($post->post_image as $image)
+                            <a href="{{asset('uploads')}}/{{$image->image}}">
+                                <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
+                                <div class="more_img_overlay">
+                                
+                                </div>
+                            </a>
+                            @endforeach
+                        </div>  
+                        @endif
+                        @if(count($post->post_image) > 5) 
+                            <div class="light_gallery gitem5" id="lightGallery">
+                                @foreach($post->post_image as $image)
+                                <a href="{{asset('uploads')}}/{{$image->image}}">
+                                    <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
+                                    <div class="more_img_overlay">
+                                        <span>+{{count($post->post_image)-5}}</span>
+                                    </div>
+                                </a>
+                                @endforeach
+                            </div>
+                        @endif  
 
-                    <div class="postFtr">
-                        <ul class="pftrList">
-                            <!-- Button trigger modal -->
-                            <li>
+                        <div class="postFtr">
+                            <ul class="pftrList">
+                                <!-- Button trigger modal -->
+                                <li>
 
-                               
-                                @if(!auth::user())
-                                    <a href="javaScript:void(0);" onclick="goolgelogin()" id="likeremove{{$post['id']}}" title="like" class="likeremove{{$post['id']}} ">
-                                        <i class="ti-heart"></i> <span> {{$post->likes}}</span>
-                                    </a>
-                                @else
-                                    <a href="javaScript:void(0);"  id="datashow{{$post['id']}}" class="text-danger datashow{{$post['id']}} " title="liked !" style="display: none">
-                                        <i class="ti-heart"></i> 
-                                        <span id="datalike{{$post['id']}}"  class="datalike{{$post['id']}}"> {{$post->likes}}</span>
-                                    </a>
-                                    @if($post->likeExist)
-                                        <a href="javaScript:void(0);"  id="likeshow{{$post['id']}}" class="text-danger likeshow{{$post['id']}}" title="liked !">
+                                
+                                    @if(!auth::user())
+                                        <a href="javaScript:void(0);" onclick="goolgelogin()" id="likeremove{{$post['id']}}" title="like" class="likeremove{{$post['id']}} ">
                                             <i class="ti-heart"></i> <span> {{$post->likes}}</span>
                                         </a>
                                     @else
-                                        <a href="javaScript:void(0);" @if(Auth::user()) onclick="likes('{{$post['id']}}')" @else onclick="goolgelogin()"   @endif id="likeremove{{$post['id']}}" title="like"  class="likeremove{{$post['id']}}">
-                                            <i class="ti-heart"></i> <span > {{$post->likes}}</span>
+                                        <a href="javaScript:void(0);"  id="datashow{{$post['id']}}" class="text-danger datashow{{$post['id']}} " title="liked !" style="display: none">
+                                            <i class="ti-heart"></i> 
+                                            <span id="datalike{{$post['id']}}"  class="datalike{{$post['id']}}"> {{$post->likes}}</span>
                                         </a>
+                                        @if($post->likeExist)
+                                            <a href="javaScript:void(0);"  id="likeshow{{$post['id']}}" class="text-danger likeshow{{$post['id']}}" title="liked !">
+                                                <i class="ti-heart"></i> <span> {{$post->likes}}</span>
+                                            </a>
+                                        @else
+                                            <a href="javaScript:void(0);" @if(Auth::user()) onclick="likes('{{$post['id']}}')" @else onclick="goolgelogin()"   @endif id="likeremove{{$post['id']}}" title="like"  class="likeremove{{$post['id']}}">
+                                                <i class="ti-heart"></i> <span > {{$post->likes}}</span>
+                                            </a>
+                                        @endif
+                                        
                                     @endif
-                                    
-                                @endif
-                            </li>
+                                </li>
 
-                            <li>
-                                <a href="javaScript:void(0);" class="comment_icon" data-id="{{$post['id']}}" data-toggle="collapse" data-target="#comments_view{{$post['id']}}">
+                                <li>
+                                    <a href="javaScript:void(0);" class="comment_icon" data-id="{{$post['id']}}" data-toggle="collapse" data-target="#comments_view{{$post['id']}}">
 
-                                    <i class="ti-comment"></i>
-                                    <span id="commentCount-{{$post->id}}">{{$post['total_comment']}}
-                                    </span>
-                                </a>
-                                <input type="hidden" id="commentCountbox{{$post->id}}" value="0">
-                            </li>
-                            <li><a href="">
-                                    @if (is_array($post->categ) || is_object($post->categ))
-                                    <i class="ti-flag-alt"></i>
-                                    @foreach($post->categ as $val_tag)
-                                            <span >{{ucfirst($val_tag)}}</span> &nbsp;
-                                    @endforeach
-                                    @endif
+                                        <i class="ti-comment"></i>
+                                        <span id="commentCount-{{$post->id}}">{{$post['total_comment']}}
+                                        </span>
+                                    </a>
+                                    <input type="hidden" id="commentCountbox{{$post->id}}" value="0">
+                                </li>
+                                <li><a href="">
+                                        @if (is_array($post->categ) || is_object($post->categ))
+                                        <i class="ti-flag-alt"></i>
+                                        @foreach($post->categ as $val_tag)
+                                                <span >{{ucfirst($val_tag)}}</span> &nbsp;
+                                        @endforeach
+                                        @endif
 
-                                </a>
-                            </li>
-                            <div id="comments_view{{$post['id']}}" class="collapse header-clp mt-5 mb-5">
-                                <div class="mt-3">
-                                    <form action="" id="commet_form{{$post['id']}}" class="commet_form" method="POST">
-                                        <div class="row mb-2">
-                                            <div class="col-10">
-                                                <input type="hidden" name="post_new_id" id="post_new_id">
-                                                <input type="text" name="" id="comment_message{{$post['id']}}" class="form-control" placeholder="Write comments">
-                                            </div>
-                                            <div class="col-2">
-                                                <button type="submit" class="btn btn-outline-primary" onClick="submitForm(`{{$post->id}}`)">Send</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <div id="commentId-{{$post->id}}" class="comment_history">
-                                        @forelse ($post['all_comments'] as $comm)
-                                        <div class="col-12 mb-3" style="">
-                                            {{$comm->user_name}} <br>
-                                            <div class="row">
-                                                <div class="col-6" style="word-wrap: break-word">
-                                                    <b>{{$comm->comments}}</b>
+                                    </a>
+                                </li>
+                                <div id="comments_view{{$post['id']}}" class="collapse header-clp mt-5 mb-5">
+                                    <div class="mt-3">
+                                        <form action="" id="commet_form{{$post['id']}}" class="commet_form" method="POST">
+                                            <div class="row mb-2">
+                                                <div class="col-10">
+                                                    <input type="hidden" name="post_new_id" id="post_new_id">
+                                                    <input type="text" name="" id="comment_message{{$post['id']}}" class="form-control" placeholder="Write comments">
                                                 </div>
                                                 <div class="col-2">
-                                                    @if(Auth::user())
-                                                    @if(Auth::user()->role=='owner')
-                                                    <a data-toggle="collapse" data-target="#reply_view{{$comm['id']}}" href="javaScript:void(0);" class="comment_icon " style="background: transparent;color:gray" title="Reply">
-                                                        <i class="ti-share-alt"></i>
-                                                    </a>
-                                                    @endif
-                                                    @endif
-                                                </div>
-                                                <div class="col-4 text-right">
-                                                    {{-- {{moment($comm->created_at).startOf('hour').fromNow(); }} --}}
-                                                    {{$comm->created_at->diffForHumans()}}
+                                                    <button type="submit" class="btn btn-outline-primary" onClick="submitForm(`{{$post->id}}`)">Send</button>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="co-12 collapse header-clp mb-3" id="reply_view{{$comm->id}}">
-                                            <form action="" id="reply{{$comm->id}}">
+                                        </form>
+                                        <div id="commentId-{{$post->id}}" class="comment_history">
+                                            @forelse ($post['all_comments'] as $comm)
+                                            <div class="col-12 mb-3" style="">
+                                                {{$comm->user_name}} <br>
                                                 <div class="row">
-                                                    <div class="col-8 ">
-                                                        <input type="hidden" name="reply_for_comment" id="reply_for_comment" value="{{$comm->id}}">
-                                                        <input type="text" name="reply_message" id="reply_message{{$comm->id}}" class="form-control" placeholder="Reply on comment">
+                                                    <div class="col-6" style="word-wrap: break-word">
+                                                        <b>{{$comm->comments}}</b>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        @if(Auth::user())
+                                                        @if(Auth::user()->role=='owner')
+                                                        <a data-toggle="collapse" data-target="#reply_view{{$comm['id']}}" href="javaScript:void(0);" class="comment_icon " style="background: transparent;color:gray" title="Reply">
+                                                            <i class="ti-share-alt"></i>
+                                                        </a>
+                                                        @endif
+                                                        @endif
                                                     </div>
                                                     <div class="col-4 text-right">
-                                                        <button type="submit" class="btn btn-outline-primary btn-sm" onclick="submitReply('{{$comm->id}}')">Reply</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="col-12 mb-3 mt-0" id="replyview{{$comm->id}}">
-
-                                            @foreach($comm['all_reply'] as $reply)
-                                            <div class="mb-2">
-                                                Reply by : <span><strong>{{$reply->user_name}}</strong></span>
-                                                <div class="row">
-                                                    <div class="col-8" style="word-wrap: break-word">
-                                                        {{$reply->replys}}
-                                                    </div>
-                                                    <div class="col-4 text-right">
-                                                        {{$reply->created_at->diffForHumans()}}
+                                                        {{-- {{moment($comm->created_at).startOf('hour').fromNow(); }} --}}
+                                                        {{$comm->created_at->diffForHumans()}}
                                                     </div>
                                                 </div>
                                             </div>
-                                            @endforeach
+                                            <div class="co-12 collapse header-clp mb-3" id="reply_view{{$comm->id}}">
+                                                <form action="" id="reply{{$comm->id}}">
+                                                    <div class="row">
+                                                        <div class="col-8 ">
+                                                            <input type="hidden" name="reply_for_comment" id="reply_for_comment" value="{{$comm->id}}">
+                                                            <input type="text" name="reply_message" id="reply_message{{$comm->id}}" class="form-control" placeholder="Reply on comment">
+                                                        </div>
+                                                        <div class="col-4 text-right">
+                                                            <button type="submit" class="btn btn-outline-primary btn-sm" onclick="submitReply('{{$comm->id}}')">Reply</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="col-12 mb-3 mt-0" id="replyview{{$comm->id}}">
 
+                                                @foreach($comm['all_reply'] as $reply)
+                                                <div class="mb-2">
+                                                    Reply by : <span><strong>{{$reply->user_name}}</strong></span>
+                                                    <div class="row">
+                                                        <div class="col-8" style="word-wrap: break-word">
+                                                            {{$reply->replys}}
+                                                        </div>
+                                                        <div class="col-4 text-right">
+                                                            {{$reply->created_at->diffForHumans()}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+
+                                            </div>
+                                            @empty
+                                            <div class="text-center" id="nocomment-{{$post->id}}">No comments.</div>
+                                            @endforelse
                                         </div>
-                                        @empty
-                                        <div class="text-center" id="nocomment-{{$post->id}}">No comments.</div>
-                                        @endforelse
                                     </div>
                                 </div>
-                            </div>
-                            <li>
-                                <a href="">
-                                    @if (is_array($post->tags) || is_object($post->tags))
-                                        <i class="ti-tag"></i>
-                                        @foreach($post->tags as $val_tag)
-                                            <span>{{ucfirst($val_tag)}}</span>
-                                        @endforeach
-                                    @endif
-                                    {{-- <span>{{$post->tags}}</span> --}}
-                                    {{-- @for($i=0; $i<= $post->tags; $i++ )
-                                        {{$post->tags['0']}}
+                                <li>
+                                    <a href="">
+                                        @if (is_array($post->tags) || is_object($post->tags))
+                                            <i class="ti-tag"></i>
+                                            @foreach($post->tags as $val_tag)
+                                                <span>{{ucfirst($val_tag)}}</span>
+                                            @endforeach
+                                        @endif
+                                        {{-- <span>{{$post->tags}}</span> --}}
+                                        {{-- @for($i=0; $i<= $post->tags; $i++ )
+                                            {{$post->tags['0']}}
 
-                                    @endfor --}}
+                                        @endfor --}}
 
-                                </a>
-                            </li>
-                        </ul>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                
                 @endforeach
-                {{-- <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="eachBlog col2BlogPost">
-                    <div class="bImage"><img src="{{ asset('images/b2.jpg') }}" />
-            </div>
-            <div class="bMatr">
-                <div class="bDate">11 December 2021</div>
-                <h3><a href="">Unsplash - best fashion tips for summer with linen</a></h3>
-                <p>We focus on and take care of the development of our articles, taking care of the highest level. Meet
-                    our creators and their biographies. In this secti...</p>
-                <a href="" class="rmore">Read More </a>
-            </div>
-            <div class="postFtr">
-                <ul class="pftrList">
-                    <li><a href=""><i class="ti-heart"></i> <span>22</span></a></li>
-                    <li><a href=""><i class="ti-comment"></i> <span>19</span></a></li>
-                    <li><a href=""><i class="ti-flag-alt"></i> <span>Art & Entertainment</span></a></li>
-                    <li><a href=""><i class="ti-tag"></i> <span>Entertainment</span> <span>Art</span>
-                            <span>Hobbies</span>
-                            <span>Self Care</span></a></li>
-                </ul>
             </div>
         </div>
-    </div> --}}
-</div>
-</div>
-</div>
+        <div class="iContainer mt-3" id="detailsDiv">
+            <div class="col-12 text-center embeded_post">
+                <h2>Biography</h2>
+            </div>
+            <div class="col-12">
+                <p>
+                    I live in Faridabad, with my beautiful wife and two wonderful kids. I proudly call myself an “Intrapreneur”, what does it mean? Well, it means, that I have been an on the job Entrepreneur for last 15 years. I love the process of making processes. 
+                </p>
+                <h3>MY BOOK</h3>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-8">
+                            <h3 class="text-primary"> Leap Ahead </h3>
+                            <p>A framework in Operational Excellence in business</p>
+                            <p>Timeless principles to build excellence in business operations. You will learn ideas and techniques to not only improve your business but also to help you transform your life. Fragments of this framework can be seen in the lives of every successful human being, in religions and even in literature throughout the centuries.</p>
+                        </div>
+                        <div class="col-4">
+                            @if (count($data) > 0)
+                            @foreach ($data as $data2)
+                                @foreach ($data2['section_item'] as $item2)
+                                    @if ($item2['section_item_name'] == 'Image')
+                                        <div class="bhRight">
+                                            <img src="{{ asset('package') }}/{{ $item2['section_item_value'] }}" />
+                                        </div>
+                                    @endif
+                                @endforeach
+                            @endforeach
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 @if (count($data) > 0)
 <div class="pw-right">
     <div class="pwRightInr">
@@ -649,10 +658,11 @@
                         @endforeach
                     </p>
                     @foreach ($data['section_item'] as $item)
-                    @if ($item['section_item_name'] == 'Read More Link')
-                    <a href="
-                                        {{ $item['section_item_value'] }}" class="rmore">Know More</a>
-                    @endif
+                        @if ($item['section_item_name'] == 'Read More Link')
+                            {{-- <a href="{{ $item['section_item_value'] }}" class="rmore">Know More</a> --}}
+                            <a href="javaScript:void(0);" class="rmore" onclick="hideMainDiv()" id="knowmorebtn">Know More</a>
+                            <a href="javaScript:void(0);" class="rmore" onclick="showMainDiv()" id="knowlessbtn">Know Less</a>
+                        @endif
                     @endforeach
                 </div>
             </div>
@@ -1111,6 +1121,9 @@
 <script>
     $(document).ready(function() {
         $("#lightGallery").lightGallery();
+        $('#detailsDiv').hide();
+        $('#knowlessbtn').hide();
+
     });
 
 
@@ -1134,10 +1147,6 @@
         });
     }
 
-
-
-
-
     function readmore(readmore_id) {
         $("#rdmr" + readmore_id).slideToggle(function(e) {
             $(this).is(":visible") ? $("#rdmrbutton" + readmore_id).text('Read Less') : $("#rdmrbutton" +
@@ -1145,7 +1154,22 @@
         });
     }
 
+    function hideMainDiv()
+    {
+        $('#mainDiv').hide();
+        $('#detailsDiv').show();
+        $('#knowlessbtn').show();
+        $('#knowmorebtn').hide();
+    }
 
+    function showMainDiv()
+    {
+        $('#mainDiv').show();
+        $('#detailsDiv').hide();
+        $('#knowlessbtn').hide();
+        $('#knowmorebtn').show();
+
+    }
 
 </script>
 <script>
