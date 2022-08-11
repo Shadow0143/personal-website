@@ -372,10 +372,16 @@
                                                         @endif
                                                         @endif
                                                     </div>
-                                                    <div class="col-4 text-right">
+                                                    <div class="col-2 text-right">
                                                         {{-- {{moment($comm->created_at).startOf('hour').fromNow(); }} --}}
                                                         {{$comm->created_at->diffForHumans()}}
+                                                        
                                                     </div>
+                                                    @if(Auth::user()->role=='owner')
+                                                            <div class="col-2">
+                                                                <a href="javaScript:void(0);" data-id="{{$comm->id}}" class="text-danger btn btn-outline-danger" onclick="deleteComment('{{$comm->id}}')">x</a>
+                                                            </div>
+                                                        @endif
                                                 </div>
                                             </div>
                                             <div class="co-12 collapse header-clp mb-3" id="reply_view{{$comm->id}}">
@@ -1189,6 +1195,19 @@
             scrollBottom: $("#mainDiv").offset().bottom
         }, 2000);
 
+    }
+
+
+    function deleteComment(id){
+        var comment_id = id ;
+        $.ajax({
+            type: "GET",
+            url: "{{route('deletesComment')}}",
+            data: {comment_id:comment_id},
+            success: function(res){
+               
+           },
+        });
     }
 
 </script>

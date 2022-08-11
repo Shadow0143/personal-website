@@ -31,5 +31,6 @@ Route::get('/auth/google/callback', [App\Http\Controllers\GoogleController::clas
 
 
 Route::post('/send-comment', [App\Http\Controllers\CommentController::class, 'sendComment'])->name('sendComment');
+Route::get('/delete-comment', [App\Http\Controllers\CommentController::class, 'deletesComment'])->name('deletesComment');
 Route::post('/send-reply', [App\Http\Controllers\CommentController::class, 'sendReply'])->name('sendReply');
 

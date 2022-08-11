@@ -9,6 +9,16 @@ use App\Models\Replys;
 
 class CommentController extends Controller
 {
+
+    public function deletesComment(Request $request)
+    {
+        // dd($request->all());
+        $delete_comment = Comment::find($request->comment_id);
+        $delete_comment->delete();
+
+    }
+
+
     public function sendComment(Request $request)
     {
         // dd($request->all());
@@ -56,4 +66,6 @@ class CommentController extends Controller
 
 
     }
+
+    
 }
