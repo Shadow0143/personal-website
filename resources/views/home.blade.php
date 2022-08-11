@@ -436,7 +436,7 @@
                 @endforeach
             </div>
         </div>
-        <div class="iContainer mt-3" id="detailsDiv">
+        <div class="iContainer mt-3" id="detailsDiv" style="display:none">
             <div class="col-12 text-center embeded_post">
                 <h2>Biography</h2>
             </div>
@@ -660,8 +660,8 @@
                     @foreach ($data['section_item'] as $item)
                         @if ($item['section_item_name'] == 'Read More Link')
                             {{-- <a href="{{ $item['section_item_value'] }}" class="rmore">Know More</a> --}}
-                            <a href="javaScript:void(0);" class="rmore" onclick="hideMainDiv()" id="knowmorebtn">Know More</a>
-                            <a href="javaScript:void(0);" class="rmore" onclick="showMainDiv()" id="knowlessbtn">Know Less</a>
+                            <a href="javaScript:void(0);" class="rmore" onclick="hideMainDiv(); return false" id="knowmorebtn">Know More</a>
+                            <a href="javaScript:void(0);" class="rmore" onclick="showMainDiv(); return false" id="knowlessbtn" style="display:none">Know Less</a>
                         @endif
                     @endforeach
                 </div>
@@ -800,9 +800,23 @@
                                     <option value="linkedin">LinkedIn</option>
                                 </select>
                             </div>
+
+
                             <div id="postEditor" name="postEditor">
+                                <div class="fieldrow">
+                                    <input type="text" placeholder="Title"  name="post_title" />
+                                </div>
+                                <textarea rows="4" cols="50" name="post_post" id="post_post" placeholder="Describe yourself here..."></textarea>
+                            </div>
+
+
+
+                            <div id="otherEditor" name="otherEditor">
                                 <textarea rows="4" cols="50" name="post" id="post" placeholder="Describe yourself here..."></textarea>
                             </div>
+
+
+
                             <div id="blogEditor" name="blogEditor">
                                 <div class="fieldrow">
                                     <input type="text" placeholder="Title"  name="blog_title" />
@@ -810,7 +824,7 @@
                                 <div class="fieldrow">
                                     <input type="text" placeholder="Subtitle" name="blog_subtitle" />
                                 </div>
-                                <textarea id="editor" name="blog_post"></textarea>
+                                <textarea id="editor1" name="blog_post"></textarea>
                             </div>
                             <div class="post_options">
                                 <h3>Add to Your Post</h3>
@@ -1120,7 +1134,7 @@
 
 <script>
     $(document).ready(function() {
-        $("#lightGallery").lightGallery();
+        $("#lightGallery").lightGallery(e);
         $('#detailsDiv').hide();
         $('#knowlessbtn').hide();
 
@@ -1160,6 +1174,9 @@
         $('#detailsDiv').show();
         $('#knowlessbtn').show();
         $('#knowmorebtn').hide();
+        $('html, body').animate({
+            scrollBottom: $("#mainDiv").offset().bottom
+        }, 2000);
     }
 
     function showMainDiv()
@@ -1168,6 +1185,9 @@
         $('#detailsDiv').hide();
         $('#knowlessbtn').hide();
         $('#knowmorebtn').show();
+        $('html, body').animate({
+            scrollBottom: $("#mainDiv").offset().bottom
+        }, 2000);
 
     }
 
@@ -1555,15 +1575,26 @@ function removeImage(){
     $(document).ready(function() {
         $("#postEditor").show();
         $("#blogEditor").hide();
+        $("#otherEditor").hide();
+
         $("#postType").on("change", function() {
             var postType = $("#postType").val();
+
             if (postType == "blog") {
                 $("#blogEditor").show();
                 $("#postEditor").hide();
+                $("#otherEditor").hide();
                 console.log(postType);
-            } else {
-                $("#blogEditor").hide();
+            }else if(postType == "post"){
                 $("#postEditor").show();
+                $("#blogEditor").hide();
+                $("#otherEditor").hide();
+
+            }
+            else {
+                $("#blogEditor").hide();
+                $("#postEditor").hide();
+                $("#otherEditor").show();
             }
         })
     })

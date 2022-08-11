@@ -38,7 +38,6 @@
 
 
     <link rel="stylesheet"  href="{{asset('lightGallery/dist/css/lightgallery.min.css')}}" />
-    {{-- <script src="{{asset('lightGallery/cdn/jquery.min.js')}}"></script> --}}
     <script src="{{asset('lightGallery/dist/js/lightgallery-all.min.js')}}"></script>
 
     {{-- Shakil Added  End--}}

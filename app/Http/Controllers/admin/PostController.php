@@ -17,12 +17,21 @@ class PostController extends Controller
         // dd($request->all());
         $post= new Post;
         $post->type = $request->postType;
-        $post->title = $request->blog_title;
+        if($request->postType == 'post')
+        {
+            $post->title = $request->post_title;
+        }else{
+            $post->title = $request->blog_title;
+        }
         $post->sub_title = $request->blog_subtitle;
-        $post->sub_title = $request->blog_subtitle;
+
         if($request->postType=='blog'){
             $post->post_content = $request->blog_post;
-        }else{
+        }else if($request->postType=='post')
+        {
+            $post->post_content = $request->post_post;
+        }
+        else{
             $post->post_content = $request->post;
         }
         $tag = json_encode($request->tags,true);
