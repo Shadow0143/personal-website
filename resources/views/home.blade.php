@@ -44,45 +44,11 @@
                 </form>
             </div>
         </div>
-        <a class="header_edit" href="{{ route('dashboard') }}">Edit</a>
+        {{-- <a class="header_edit" href="{{ route('dashboard') }}">Edit</a> --}}
     </div>
     @endif
     <div class="pw-left">
-        <div class="headerContainer">
-            <div class="iContainer">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="desktopNav">
-                            <div class="pos-f-t">
-                                <div class="collapse" id="navbarToggleExternalContent">
-                                    <div class="bg-dark p-4">
-                                        <ul class="navbar-nav">
-                                            <li class="nav-item">
-                                                <a class="" href="">About</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="" href="{{ route('blogs') }}">Blog</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="" href="#">My Book</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="" href="#">Contact Me</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <nav class="navbar navbar-dark bg-dark">
-                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                                        <span class="navbar-toggler-icon"><i class="ti-menu"></i></span>
-                                    </button>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+ 
         <div class="headerContainerMobile">
             <div class="row">
                 <div class="col-md-12">
@@ -98,6 +64,20 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-12 mt-5">
+            <input type="hidden" name="usernamefield" id="usernamefield" value="{{Auth::user()->name}}">
+            <i class="fa fa-filter" aria-hidden="true"> <select name="filterdata" id="filterdata">
+                <option value="">All</option>
+                <option value="post">Post</option>
+                <option value="blog">Blog</option>
+                <option value="twitter">Twitter</option>
+                <option value="facebook">Facebook</option>
+                <option value="instagram">Instagram</option>
+                <option value="linkedin">LinkedIn</option>
+                </select> 
+            </i>
+            
         </div>
         <div class="mobileHeader">
             <div class="mobileHeader_inner">
@@ -128,7 +108,7 @@
                             “Intrapreneur”, what does it mean? Well, it means, that I have been an on the job Entrepreneur
                             for last 15
                             years. I love the process of making processes </p>
-                        <a href="" class="rmore">Know More</a>
+                            <a href="{{ route('biographyDetails') }}" class="rmore">Know More</a>
                     </div>
                 </div>
                 <div class="myProSec">
@@ -210,12 +190,12 @@
                                     <?php
                                     $rem_len = str_word_count($post['post_content']);
                                     $extract_data = implode(' ', array_slice(explode(' ', $post['post_content']), 0, 50));
-                                    $remain_data = implode(' ', array_slice(explode(' ', $post['post_content']), 50, $rem_len));
+                                  
                                     ?>
                                 @if($rem_len > 50)                                              
                                     <p>{!! $extract_data !!}
                                     </p>
-                                    <a href="{{route('postDetails',['id'=>$post->id])}}" class="btn btn-outline-primary btn-sm mb-5"> Read more </a> 
+                                    <a href="{{route('postDetails',['id'=>$post->id])}}" class=" mb-5"> Read more </a> 
                                     @else
                                         {!! $post['post_content'] !!}
                                     @endif
@@ -228,7 +208,7 @@
                         @if(count($post->post_image) == 1)
                         <div class="light_gallery gitem" id="lightGallery">
                             @foreach($post->post_image as $image)
-                            <a href="{{asset('uploads')}}/{{$image->image}}">
+                            <a href="{{asset('uploads')}}/{{$image->image}}" data-sub-html="{{$post->title}}">
                                 <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
                                 <div class="more_img_overlay">
                                 
@@ -240,7 +220,7 @@
                         @if(count($post->post_image) == 2)
                         <div class="light_gallery gitem2" id="lightGallery">
                             @foreach($post->post_image as $image)
-                            <a href="{{asset('uploads')}}/{{$image->image}}">
+                            <a href="{{asset('uploads')}}/{{$image->image}}" data-sub-html="{{$post->title}}">
                                 <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
                                 <div class="more_img_overlay">
                                 
@@ -252,7 +232,7 @@
                         @if(count($post->post_image) == 3)
                         <div class="light_gallery gitem3" id="lightGallery">
                             @foreach($post->post_image as $image)
-                            <a href="{{asset('uploads')}}/{{$image->image}}">
+                            <a href="{{asset('uploads')}}/{{$image->image}}" data-sub-html="{{$post->title}}">
                                 <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
                                 <div class="more_img_overlay">
                                 
@@ -264,7 +244,7 @@
                         @if(count($post->post_image) == 4) 
                         <div class="light_gallery gitem4" id="lightGallery">
                             @foreach($post->post_image as $image)
-                            <a href="{{asset('uploads')}}/{{$image->image}}">
+                            <a href="{{asset('uploads')}}/{{$image->image}}" data-sub-html="{{$post->title}}">
                                 <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
                                 <div class="more_img_overlay">
                                 
@@ -315,11 +295,8 @@
                                 </li>
 
                                 <li>
-                                    @if(Auth::user())
                                         <a href="javaScript:void(0);" class="comment_icon" data-id="{{$post['id']}}" data-toggle="collapse" data-target="#comments_view{{$post['id']}}">
-                                    @else
-                                        <a href="javaScript:void(0);" class="comment_icon" onclick="goolgelogin()" >
-                                    @endif
+                                   
                                         <i class="ti-comment"></i>
                                         <span id="commentCount-{{$post->id}}">{{$post['total_comment']}}
                                         </span>
@@ -338,6 +315,7 @@
                                 </li>
                                 <div id="comments_view{{$post['id']}}" class="collapse header-clp mt-5 mb-5">
                                     <div class="mt-3">
+                                        @if(!empty(Auth::user()))
                                         <form action="" id="commet_form{{$post['id']}}" class="commet_form" method="POST">
                                             <div class="row mb-2">
                                                 <div class="col-10">
@@ -349,10 +327,69 @@
                                                 </div>
                                             </div>
                                         </form>
+                                        @endif
                                         <div id="commentId-{{$post->id}}" class="comment_history">
                                             @forelse ($post['all_comments'] as $comm)
-                                           
-                                            <div class="co-12 collapse header-clp mb-3" id="reply_view{{$comm->id}}">
+                                            <div class="col-12 mb-3" style="" id="comment_row{{$post->id}}{{$comm->id}}">
+                                                {{$comm->user_name}} <br>
+                                                <div class="row">
+                                                    <div class="col-6" style="word-wrap: break-word">
+                                                        <b>{{$comm->comments}}</b>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        @if(Auth::user())
+                                                        @if(Auth::user()->role=='owner')
+                                                        <a data-toggle="collapse" data-target="#reply_view{{$comm['id']}}" href="javaScript:void(0);" class="comment_icon " style="background: transparent;color:gray" title="Reply">
+                                                            <i class="ti-share-alt"></i>
+                                                        </a>
+                                                        @endif
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-2 text-right">
+                                                        {{-- {{moment($comm->created_at).startOf('hour').fromNow(); }} --}}
+                                                        {{$comm->created_at->diffForHumans()}}
+                                                        
+                                                    </div>
+                                                    @if(Auth::user())
+                                                        @if(Auth::user()->role=='owner')
+                                                            <div class="col-2">
+                                                                <a href="javaScript:void(0);" data-id="{{$comm->id}}" class="text-danger btn btn-outline-danger" onclick="deleteComment('{{$comm->id}},{{$post->id}}')">x</a>
+                                                            </div>
+                                                        @endif
+                                                    @endif
+                                                </div>
+                                                <div class="co-12 collapse header-clp mb-3" id="reply_view{{$comm->id}}">
+                                                    <form action="" id="reply{{$comm->id}}">
+                                                        <div class="row">
+                                                            <div class="col-8 ">
+                                                                <input type="hidden" name="reply_for_comment" id="reply_for_comment" value="{{$comm->id}}">
+                                                                <input type="text" name="reply_message" id="reply_message{{$comm->id}}" class="form-control" placeholder="Reply on comment">
+                                                            </div>
+                                                            <div class="col-4 text-right">
+                                                                <button type="submit" class="btn btn-outline-primary btn-sm" onclick="submitReply('{{$comm->id}}')">Reply</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="col-12 mb-3 mt-0" id="replyview{{$comm->id}}">
+        
+                                                    @foreach($comm['all_reply'] as $reply)
+                                                    <div class="mb-2">
+                                                        Reply by : <span><strong>{{$reply->user_name}}</strong></span>
+                                                        <div class="row">
+                                                            <div class="col-8" style="word-wrap: break-word">
+                                                                {{$reply->replys}}
+                                                            </div>
+                                                            <div class="col-4 text-right">
+                                                                {{$reply->created_at->diffForHumans()}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @endforeach
+        
+                                                </div>
+                                            </div>
+                                            {{-- <div class="co-12 collapse header-clp mb-3" id="reply_view{{$comm->id}}">
                                                 <form action="" id="reply{{$comm->id}}">
                                                     <div class="row">
                                                         <div class="col-8 ">
@@ -364,8 +401,8 @@
                                                         </div>
                                                     </div>
                                                 </form>
-                                            </div>
-                                            <div class="col-12 mb-3 mt-0" id="replyview{{$comm->id}}">
+                                            </div> --}}
+                                            {{-- <div class="col-12 mb-3 mt-0" id="replyview{{$comm->id}}">
 
                                                 @foreach($comm['all_reply'] as $reply)
                                                 <div class="mb-2">
@@ -381,7 +418,7 @@
                                                 </div>
                                                 @endforeach
 
-                                            </div>
+                                            </div> --}}
                                             @empty
                                             <div class="text-center" id="nocomment-{{$post->id}}">No comments.</div>
                                             @endforelse
@@ -418,254 +455,255 @@
     <div class="pwRightInr">
         @foreach ($data as $data)
             @if ($data['section_name'] == 'Intro')
-                <div class="helloSec">
-                    <div class="iContainer">
-                        @if(Auth::user())
-                            @if(Auth::user()->role=='owner')
-                                <a href="javaScript:void(0);" type="button" id="edit1section" data-id="{{Auth::user()->id}}" data-type="{{ $data['id'] }}">Edit {{ $data['id'] }}</a>
-                            @endif
+            <div class="helloSec">
+                <div class="iContainer">
+                    @if(Auth::user())
+                        @if(Auth::user()->role=='owner')
+                            <a href="javaScript:void(0);" type="button" id="edit1section" data-id="{{Auth::user()->id}}" data-type="{{ $data['id'] }}">Edit {{ $data['id'] }}</a>
+                            <a href="" type="button" onclick="openForm2()" data-toggle="modal" data-target="#myModal2">Add
+                                Section</a>
+                            <a href="" type="button" onclick="openForm3()" data-toggle="modal" data-target="#myModal3">Add Item</a>
+                          
                         @endif
-                        <a href="" type="button" onclick="openForm2()" data-toggle="modal" data-target="#myModal2">Add
-                            Section</a>
-                        <a href="" type="button" onclick="openForm3()" data-toggle="modal" data-target="#myModal3">Add Item</a>
-                    
-                            <div class="hsLeft">
-                                <p>
-                                    @foreach ($data['section_item'] as $item)
-                                        @if(!empty(Auth::user()->id))
-                                            @if(Auth::user()->role=='owner')
-                                                @if ($item['section_item_name'] == 'Greeting')
-                                                    <form action="" id="greating_form">
-                                                        <input type="hidden" name="greating_id" id="greating_id" value="{{$item['id']}}">
-                                                        <input type="text" name="section_name" id="section_name" value="{{ $item['section_item_value'] }}">
-                                                    </form>
-                                                @endif
-                                            @else
-                                                @if ($item['section_item_name'] == 'Greeting')
-                                                    {{ $item['section_item_value'] }}
-                                                @endif
+                    @endif
+                        <div class="hsLeft">
+                            <p>
+                                @foreach ($data['section_item'] as $item)
+                                    @if(!empty(Auth::user()->id))
+                                        @if(Auth::user()->role=='owner')
+                                            @if ($item['section_item_name'] == 'Greeting')
+                                                <form action="" id="greating_form">
+                                                    <input type="hidden" name="greating_id" id="greating_id" value="{{$item['id']}}">
+                                                    <input type="text" name="section_name" id="section_name" value="{{ $item['section_item_value'] }}">
+                                                </form>
                                             @endif
                                         @else
                                             @if ($item['section_item_name'] == 'Greeting')
                                                 {{ $item['section_item_value'] }}
                                             @endif
                                         @endif
-                                    @endforeach
+                                    @else
+                                        @if ($item['section_item_name'] == 'Greeting')
+                                            {{ $item['section_item_value'] }}
+                                        @endif
+                                    @endif
+                                @endforeach
 
-                                    @foreach ($data['section_item'] as $item)
-                                        @if ($item['section_item_name'] == 'Signature')
-                                            @if(!empty(Auth::user()->id))
-                                                @if(Auth::user()->role=='owner')
-                                                    <form action="">
-                                                        <input type="hidden" name="change_signature_id" id="change_signature_id" value="{{$item['id']}}">
-                                                        <input type="file" name="change_signature" id="change_signature" class=""> 
-                                                        <span class="text-danger text-left">
-                                                            <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" id="imgPreview" />
-                                                        </span>
-                                                    </form>
-                                                @else
-                                                    <span>
-                                                        <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" />
+                                @foreach ($data['section_item'] as $item)
+                                    @if ($item['section_item_name'] == 'Signature')
+                                        @if(!empty(Auth::user()->id))
+                                            @if(Auth::user()->role=='owner')
+                                                <form action="">
+                                                    <input type="hidden" name="change_signature_id" id="change_signature_id" value="{{$item['id']}}">
+                                                    <input type="file" name="change_signature" id="change_signature" class=""> 
+                                                    <span class="text-danger text-left">
+                                                        <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" id="imgPreview" />
                                                     </span>
-                                                @endif
+                                                </form>
                                             @else
                                                 <span>
                                                     <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" />
                                                 </span>
                                             @endif
-                                        @endif
-                                    @endforeach
-                                    @foreach ($data['section_item'] as $item)
-                                    @if(!empty(Auth::user()->id))
-                                        @if(Auth::user()->role=='owner')
-                                            @if ($item['section_item_name'] == 'Degree')
-                                                <form action="">
-                                                    <input type="hidden" name="section_descr_id" id="section_descr_id" value="{{$item['id']}}">
-                                                    <textarea name="section_descr" id="section_descr" cols="30" rows="5">{{ $item['section_item_value'] }}</textarea>
-                                                </form>
-                                            @endif
                                         @else
-                                            @if ($item['section_item_name'] == 'Degree')
-                                                {{ $item['section_item_value'] }}
-                                            @endif
+                                            <span>
+                                                <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" />
+                                            </span>
+                                        @endif
+                                    @endif
+                                @endforeach
+                                @foreach ($data['section_item'] as $item)
+                                @if(!empty(Auth::user()->id))
+                                    @if(Auth::user()->role=='owner')
+                                        @if ($item['section_item_name'] == 'Degree')
+                                            <form action="">
+                                                <input type="hidden" name="section_descr_id" id="section_descr_id" value="{{$item['id']}}">
+                                                <textarea name="section_descr" id="section_descr" cols="30" rows="5">{{ $item['section_item_value'] }}</textarea>
+                                            </form>
                                         @endif
                                     @else
                                         @if ($item['section_item_name'] == 'Degree')
                                             {{ $item['section_item_value'] }}
                                         @endif
                                     @endif
-                                    
-                                    @endforeach
-                                </p>
-                                <div class="socialFooter">
-                                    <ul>
-                                        <li>
-                                            <a href=""><i class="ti-twitter-alt"></i></a>
-                                            @foreach ($data['section_item'] as $item)
-                                                @if(Auth::user())
-                                                    @if(Auth::user()->role=='owner')
-                                                        <form action=""> 
-                                                            @if ($item['section_item_name'] == 'Twitter_Link')
-                                                                <input type="hidden" name="twitter_id" id="twitter_id" value="{{$item['id']}}">
-                                                                <input type="url" name="twitter_link" id="twitter_link" class="form-control" value="{{$item['section_item_value']}}">
-                                                            @endif
-                                                        </form>
-                                                    @endif
+                                @else
+                                    @if ($item['section_item_name'] == 'Degree')
+                                        {{ $item['section_item_value'] }}
+                                    @endif
+                                @endif
+                                
+                                @endforeach
+                            </p>
+                            <div class="socialFooter">
+                                <ul>
+                                    <li>
+                                        <a href=""><i class="ti-twitter-alt"></i></a>
+                                        @foreach ($data['section_item'] as $item)
+                                            @if(Auth::user())
+                                                @if(Auth::user()->role=='owner')
+                                                    <form action=""> 
+                                                        @if ($item['section_item_name'] == 'Twitter_Link')
+                                                            <input type="hidden" name="twitter_id" id="twitter_id" value="{{$item['id']}}">
+                                                            <input type="url" name="twitter_link" id="twitter_link" class="form-control" value="{{$item['section_item_value']}}">
+                                                        @endif
+                                                    </form>
                                                 @endif
-                                            @endforeach
-                                        </li>
-                                        <li>
-                                            <a href=""><i class="ti-facebook"></i></a>
-                                            @foreach ($data['section_item'] as $item)
-                                                @if(Auth::user())
-                                                    @if(Auth::user()->role=='owner')
-                                                        <form action=""> 
-                                                            @if ($item['section_item_name'] == 'Facebook_Link')
-                                                                <input type="hidden" name="facebook_id" id="facebook_id" value="{{$item['id']}}">
-                                                                <input type="url" name="facebook_link" id="facebook_link" class="form-control" value="{{$item['section_item_value']}}">
-                                                            @endif
-                                                        </form>
-                                                    @endif
-                                                @endif
-                                            @endforeach
-                                        </li>
-                                        <li>
-                                            <a href=""><i class="ti-linkedin"></i></a>
-                                            @foreach ($data['section_item'] as $item)
-                                                @if(Auth::user())
-                                                    @if(Auth::user()->role=='owner')
-                                                        <form action=""> 
-                                                            @if ($item['section_item_name'] == 'Linkdin_Link')
-                                                                <input type="hidden" name="linkdin_id" id="linkdin_id" value="{{$item['id']}}">
-                                                                <input type="url" name="linkdin_link" id="linkdin_link" class="form-control" value="{{$item['section_item_value']}}">
-                                                            @endif
-                                                        </form>
-                                                    @endif
-                                                @endif
-                                            @endforeach
-                                        </li>
-                                        <li>
-                                            <a href=""><i class="ti-youtube"></i></a>
-                                            @foreach ($data['section_item'] as $item)
-                                                @if(Auth::user())
-                                                    @if(Auth::user()->role=='owner')
-                                                        <form action=""> 
-                                                            @if ($item['section_item_name'] == 'Youtube_Link')
-                                                                <input type="hidden" name="youtube_id" id="youtube_id" value="{{$item['id']}}">
-                                                                <input type="url" name="youtube_link" id="youtube_link" class="form-control" value="{{$item['section_item_value']}}">
-                                                            @endif
-                                                        </form>
-                                                    @endif
-                                                @endif
-                                            @endforeach
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            @foreach ($data['section_item'] as $item)
-                                @if ($item['section_item_name'] == 'Profile Image')
-                                    <div class="hsRight">
-                                        @if(Auth::user())
-                                            @if(!empty(Auth::user()->role=='owner'))
-                                                <a href="javaScript:void(0);" class="btn btn-sm btn-outline-light"  data-toggle="modal" data-target="#profilemodal" >Change Profile</a>
-                                            <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" id="profileimgPreview" />
-                                            @else
-                                            <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}"/>
                                             @endif
+                                        @endforeach
+                                    </li>
+                                    <li>
+                                        <a href=""><i class="ti-facebook"></i></a>
+                                        @foreach ($data['section_item'] as $item)
+                                            @if(Auth::user())
+                                                @if(Auth::user()->role=='owner')
+                                                    <form action=""> 
+                                                        @if ($item['section_item_name'] == 'Facebook_Link')
+                                                            <input type="hidden" name="facebook_id" id="facebook_id" value="{{$item['id']}}">
+                                                            <input type="url" name="facebook_link" id="facebook_link" class="form-control" value="{{$item['section_item_value']}}">
+                                                        @endif
+                                                    </form>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                    </li>
+                                    <li>
+                                        <a href=""><i class="ti-linkedin"></i></a>
+                                        @foreach ($data['section_item'] as $item)
+                                            @if(Auth::user())
+                                                @if(Auth::user()->role=='owner')
+                                                    <form action=""> 
+                                                        @if ($item['section_item_name'] == 'Linkdin_Link')
+                                                            <input type="hidden" name="linkdin_id" id="linkdin_id" value="{{$item['id']}}">
+                                                            <input type="url" name="linkdin_link" id="linkdin_link" class="form-control" value="{{$item['section_item_value']}}">
+                                                        @endif
+                                                    </form>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                    </li>
+                                    <li>
+                                        <a href=""><i class="ti-youtube"></i></a>
+                                        @foreach ($data['section_item'] as $item)
+                                            @if(Auth::user())
+                                                @if(Auth::user()->role=='owner')
+                                                    <form action=""> 
+                                                        @if ($item['section_item_name'] == 'Youtube_Link')
+                                                            <input type="hidden" name="youtube_id" id="youtube_id" value="{{$item['id']}}">
+                                                            <input type="url" name="youtube_link" id="youtube_link" class="form-control" value="{{$item['section_item_value']}}">
+                                                        @endif
+                                                    </form>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        @foreach ($data['section_item'] as $item)
+                            @if ($item['section_item_name'] == 'Profile Image')
+                                <div class="hsRight">
+                                    @if(Auth::user())
+                                        @if(!empty(Auth::user()->role=='owner'))
+                                            <a href="javaScript:void(0);" class="btn btn-sm btn-outline-light"  data-toggle="modal" data-target="#profilemodal" >Change Profile</a>
+                                        <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" id="profileimgPreview" />
                                         @else
                                         <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}"/>
                                         @endif
-                                    </div>
-                                @endif
-                            @endforeach
-                        </div>
-                    
-                </div>
-            @endif
-            @if ($data['section_name'] == 'Biography')
-                <div class="bioSec">
-                    <div class="iContainer">
-                        <h3>
-                            @foreach ($data['section_item'] as $item)
-                            @if ($item['section_item_name'] == 'Title')
-                            {{ $item['section_item_value'] }}
-                            @endif
-                            @endforeach
-                        </h3>
-                        <p>
-                            @foreach ($data['section_item'] as $item)
-                            @if ($item['section_item_name'] == 'Description')
-                            {{ $item['section_item_value'] }}
-                            @endif
-                            @endforeach
-                        </p>
-                        @foreach ($data['section_item'] as $item)
-                            @if ($item['section_item_name'] == 'Read More Link')
-                                {{-- <a href="{{ $item['section_item_value'] }}" class="rmore">Know More</a> --}}
-                                <a href="{{ route('biographyDetails') }}" class="rmore">Know More</a>
-                                {{-- <a href="javaScript:void(0);" class="rmore" onclick="hideMainDiv(); return false" id="knowmorebtn">Know More</a>
-                                <a href="javaScript:void(0);" class="rmore" onclick="showMainDiv(); return false" id="knowlessbtn" style="display:none">Know Less</a> --}}
+                                    @else
+                                    <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}"/>
+                                    @endif
+                                </div>
                             @endif
                         @endforeach
                     </div>
+                 
+            </div>
+            @endif
+            @if ($data['section_name'] == 'Biography')
+            <div class="bioSec">
+                <div class="iContainer">
+                    <h3>
+                        @foreach ($data['section_item'] as $item)
+                        @if ($item['section_item_name'] == 'Title')
+                        {{ $item['section_item_value'] }}
+                        @endif
+                        @endforeach
+                    </h3>
+                    <p>
+                        @foreach ($data['section_item'] as $item)
+                        @if ($item['section_item_name'] == 'Description')
+                        {{ $item['section_item_value'] }}
+                        @endif
+                        @endforeach
+                    </p>
+                    @foreach ($data['section_item'] as $item)
+                        @if ($item['section_item_name'] == 'Read More Link')
+                            {{-- <a href="{{ $item['section_item_value'] }}" class="rmore">Know More</a> --}}
+                            {{-- <a href="javaScript:void(0);" class="rmore" onclick="hideMainDiv(); return false" id="knowmorebtn">Know More</a>
+                            <a href="javaScript:void(0);" class="rmore" onclick="showMainDiv(); return false" id="knowlessbtn" style="display:none">Know Less</a> --}}
+                            <a href="{{ route('biographyDetails') }}" class="rmore">Know More</a>
+
+                        @endif
+                    @endforeach
                 </div>
+            </div>
             @endif
             @if ($data['section_name'] == 'My Book')
-                <div class="myProSec">
-                    <div class="iContainer">
-                        <div class="blockHead">
-                            <div class="bhLeft">
-                                <div class="titleTag">
-                                    @foreach ($data['section_item'] as $item)
-                                    @if ($item['section_item_name'] == 'Section Title')
-                                    {{ $item['section_item_value'] }}
-                                    @endif
-                                    @endforeach
-                                </div>
-                                <h4>
-                                    @foreach ($data['section_item'] as $item)
-                                    @if ($item['section_item_name'] == 'Section Sub Title')
-                                    {{ $item['section_item_value'] }}
-                                    @endif
-                                    @endforeach
-                                </h4>
-                                <p class="titleDesco">
-                                    @foreach ($data['section_item'] as $item)
-                                    @if ($item['section_item_name'] == 'Section Description')
-                                    {{ $item['section_item_value'] }}
-                                    @endif
-                                    @endforeach
-                                </p>
+            <div class="myProSec">
+                <div class="iContainer">
+                    <div class="blockHead">
+                        <div class="bhLeft">
+                            <div class="titleTag">
+                                @foreach ($data['section_item'] as $item)
+                                @if ($item['section_item_name'] == 'Section Title')
+                                {{ $item['section_item_value'] }}
+                                @endif
+                                @endforeach
                             </div>
-                            @foreach ($data['section_item'] as $item)
-                            @if ($item['section_item_name'] == 'Image')
-                            <div class="bhRight">
-                                <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" />
-                            </div>
-                            @endif
-                            @endforeach
+                            <h4>
+                                @foreach ($data['section_item'] as $item)
+                                @if ($item['section_item_name'] == 'Section Sub Title')
+                                {{ $item['section_item_value'] }}
+                                @endif
+                                @endforeach
+                            </h4>
+                            <p class="titleDesco">
+                                @foreach ($data['section_item'] as $item)
+                                @if ($item['section_item_name'] == 'Section Description')
+                                {{ $item['section_item_value'] }}
+                                @endif
+                                @endforeach
+                            </p>
                         </div>
-                        <h5>
-                            @foreach ($data['section_item'] as $item)
-                            @if ($item['section_item_name'] == 'Title')
-                            {{ $item['section_item_value'] }}
-                            @endif
-                            @endforeach
-                        </h5>
-                        <p>
-                            @foreach ($data['section_item'] as $item)
-                            @if ($item['section_item_name'] == 'Description')
-                            {{ $item['section_item_value'] }}
-                            @endif
-                            @endforeach
-                        </p>
                         @foreach ($data['section_item'] as $item)
-                        @if ($item['section_item_name'] == 'Buy Now Link')
-                        <a href="{{ $item['section_item_value'] }}" class="rmore">Buy Now</a>
+                        @if ($item['section_item_name'] == 'Image')
+                        <div class="bhRight">
+                            <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" />
+                        </div>
                         @endif
                         @endforeach
                     </div>
+                    <h5>
+                        @foreach ($data['section_item'] as $item)
+                        @if ($item['section_item_name'] == 'Title')
+                        {{ $item['section_item_value'] }}
+                        @endif
+                        @endforeach
+                    </h5>
+                    <p>
+                        @foreach ($data['section_item'] as $item)
+                        @if ($item['section_item_name'] == 'Description')
+                        {{ $item['section_item_value'] }}
+                        @endif
+                        @endforeach
+                    </p>
+                    @foreach ($data['section_item'] as $item)
+                    @if ($item['section_item_name'] == 'Buy Now Link')
+                    <a href="{{ $item['section_item_value'] }}" class="rmore">Buy Now</a>
+                    @endif
+                    @endforeach
                 </div>
+            </div>
             @endif
         @endforeach
         <div class="ctaSec">
@@ -1073,7 +1111,24 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-
+<script>
+    $('#filterdata').on('change',function(){
+        var type = $('#filterdata').val();
+        var usernamefield = $('#usernamefield').val();
+        var url = usernamefield+'/'+type;
+           $.ajax({
+            url:url,
+            type:'GET',
+            data:{
+                type:type,
+                usernamefield:usernamefield
+            },
+            success:function(res){
+                    $('#mainDiv').html(res);
+            },
+           });
+    });
+</script>
 
 <script>
     
@@ -1096,6 +1151,35 @@
            },
         });
     }
+
+
+    function deleteComment(ids){
+        
+        
+        var ids = ids.split(',');
+        var post_id = ids[1] ;
+        var comment_id = ids[0] ;
+        var counter = $('#commentCountbox'+post_id).val();
+        var desc = parseInt(counter) - 1 ;
+
+        $('#commentCount-'+post_id).html(desc);
+        $('#commentCountbox'+post_id).val(desc);
+
+
+
+
+        $.ajax({
+            type: "GET",
+            url: "{{route('deletesComment')}}",
+            data: {comment_id:comment_id},
+            success: function(res){
+               $('#comment_row'+post_id+comment_id).hide();
+             
+           },
+        });
+    }
+
+
 </script>
 
 <script>
