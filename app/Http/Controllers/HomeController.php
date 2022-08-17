@@ -106,4 +106,81 @@ class HomeController extends Controller
 
 
     }
+
+    public function postDetails($id){
+        
+        // =========================== Right section start=====================================
+
+            $section = Section::where('status','active')->orderBy('sequence', 'ASC')->get();
+            $data=[];
+            foreach($section as $sec){
+                $Section_item = Section_item::select('id','section_item_name','section_item_value')->where('status','active')->where('section_id',$sec->id)->orderBy('sequence', 'ASC')->get();
+                $sec->section_item = $Section_item;
+                array_push($data, $sec);
+            }
+            $array = json_decode(json_encode($data), true);
+
+        // =========================== Right section end=========================================
+
+        // =========================== left details section start=====================================
+            $post_data = Post::where('id',$id)->first();
+            $post_image = postImages::where('post_id',$post_data->id)->get();
+            $post_data->post_image = $post_image;
+
+
+            $comments = Comment::where('post_id',$post_data->id)->count('comments');
+            $likes = Likes::where('post_id',$post_data->id)->count('likes');
+
+            if(Auth::user())
+            {
+
+                $likeExist = Likes::where('post_id',$post_data->id)->where('user_id',Auth::user()->id)->first();
+            }
+            else{
+                $likeExist = '';
+            }
+            
+            $all_comments = Comment::where('post_id',$post_data->id)->orderBy('id','desc')->get();
+            $post_data->total_comment = $comments;
+            $post_data->all_comments = $all_comments;
+            $post_data->likes = $likes;
+            $post_data->likeExist = $likeExist;
+
+            foreach($all_comments as $key2=>$comm)
+            {
+                $reply = Replys::where('comment_id',$comm->id)->orderBy('id','desc')->get();
+                $all_comments[$key2]->all_reply = $reply;
+            }
+
+            $post_data->tags = json_decode($post_data->tag,true);
+            $post_data->categ = json_decode($post_data->category,true);
+
+        // =========================== left details section end=======================================
+
+
+
+
+        return view('leftPageView.moreDetails')->with('data',$array)->with('post_data',$post_data);
+    }
+
+
+    public function biographyDetails()
+    {
+                 // =========================== Right section start=====================================
+
+            $section = Section::where('status','active')->orderBy('sequence', 'ASC')->get();
+            $data=[];
+            foreach($section as $sec){
+                $Section_item = Section_item::select('id','section_item_name','section_item_value')->where('status','active')->where('section_id',$sec->id)->orderBy('sequence', 'ASC')->get();
+                $sec->section_item = $Section_item;
+                array_push($data, $sec);
+            }
+            $array = json_decode(json_encode($data), true);
+
+        // =========================== Right section end=========================================
+
+
+        return view('rightviews.biography_details')->with('data',$array);
+
+    }
 }

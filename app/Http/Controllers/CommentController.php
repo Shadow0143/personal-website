@@ -43,7 +43,11 @@ class CommentController extends Controller
 
         $new_comment = Comment::where('post_id',$request->post_id)->orderBy('id','desc')->first();
 
-        $data = '<div class="col-12 mb-3">'.$new_comment->user_name.'<br>  <div class="row"><div class="col-8" style="word-wrap: break-word"><b>'.$new_comment->comments.'</b></div><div class="col-4">'.$new_comment->created_at->diffForHumans().'</div></div></div>';
+        $data = '<div class="col-12 mb-3">'.$new_comment->user_name.'<br>  <div class="row"><div class="col-8" style="word-wrap: break-word"><b>'.$new_comment->comments.'</b></div><div class="col-2">'.$new_comment->created_at->diffForHumans().'</div><div class="col-2"><a href="javaScript:void(0);"  class="text-danger btn btn-outline-danger" onclick="deleteComment()">x</a>
+    </div></div></div>';
+
+
+        
 
         return \Response::json(['success' => true, 'data'=>$data]);
 

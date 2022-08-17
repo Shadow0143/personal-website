@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/edit-section', [App\Http\Controllers\HomeController::class, 'editSection'])->name('editSection');
+Route::get('/post-details/{id}', [App\Http\Controllers\HomeController::class, 'postDetails'])->name('postDetails');
+Route::get('/biography-details', [App\Http\Controllers\HomeController::class, 'biographyDetails'])->name('biographyDetails');
 Route::get('/post-likes', [App\Http\Controllers\HomeController::class, 'likes'])->name('likes');
 Route::get('/blogs', [App\Http\Controllers\BlogsController::class, 'index'])->name('blogs');
 Auth::routes();

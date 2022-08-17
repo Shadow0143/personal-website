@@ -35,220 +35,54 @@
         <a class="btn btn-outline-danger" onclick="window.history.back()"> Back</a>
         <div class="iContainer" id="mainDiv">
             <div class="postsDisplay">
-                <div class="col-lg-12 col-md-12 col-sm-12 embeded_post ">
-                    {{date('d-M-Y',strtotime($post_data->created_at))}} <br>
-                    @if(!empty($post_data->title))
-                        <h1>{{ucfirst($post_data->title)}}</h1>
-                    @endif
-                    @if(!empty($post_data->sub_title))
-                        <h4>{{ucfirst($post_data->sub_title)}}</h4>
-                    @endif
-                
-
-                    @if(!empty($post_data->title))
-                        {!! $post_data['post_content'] !!}
-                    @endif
-                    @if(count($post_data->post_image) == 1)
-                    <div class="light_gallery gitem" id="lightGallery">
-                        @foreach($post_data->post_image as $image)
-                        <a href="{{asset('uploads')}}/{{$image->image}}">
-                            <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
-                            <div class="more_img_overlay">
-                            
+                <div lass="col-lg-12 col-md-12 col-sm-12  ">
+                    <div class="header embeded_post text-center">
+                        <h1> BIOGRAPHY</h1>
+                    </div>
+                    <div class="body">
+                        <h4>
+                            I live in Faridabad, with my beautiful wife and two wonderful kids. I proudly call myself an “Intrapreneur”, what does it mean? Well, it means, that I have been an on the job Entrepreneur for last 15 years. I love the process of making processes.
+                        </h4>
+                    </div>
+                    <div class="col-12 mt-5">
+                        <div class="row">
+                            <div class="col-6">
+                                <h2>MY BOOk</h2>
+                                <h5>
+                                    <span class="text-primary">Leap Ahead</span>
+                                </h5>
+                                <p>
+                                    A framework in Operational Excellence in business.
+                                </p>
                             </div>
-                        </a>
-                        @endforeach
-                    </div>  
-                    @endif
-                    @if(count($post_data->post_image) == 2)
-                    <div class="light_gallery gitem2" id="lightGallery">
-                        @foreach($post_data->post_image as $image)
-                        <a href="{{asset('uploads')}}/{{$image->image}}">
-                            <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
-                            <div class="more_img_overlay">
-                            
-                            </div>
-                        </a>
-                        @endforeach
-                    </div>  
-                    @endif
-                    @if(count($post_data->post_image) == 3)
-                    <div class="light_gallery gitem3" id="lightGallery">
-                        @foreach($post_data->post_image as $image)
-                        <a href="{{asset('uploads')}}/{{$image->image}}">
-                            <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
-                            <div class="more_img_overlay">
-                            
-                            </div>
-                        </a>
-                        @endforeach
-                    </div>  
-                    @endif
-                    @if(count($post_data->post_image) == 4) 
-                    <div class="light_gallery gitem4" id="lightGallery">
-                        @foreach($post->post_image as $image)
-                        <a href="{{asset('uploads')}}/{{$image->image}}">
-                            <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
-                            <div class="more_img_overlay">
-                            
-                            </div>
-                        </a>
-                        @endforeach
-                    </div>  
-                    @endif
-                    @if(count($post_data->post_image) > 5) 
-                        <div class="light_gallery gitem5" id="lightGallery">
-                            @foreach($post_data->post_image as $image)
-                            <a href="{{asset('uploads')}}/{{$image->image}}">
-                                <img src="{{asset('uploads')}}/{{$image->image}}" alt="{{$image->image}}" class="img-responsive">
-                                <div class="more_img_overlay">
-                                    <span>+{{count($post_data->post_image)-5}}</span>
-                                </div>
-                            </a>
-                            @endforeach
-                        </div>
-                    @endif  
-
-                    <div class="postFtr">
-                        <ul class="pftrList">
-                            <!-- Button trigger modal -->
-                            <li>
-
-                            
-                                @if(!auth::user())
-                                    <a href="javaScript:void(0);" onclick="goolgelogin()" id="likeremove{{$post_data['id']}}" title="like" class="likeremove{{$post_data['id']}} ">
-                                        <i class="ti-heart"></i> <span> {{$post_data->likes}}</span>
-                                    </a>
-                                @else
-                                    <a href="javaScript:void(0);"  id="datashow{{$post_data['id']}}" class="text-danger datashow{{$post_data['id']}} " title="liked !" style="display: none">
-                                        <i class="ti-heart"></i> 
-                                        <span id="datalike{{$post_data['id']}}"  class="datalike{{$post_data['id']}}"> {{$post_data->likes}}</span>
-                                    </a>
-                                    @if($post_data->likeExist)
-                                        <a href="javaScript:void(0);"  id="likeshow{{$post_data['id']}}" class="text-danger likeshow{{$post_data['id']}}" title="liked !">
-                                            <i class="ti-heart"></i> <span> {{$post_data->likes}}</span>
-                                        </a>
-                                    @else
-                                        <a href="javaScript:void(0);" @if(Auth::user()) onclick="likes('{{$post_data['id']}}')" @else onclick="goolgelogin()"   @endif id="likeremove{{$post_data['id']}}" title="like"  class="likeremove{{$post_data['id']}}">
-                                            <i class="ti-heart"></i> <span > {{$post_data->likes}}</span>
-                                        </a>
-                                    @endif
-                                    
-                                @endif
-                            </li>
-
-                            <li>
-                                <a href="javaScript:void(0);" class="comment_icon" data-id="{{$post_data['id']}}" data-toggle="collapse" data-target="#comments_view{{$post_data['id']}}">
-
-                                    <i class="ti-comment"></i>
-                                    <span id="commentCount-{{$post_data->id}}">{{$post_data['total_comment']}}
-                                    </span>
-                                </a>
-                                <input type="hidden" id="commentCountbox{{$post_data->id}}" value="{{$post_data['total_comment']}}">
-                            </li>
-                            <li><a href="">
-                                    @if (is_array($post_data->categ) || is_object($post_data->categ))
-                                    <i class="ti-flag-alt"></i>
-                                    @foreach($post_data->categ as $val_tag)
-                                            <span >{{ucfirst($val_tag)}}</span> &nbsp;
-                                    @endforeach
-                                    @endif
-
-                                </a>
-                            </li>
-                            <div id="comments_view{{$post_data['id']}}" class="collapse header-clp mt-5 mb-5">
-                                <div class="mt-3">
-                                    <form action="" id="commet_form{{$post_data['id']}}" class="commet_form" method="POST">
-                                        <div class="row mb-2">
-                                            <div class="col-10">
-                                                <input type="hidden" name="post_new_id" id="post_new_id">
-                                                <input type="text" name="" id="comment_message{{$post_data['id']}}" class="form-control" placeholder="Write comments">
-                                            </div>
-                                            <div class="col-2">
-                                                <button type="submit" class="btn btn-outline-primary" onClick="submitForm(`{{$post_data->id}}`)">Send</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <div id="commentId-{{$post_data->id}}" class="comment_history">
-                                        @forelse ($post_data['all_comments'] as $comm)
-                                        <div class="col-12 mb-3" style="" id="comment_row{{$post_data->id}}{{$comm->id}}">
-                                            {{$comm->user_name}} <br>
-                                            <div class="row">
-                                                <div class="col-6" style="word-wrap: break-word">
-                                                    <b>{{$comm->comments}}</b>
-                                                </div>
-                                                <div class="col-2">
-                                                    @if(Auth::user())
-                                                    @if(Auth::user()->role=='owner')
-                                                    <a data-toggle="collapse" data-target="#reply_view{{$comm['id']}}" href="javaScript:void(0);" class="comment_icon " style="background: transparent;color:gray" title="Reply">
-                                                        <i class="ti-share-alt"></i>
-                                                    </a>
-                                                    @endif
-                                                    @endif
-                                                </div>
-                                                <div class="col-2 text-right">
-                                                    {{-- {{moment($comm->created_at).startOf('hour').fromNow(); }} --}}
-                                                    {{$comm->created_at->diffForHumans()}}
-                                                    
-                                                </div>
-                                                @if(Auth::user())
-                                                    @if(Auth::user()->role=='owner')
-                                                        <div class="col-2">
-                                                            <a href="javaScript:void(0);" data-id="{{$comm->id}}" class="text-danger btn btn-outline-danger" onclick="deleteComment('{{$comm->id}},{{$post_data->id}}')">x</a>
-                                                        </div>
-                                                    @endif
+                            <div class="col-4">
+                                @if (count($data) > 0)
+                                    @foreach ($data as $data2)
+                                        @if ($data2['section_name'] == 'My Book')
+                                            @foreach ($data2['section_item'] as $items)
+                                                @if ($items['section_item_name'] == 'Image')
+                                                    <div class="bhRight">
+                                                        <img src="{{ asset('package') }}/{{ $items['section_item_value'] }}" />
+                                                    </div>
                                                 @endif
-                                            </div>
-                                        </div>
-                                        <div class="co-12 collapse header-clp mb-3" id="reply_view{{$comm->id}}">
-                                            <form action="" id="reply{{$comm->id}}">
-                                                <div class="row">
-                                                    <div class="col-8 ">
-                                                        <input type="hidden" name="reply_for_comment" id="reply_for_comment" value="{{$comm->id}}">
-                                                        <input type="text" name="reply_message" id="reply_message{{$comm->id}}" class="form-control" placeholder="Reply on comment">
-                                                    </div>
-                                                    <div class="col-4 text-right">
-                                                        <button type="submit" class="btn btn-outline-primary btn-sm" onclick="submitReply('{{$comm->id}}')">Reply</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="col-12 mb-3 mt-0" id="replyview{{$comm->id}}">
-
-                                            @foreach($comm['all_reply'] as $reply)
-                                            <div class="mb-2">
-                                                Reply by : <span><strong>{{$reply->user_name}}</strong></span>
-                                                <div class="row">
-                                                    <div class="col-8" style="word-wrap: break-word">
-                                                        {{$reply->replys}}
-                                                    </div>
-                                                    <div class="col-4 text-right">
-                                                        {{$reply->created_at->diffForHumans()}}
-                                                    </div>
-                                                </div>
-                                            </div>
                                             @endforeach
-
-                                        </div>
-                                        @empty
-                                        <div class="text-center" id="nocomment-{{$post_data->id}}">No comments.</div>
-                                        @endforelse
-                                    </div>
-                                </div>
+                                        @endif
+                                    @endforeach
+                                @endif
                             </div>
-                            <li>
-                                <a href="">
-                                    @if (is_array($post_data->tags) || is_object($post_data->tags))
-                                        <i class="ti-tag"></i>
-                                        @foreach($post_data->tags as $val_tag)
-                                            <span>{{ucfirst($val_tag)}}</span>
-                                        @endforeach
-                                    @endif
-                                </a>
-                            </li>
-                        </ul>
+                        </div>
+                       
+                    </div>
+                    <div class="col-12">
+                        <h5> SUMMARY </h5>
+                        <p>
+                            Timeless principles to build excellence in business operations. You will learn ideas and techniques to not only improve your business but also to help you transform your life. Fragments of this framework can be seen in the lives of every successful human being, in religions and even in literature throughout the centuries. 
+
+                        </p>
+
                     </div>
                 </div>
+              
             </div>
         </div>
     </div>
@@ -434,8 +268,8 @@
                             </p>
                             @foreach ($data['section_item'] as $item)
                                 @if ($item['section_item_name'] == 'Read More Link')
-                                    {{-- <a href="{{ $item['section_item_value'] }}" class="rmore">Know More</a> --}}
-                                    <a href="javaScript:void(0);" class="rmore" return false" id="knowmorebtn">Know More</a>
+                                <a href="javaScript:void(0);" class="rmore" return false" id="knowmorebtn">Know More</a>
+
                                    
                                 @endif
                             @endforeach
@@ -546,130 +380,5 @@
 @section('js')
 
 
-<script>
- 
-    
-
-    function goolgelogin(){
-        $('#loginwithgooglemodal').modal('show');
-    }
-
-    function likes(postid){
-            // alert(postid);
-            var postid = postid;
-            $.ajax({
-            type: "GET",
-            url: "{{route('likes')}}",
-            data: {postid:postid},
-            success: function(res){
-               $('.likeshow'+postid).hide();
-               $('.likeremove'+postid).hide();
-               $('#datalike'+postid).html(res);
-               $('#datashow'+postid).show();
-           },
-        });
-    }
-
-  
-    function deleteComment(ids){
-        
-        
-        var ids = ids.split(',');
-        var post_id = ids[1] ;
-        var comment_id = ids[0] ;
-        var counter = $('#commentCountbox'+post_id).val();
-        var desc = parseInt(counter) - 1 ;
-
-        $('#commentCount-'+post_id).html(desc);
-        $('#commentCountbox'+post_id).val(desc);
-
-
-
-
-        $.ajax({
-            type: "GET",
-            url: "{{route('deletesComment')}}",
-            data: {comment_id:comment_id},
-            success: function(res){
-               $('#comment_row'+post_id+comment_id).hide();
-             
-           },
-        });
-    }
-
-</script>
-<script>
-    
-    $(".comment_icon").click(function (event) {
-            var id = $(this).data('id');
-            var first_value = $('#commentCount-'+id).text();
-            var value = parseInt(first_value);
-            var counter = $('#commentCountbox'+id).val(value);
-            $('#post_new_id').val(id);
-        });
-
-    function submitForm(id){
-            var counter = $('#commentCountbox'+id).val();
-            var incr = parseInt(counter) + 1 ;
-
-            $('#commentCount-'+id).html(incr);
-            $('#commentCountbox'+id).val(incr);
-            
-            $("#commet_form"+id).submit(function (event) {
-            var formData = {
-                "_token": "{{ csrf_token() }}",
-                comment_message: $("#comment_message"+id).val(),
-                post_id: $("#post_new_id").val(),
-            };
-           
-            $.ajax({
-                type: "POST",
-                url: "{{route('sendComment')}}",
-                data: formData,
-                dataType: "json",
-                encode: true,
-                success: function(res){
-                if(res.success==true){ 
-                        $('#commentId-'+id).prepend(res.data);
-                        $('#comment_message'+id).val('');
-                        $('#nocomment-'+id).hide();
-                    }
-                    
-                },
-            });
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            });
-        }
-
-        function submitReply(id){
-            $("#reply"+id).submit(function (event) {
-            var formData = {
-                "_token": "{{ csrf_token() }}",
-                reply_message: $("#reply_message"+id).val(),
-                comment_id: id,
-            };
-            // alert(formData.reply_message);
-            // alert(formData.comment_id);
-           
-            $.ajax({
-                type: "POST",
-                url: "{{route('sendReply')}}",
-                data: formData,
-                dataType: "json",
-                encode: true,
-                success: function(res){
-                if(res.success==true){ 
-                        $('#replyview'+id).prepend(res.data);
-                        $('#reply_message'+id).val('');
-                    }
-                    
-                },
-            });
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            });
-        }
-</script>
 
 @endsection
