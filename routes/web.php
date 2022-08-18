@@ -20,7 +20,9 @@ Route::post('/edit-section', [App\Http\Controllers\HomeController::class, 'editS
 Route::get('/post-details/{id}', [App\Http\Controllers\HomeController::class, 'postDetails'])->name('postDetails');
 Route::get('/biography-details', [App\Http\Controllers\HomeController::class, 'biographyDetails'])->name('biographyDetails');
 
-Route::get('/{authername}/{type}', [App\Http\Controllers\HomeController::class, 'filterByposts'])->name('filterByposts');
+Route::get('/{authername}/type/{type}', [App\Http\Controllers\HomeController::class, 'filterByposts'])->name('filterByposts');
+Route::get('/{authername}/tag/{type}', [App\Http\Controllers\HomeController::class, 'filterByTag'])->name('filterByTag');
+Route::get('/{authername}/category/{type}', [App\Http\Controllers\HomeController::class, 'filterByCategory'])->name('filterByCategory');
 
 
 
