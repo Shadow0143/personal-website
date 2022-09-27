@@ -1,13 +1,12 @@
 /* CSS Document */
 
-
 /* general*/
 
 @import url(font-awesome.css);
 @import url("reset.css");
 :focus {
     border: 0;
-    outline: 0
+    outline: 0;
 }
 
 img {
@@ -21,7 +20,7 @@ figure {
 }
 
 a:hover {
-    text-decoration: none
+    text-decoration: none;
 }
 
 a {
@@ -35,16 +34,14 @@ a {
 .clears:after {
     clear: both;
     display: block;
-    content: '';
+    content: "";
 }
 
 body {
-    font-family: 'Candara';
+    font-family: "Candara";
 }
 
-
 /* fonts start */
-
 
 /* @font-face {
     font-family: 'Arista Pro';
@@ -56,99 +53,126 @@ body {
 } */
 
 @font-face {
-    font-family: 'Arista Pro extralight';
-    src: url('../fonts/AristaProTrial-ExtraLight.eot');
-    src: url('../fonts/AristaProTrial-ExtraLight.eot?#iefix') format('embedded-opentype'), url('../fonts/AristaProTrial-ExtraLight.woff2') format('woff2'), url('../fonts/AristaProTrial-ExtraLight.woff') format('woff'), url('../fonts/AristaProTrial-ExtraLight.ttf') format('truetype');
+    font-family: "Arista Pro extralight";
+    src: url("../fonts/AristaProTrial-ExtraLight.eot");
+    src: url("../fonts/AristaProTrial-ExtraLight.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/AristaProTrial-ExtraLight.woff2") format("woff2"),
+        url("../fonts/AristaProTrial-ExtraLight.woff") format("woff"),
+        url("../fonts/AristaProTrial-ExtraLight.ttf") format("truetype");
     font-weight: 200;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Arista Pro extrabold';
-    src: url('../fonts/AristaProTrial-Fat.eot');
-    src: url('../fonts/AristaProTrial-Fat.eot?#iefix') format('embedded-opentype'), url('../fonts/AristaProTrial-Fat.woff2') format('woff2'), url('../fonts/AristaProTrial-Fat.woff') format('woff'), url('../fonts/AristaProTrial-Fat.ttf') format('truetype');
+    font-family: "Arista Pro extrabold";
+    src: url("../fonts/AristaProTrial-Fat.eot");
+    src: url("../fonts/AristaProTrial-Fat.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/AristaProTrial-Fat.woff2") format("woff2"), url("../fonts/AristaProTrial-Fat.woff") format("woff"),
+        url("../fonts/AristaProTrial-Fat.ttf") format("truetype");
     font-weight: 900;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Arista Pro Hairline';
-    src: url('../fonts/AristaProTrial-Hairline.eot');
-    src: url('../fonts/AristaProTrial-Hairline.eot?#iefix') format('embedded-opentype'), url('../fonts/AristaProTrial-Hairline.woff2') format('woff2'), url('../fonts/AristaProTrial-Hairline.woff') format('woff'), url('../fonts/AristaProTrial-Hairline.ttf') format('truetype');
+    font-family: "Arista Pro Hairline";
+    src: url("../fonts/AristaProTrial-Hairline.eot");
+    src: url("../fonts/AristaProTrial-Hairline.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/AristaProTrial-Hairline.woff2") format("woff2"),
+        url("../fonts/AristaProTrial-Hairline.woff") format("woff"),
+        url("../fonts/AristaProTrial-Hairline.ttf") format("truetype");
     font-weight: 100;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Arista Pro Light';
-    src: url('../fonts/AristaProTrial-Light.eot');
-    src: url('../fonts/AristaProTrial-Light.eot?#iefix') format('embedded-opentype'), url('../fonts/AristaProTrial-Light.woff2') format('woff2'), url('../fonts/AristaProTrial-Light.woff') format('woff'), url('../fonts/AristaProTrial-Light.ttf') format('truetype');
+    font-family: "Arista Pro Light";
+    src: url("../fonts/AristaProTrial-Light.eot");
+    src: url("../fonts/AristaProTrial-Light.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/AristaProTrial-Light.woff2") format("woff2"),
+        url("../fonts/AristaProTrial-Light.woff") format("woff"),
+        url("../fonts/AristaProTrial-Light.ttf") format("truetype");
     font-weight: 300;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Arista Pro Regular';
-    src: url('../fonts/AristaProTrial-Regular.eot');
-    src: url('../fonts/AristaProTrial-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/AristaProTrial-Regular.woff2') format('woff2'), url('../fonts/AristaProTrial-Regular.woff') format('woff'), url('../fonts/AristaProTrial-Regular.ttf') format('truetype');
+    font-family: "Arista Pro Regular";
+    src: url("../fonts/AristaProTrial-Regular.eot");
+    src: url("../fonts/AristaProTrial-Regular.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/AristaProTrial-Regular.woff2") format("woff2"),
+        url("../fonts/AristaProTrial-Regular.woff") format("woff"),
+        url("../fonts/AristaProTrial-Regular.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Arista Pro bold';
-    src: url('../fonts/AristaPro-Bold.eot');
-    src: url('../fonts/AristaPro-Bold.eot?#iefix') format('embedded-opentype'), url('../fonts/AristaPro-Bold.woff2') format('woff2'), url('../fonts/AristaPro-Bold.woff') format('woff'), url('../fonts/AristaPro-Bold.ttf') format('truetype');
+    font-family: "Arista Pro bold";
+    src: url("../fonts/AristaPro-Bold.eot");
+    src: url("../fonts/AristaPro-Bold.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/AristaPro-Bold.woff2") format("woff2"), url("../fonts/AristaPro-Bold.woff") format("woff"),
+        url("../fonts/AristaPro-Bold.ttf") format("truetype");
     font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Arista Pro semibold';
-    src: url('../fonts/AristaProTrial-SemiBold.eot');
-    src: url('../fonts/AristaProTrial-SemiBold.eot?#iefix') format('embedded-opentype'), url('../fonts/AristaProTrial-SemiBold.woff2') format('woff2'), url('../fonts/AristaProTrial-SemiBold.woff') format('woff'), url('../fonts/AristaProTrial-SemiBold.ttf') format('truetype');
+    font-family: "Arista Pro semibold";
+    src: url("../fonts/AristaProTrial-SemiBold.eot");
+    src: url("../fonts/AristaProTrial-SemiBold.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/AristaProTrial-SemiBold.woff2") format("woff2"),
+        url("../fonts/AristaProTrial-SemiBold.woff") format("woff"),
+        url("../fonts/AristaProTrial-SemiBold.ttf") format("truetype");
     font-weight: 600;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Arista Pro thin';
-    src: url('../fonts/AristaProTrial-Thin.eot');
-    src: url('../fonts/AristaProTrial-Thin.eot?#iefix') format('embedded-opentype'), url('../fonts/AristaProTrial-Thin.woff2') format('woff2'), url('../fonts/AristaProTrial-Thin.woff') format('woff'), url('../fonts/AristaProTrial-Thin.ttf') format('truetype');
+    font-family: "Arista Pro thin";
+    src: url("../fonts/AristaProTrial-Thin.eot");
+    src: url("../fonts/AristaProTrial-Thin.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/AristaProTrial-Thin.woff2") format("woff2"),
+        url("../fonts/AristaProTrial-Thin.woff") format("woff"),
+        url("../fonts/AristaProTrial-Thin.ttf") format("truetype");
     font-weight: 100;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Candara Regular';
-    src: url('../fonts/Candara.eot');
-    src: url('../fonts/Candara.eot?#iefix') format('embedded-opentype'), url('../fonts/Candara.woff2') format('woff2'), url('../fonts/Candara.woff') format('woff'), url('../fonts/Candara.ttf') format('truetype');
+    font-family: "Candara Regular";
+    src: url("../fonts/Candara.eot");
+    src: url("../fonts/Candara.eot?#iefix") format("embedded-opentype"), url("../fonts/Candara.woff2") format("woff2"),
+        url("../fonts/Candara.woff") format("woff"), url("../fonts/Candara.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Candara bold';
-    src: url('../fonts/Candara-Bold.eot');
-    src: url('../fonts/Candara-Bold.eot?#iefix') format('embedded-opentype'), url('../fonts/Candara-Bold.woff2') format('woff2'), url('../fonts/Candara-Bold.woff') format('woff'), url('../fonts/Candara-Bold.ttf') format('truetype');
+    font-family: "Candara bold";
+    src: url("../fonts/Candara-Bold.eot");
+    src: url("../fonts/Candara-Bold.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/Candara-Bold.woff2") format("woff2"), url("../fonts/Candara-Bold.woff") format("woff"),
+        url("../fonts/Candara-Bold.ttf") format("truetype");
     font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Candara light';
-    src: url('../fonts/Candara-Light.eot');
-    src: url('../fonts/Candara-Light.eot?#iefix') format('embedded-opentype'), url('../fonts/Candara-Light.woff2') format('woff2'), url('../fonts/Candara-Light.woff') format('woff'), url('../fonts/Candara-Light.ttf') format('truetype');
+    font-family: "Candara light";
+    src: url("../fonts/Candara-Light.eot");
+    src: url("../fonts/Candara-Light.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/Candara-Light.woff2") format("woff2"), url("../fonts/Candara-Light.woff") format("woff"),
+        url("../fonts/Candara-Light.ttf") format("truetype");
     font-weight: 300;
     font-style: normal;
     font-display: swap;
@@ -157,7 +181,6 @@ body {
 .container {
     max-width: 1280px;
 }
-
 
 /* Header Section */
 
@@ -197,7 +220,7 @@ body {
 .tlinfotop44 span:last-child:after {
     position: absolute;
     top: 0;
-    content: '.';
+    content: ".";
     font-size: 25px;
     color: #e85625;
     line-height: 2px;
@@ -243,7 +266,7 @@ p {
     font-size: 18px;
     color: #1d0553;
     line-height: 24px;
-    font-family: 'Candara Regular';
+    font-family: "Candara Regular";
 }
 
 .topleftinfo45 p {
@@ -295,7 +318,7 @@ p {
 }
 
 .aboutme56 h2 {
-    font-family: 'Arista Pro bold';
+    font-family: "Arista Pro bold";
     font-size: 60px;
     color: #e85625;
     margin-bottom: 20px;
@@ -344,7 +367,7 @@ p {
     font-size: 80px;
     color: #e85625;
     line-height: normal;
-    font-family: 'Arista Pro bold';
+    font-family: "Arista Pro bold";
 }
 
 .bannertopinfo55 {
@@ -352,7 +375,7 @@ p {
 }
 
 .bnrttopbanner56 h2 {
-    font-family: 'Candara Regular';
+    font-family: "Candara Regular";
     font-size: 50px;
     color: #fff;
     text-transform: uppercase;
@@ -373,13 +396,13 @@ p {
     align-items: center;
     font-size: 24px;
     color: #fff;
-    font-family: 'Arista Pro bold';
+    font-family: "Arista Pro bold";
 }
 
 .youcan {
     font-size: 36px;
     color: #e95525;
-    font-family: 'Candara bold';
+    font-family: "Candara bold";
     margin-bottom: 20px;
 }
 
@@ -388,7 +411,7 @@ p {
 }
 
 .topbtminfo45 p {
-    font-family: 'Candara Regular';
+    font-family: "Candara Regular";
     font-size: 24px;
     color: #e85625;
     margin-bottom: 15px;
@@ -398,7 +421,6 @@ p {
 .readmr568 img {
     margin-right: 15px;
 }
-
 
 /* list section */
 
@@ -421,14 +443,13 @@ p {
 }
 
 .fndulist456 li:last-child {
-    border: 0
+    border: 0;
 }
-
 
 /* list section */
 
 .togethersec15 span {
-    font-family: 'Arista Pro bold';
+    font-family: "Arista Pro bold";
     width: calc(100% - 200px);
     display: inline-block;
     font-size: 60px;
@@ -477,7 +498,7 @@ p {
 }
 
 .servtop55 h3 {
-    font-family: 'Arista Pro bold';
+    font-family: "Arista Pro bold";
     width: 42%;
     display: inline-flex;
     font-size: 60px;
@@ -495,7 +516,6 @@ p {
     color: #e85625;
     padding-right: 27%;
 }
-
 
 /* list section */
 
@@ -521,9 +541,8 @@ p {
 }
 
 .servlist58 li:last-child {
-    border: 0
+    border: 0;
 }
-
 
 /* list section */
 
@@ -535,7 +554,7 @@ p {
 .featuresec56 h2 {
     font-size: 48px;
     color: #e95525;
-    font-family: 'Arista Pro bold';
+    font-family: "Arista Pro bold";
     margin-bottom: 25px;
     text-transform: uppercase;
 }
@@ -543,7 +562,7 @@ p {
 .featuresec56 span {
     font-size: 36px;
     color: #e95525;
-    font-family: 'Arista Pro bold';
+    font-family: "Arista Pro bold";
     display: block;
     padding: 5px 0;
 }
@@ -563,9 +582,8 @@ p {
 }
 
 .featuresec56 .readmr568 {
-    color: #1a0552
+    color: #1a0552;
 }
-
 
 /* testimonial */
 
@@ -577,7 +595,7 @@ p {
 .testimonial58 h2 {
     font-size: 28px;
     color: #fff;
-    font-family: 'Arista Pro bold';
+    font-family: "Arista Pro bold";
     display: flex;
     align-items: center;
     margin-bottom: 30px;
@@ -597,7 +615,7 @@ p {
 .testmoinfo55 h3 {
     font-size: 30px;
     margin-bottom: 0;
-    font-family: 'Arista Pro bold';
+    font-family: "Arista Pro bold";
     color: #1a0552;
     text-transform: uppercase;
 }
@@ -624,7 +642,6 @@ p {
     width: calc(100% - 180px);
 }
 
-
 /* footer */
 
 .logofooter {
@@ -634,7 +651,7 @@ p {
 .logofooter a {
     display: inline-block;
     font-size: 60px;
-    font-family: 'Arista Pro bold';
+    font-family: "Arista Pro bold";
     color: #e85625;
 }
 
@@ -658,7 +675,7 @@ p {
     font-size: 24px;
     color: #e95525;
     margin-bottom: 20px;
-    font-family: 'Arista Pro bold';
+    font-family: "Arista Pro bold";
     text-transform: uppercase;
 }
 
@@ -705,7 +722,6 @@ p {
     padding: 50px 0;
 }
 
-
 /* Footer end */
 
 .togethersec15.blogpost565 {
@@ -721,12 +737,9 @@ p {
     top: 0;
 }
 
-
 /* side menu */
 
-
 /* sidebar popup */
-
 
 /*******************************
 * MODAL AS LEFT/RIGHT SIDEBAR
@@ -757,7 +770,6 @@ p {
     padding: 15px 15px 80px;
 }
 
-
 /*Left*/
 
 .modal.left.fade .modal-dialog {
@@ -771,7 +783,6 @@ p {
 .modal.left.fade.show .modal-dialog {
     left: 0;
 }
-
 
 /*Right*/
 
@@ -817,31 +828,30 @@ p {
     display: block;
     color: #000;
     font-size: 18px;
-    font-family: 'Candara Regular';
+    font-family: "Candara Regular";
 }
 
 .modal-title {
-    font-family: 'Arista Pro Regular';
+    font-family: "Arista Pro Regular";
     font-size: 22px;
     letter-spacing: 4px;
     text-transform: uppercase;
 }
 
-
 /* left menu ends */
 
-@media only screen and (max-width:767px) {
+@media only screen and (max-width: 767px) {
     .bnrttopbanner56 {
         margin: 0;
         margin-bottom: 20px;
     }
     .togethersec15 span {
-        font-family: 'Arista Pro bold';
+        font-family: "Arista Pro bold";
         width: calc(100% - 90px);
         font-size: 36px;
     }
     .servtop55 h3 {
-        font-family: 'Arista Pro bold';
+        font-family: "Arista Pro bold";
         width: 100%;
         display: flex;
         font-size: 60px;
@@ -901,7 +911,6 @@ p {
     }
 }
 
-
 /* Personal Website */
 
 .hello45 {
@@ -920,6 +929,7 @@ p {
 .qulify01 {
     display: block;
     margin-bottom: 30px;
+    padding-inline-start: 0;
 }
 
 .qulify01 li {
@@ -959,7 +969,7 @@ p {
     color: #222;
     margin-bottom: 20px;
     font-size: 32px;
-    font-family: 'Candara bold';
+    font-family: "Candara bold";
 }
 
 .goalsection45 p {
@@ -971,7 +981,7 @@ p {
     color: #2998f2;
     margin-bottom: 20px;
     font-size: 32px;
-    font-family: 'Candara bold';
+    font-family: "Candara bold";
 }
 
 .interest_section568 p {
@@ -997,7 +1007,7 @@ p {
     color: #2998f2;
     margin-bottom: 20px;
     font-size: 32px;
-    font-family: 'Candara bold';
+    font-family: "Candara bold";
 }
 
 .socalpart45 li {
@@ -1016,7 +1026,7 @@ p {
     padding-top: 40px;
 }
 
-@media only screen and (max-width:767px) {
+@media only screen and (max-width: 767px) {
     .persrightsec88 {
         margin-top: 0;
     }

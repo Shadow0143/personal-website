@@ -56,6 +56,7 @@ ul {
     list-style: none;
     margin: 0;
     padding: 0;
+    padding-inline-start: 0;
 }
 
 h1,
@@ -70,7 +71,6 @@ h6 {
     font-weight: normal;
 }
 
-
 /* Forms */
 
 form {
@@ -84,7 +84,6 @@ fieldset {
 legend {
     display: none;
 }
-
 
 /* Table */
 
@@ -103,7 +102,6 @@ td {
     text-align: left;
     font-weight: normal;
 }
-
 
 /* Content */
 
@@ -139,9 +137,7 @@ big {
     font-size: 1em;
 }
 
-
 /*sup           { font-size:1em; vertical-align:top; }*/
-
 
 /* Lists */
 
@@ -156,7 +152,6 @@ ol {
     -webkit-padding-start: 0;
     margin-left: 0px;
 }
-
 
 /* Tools */
 
@@ -252,7 +247,6 @@ ol {
     display: block;
 }
 
-
 /* ======================================================================================= */
 
 body {
@@ -262,7 +256,8 @@ body {
     overflow-x: hidden;
 }
 
-.pw-body {}
+.pw-body {
+}
 
 .pw-body .pw-left {
     width: 55%;
@@ -348,7 +343,8 @@ body {
     height: auto;
 }
 
-.socialFooter {}
+.socialFooter {
+}
 
 .socialFooter ul {
     margin: 0 auto;
@@ -498,7 +494,8 @@ body {
     margin-bottom: 20px;
 }
 
-.ctaSec ul.ctaList {}
+.ctaSec ul.ctaList {
+}
 
 .ctaSec ul.ctaList:after {
     content: "";
@@ -518,7 +515,8 @@ body {
     position: relative;
 }
 
-.ctaSec ul.ctaList li .ctaImage {}
+.ctaSec ul.ctaList li .ctaImage {
+}
 
 .ctaSec ul.ctaList li .ctaImage img {
     width: 100%;
@@ -575,7 +573,6 @@ body {
     width: 100% !important;
 }
 
-
 /*******************************************************************************grid*******************************/
 
 h1.logo {
@@ -584,17 +581,23 @@ h1.logo {
     color: #fff;
 }
 
-.container {}
+.container {
+}
 
-h4 {}
+h4 {
+}
 
-.row {}
+.row {
+}
 
-.row .row {}
+.row .row {
+}
 
-[class*="col-"] {}
+[class*="col-"] {
+}
 
-hr {}
+hr {
+}
 
 .headerContainer {
     display: block;
@@ -624,7 +627,6 @@ ul.navbar-nav li a {
     text-transform: uppercase;
 }
 
-
 /****************************************************************************************************bootstrap navigation style removed here************/
 
 .navbar {
@@ -642,12 +644,12 @@ ul.navbar-nav li a {
     border: none !important;
 }
 
-.navbar-default .navbar-nav>.active>a {
+.navbar-default .navbar-nav > .active > a {
     background: none !important;
     color: #fd7f07 !important;
 }
 
-.navbar-default .navbar-nav>li {
+.navbar-default .navbar-nav > li {
     display: inline-block;
     text-align: center;
     float: left;
@@ -655,21 +657,21 @@ ul.navbar-nav li a {
     padding-right: 13px;
 }
 
-.navbar-default .navbar-nav>li>a {
+.navbar-default .navbar-nav > li > a {
     color: #fff !important;
     font-size: 16px;
     text-transform: uppercase;
     padding: 14px 20px 28px 20px !important;
 }
 
-.navbar-default .navbar-nav>li>a:hover {
+.navbar-default .navbar-nav > li > a:hover {
     padding: 14px 20px 14px 20px !important;
     color: #f8c20a !important;
     background: none;
     border-radius: 0px;
 }
 
-.navbar-default .navbar-nav>li>a:hover {
+.navbar-default .navbar-nav > li > a:hover {
     text-decoration: none;
 }
 
@@ -678,7 +680,7 @@ ul.navbar-nav li a {
     padding-right: 0px !important;
 }
 
-.navbar-default .navbar-nav>.open>a {
+.navbar-default .navbar-nav > .open > a {
     background: none !important;
 }
 
@@ -724,7 +726,8 @@ ul.navbar-nav li a {
     margin-top: 20px;
 }
 
-.instaPost ul.ipList {}
+.instaPost ul.ipList {
+}
 
 .instaPost ul.ipList:after {
     content: "";
@@ -937,6 +940,7 @@ span.navbar-toggler-icon i {
     background: #1b1e23;
     position: fixed;
     width: 100%;
+    height: 70px;
 }
 
 .logoArea {
@@ -982,6 +986,7 @@ span.navbar-toggler-icon i {
 .postFtr ul.pftrList li a {
     color: #767676;
     font-size: 16px;
+    display: inline-block;
 }
 
 .postFtr ul.pftrList li:last-child {
@@ -1071,7 +1076,7 @@ span.navbar-toggler-icon i {
     }
     .mobileHeader {
         background: #1b1e23;
-        margin-top: 65px;
+        margin-top: 0px;
         display: none;
         position: fixed;
         z-index: 2;
@@ -1426,7 +1431,6 @@ input[type="submit"]:hover {
     margin-bottom: 30px;
     padding-bottom: 10px;
 }
-
 
 /** Style for Custom Modal Design **/
 
@@ -1811,7 +1815,7 @@ input[type="submit"]:hover {
     letter-spacing: 5px;
 }
 
-.light_gallery a:nth-of-type(1n+6) {
+.light_gallery a:nth-of-type(1n + 6) {
     display: none;
 }
 
@@ -2087,6 +2091,12 @@ input[type="submit"]:hover {
     margin-top: 10px;
     margin-bottom: -40px;
 }
+.filter_wrap .filter_opt.show {
+    display: none;
+}
+.filter_wrap .filter_opt.show.in {
+    display: block;
+}
 
 .filter_wrap .filter_opt ul {
     padding-inline-start: 0px;
@@ -2135,7 +2145,7 @@ input[type="submit"]:hover {
     .filter_wrap {
         width: 100%;
         margin: 90px auto;
-        margin-bottom: -30px;
+        margin-bottom: -40px;
     }
     .filter_wrap .filter_opt ul li {
         margin-right: 5px;
@@ -2226,6 +2236,8 @@ input[type="submit"]:hover {
     padding-top: 3px;
 }
 
-@media (max-width: 450px) {}
+@media (max-width: 450px) {
+}
 
-@media (max-width: 380px) {}
+@media (max-width: 380px) {
+}

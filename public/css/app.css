@@ -196,6 +196,10 @@ ul ol {
   margin-bottom: 0;
 }
 
+ul{
+  padding-inline-start: 0;
+}
+
 dt {
   font-weight: 700;
 }

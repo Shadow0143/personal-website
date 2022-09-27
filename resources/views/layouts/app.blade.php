@@ -13,7 +13,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <script src="{{ asset('js/website.js') }}"></script>
     <script src="{{ asset('js/css3-animate-it.js') }}"></script>
     <script src="{{ asset('js/jquery-1.9.1.min.js') }}"></script>
@@ -27,7 +26,6 @@
 
 
     <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
 
 
 
@@ -64,6 +62,8 @@
     <script src="{{asset('new/js/bootstrap.js')}}"></script>
     <script src="{{asset('new/js/slick.js')}}"></script>
     <script src="{{asset('new/js/custom.js')}}"></script>
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
 
 
 
