@@ -24,6 +24,8 @@ Route::get('/{authername}/type/{type}', [App\Http\Controllers\HomeController::cl
 Route::get('/{authername}/tag/{type}', [App\Http\Controllers\HomeController::class, 'filterByTag'])->name('filterByTag');
 Route::get('/{authername}/category/{type}', [App\Http\Controllers\HomeController::class, 'filterByCategory'])->name('filterByCategory');
 
+Route::get('/delete-post', [App\Http\Controllers\HomeController::class, 'deletePost'])->name('deletePost');
+
 
 
 

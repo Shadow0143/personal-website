@@ -81,7 +81,7 @@ class HomeController extends Controller
 
     public function editSection(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $update = Section_item::find($request->id);
         $update->section_item_value = $request->value;
         $update->save();
@@ -333,6 +333,11 @@ class HomeController extends Controller
         return view('home')->with('data', $array)->with('post', $post);
     }
 
+    public function deletePost(Request $request){
+
+        $delete = Post::find($request->id);
+        $delete->delete();
+    }
 
 
 }

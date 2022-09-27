@@ -19,7 +19,9 @@
     <script src="{{ asset('js/jquery-1.9.1.min.js') }}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('css/jquery.bxslider.css') }}" type="text/css" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap"
+        rel="stylesheet">
     <script src="{{ asset('js/jquery.bxslider.js') }}"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
 
@@ -30,19 +32,47 @@
 
 
 
-    {{-- Shakil Added  Start--}}
+    {{-- Shakil Added Start--}}
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js" integrity="sha512-Y2IiVZeaBwXG1wSV7f13plqlmFOx8MdjuHyYFVoYzhyRr3nH/NMDjTBSswijzADdNzMyWNetbLMfOpIPl6Cv9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+        integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"
+        integrity="sha512-Y2IiVZeaBwXG1wSV7f13plqlmFOx8MdjuHyYFVoYzhyRr3nH/NMDjTBSswijzADdNzMyWNetbLMfOpIPl6Cv9g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
-    <link rel="stylesheet"  href="{{asset('lightGallery/dist/css/lightgallery.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('lightGallery/dist/css/lightgallery.min.css')}}" />
     <script src="{{asset('lightGallery/dist/js/lightgallery-all.min.js')}}"></script>
 
-    {{-- Shakil Added  End--}}
-        
-    
+
+
+
+
+
+    <link href="{{asset('new/css/slick.css')}}" rel="stylesheet">
+
+    <link href="{{asset('new/css/bootstrap.css')}}" rel="stylesheet">
+    <link href="{{asset('new/css/bootstrap-grid.css')}}" rel="stylesheet">
+    <link href="{{asset('new/css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('new/css/responsive.css')}}" rel="stylesheet">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="{{asset('new/js/bootstrap.js')}}"></script>
+    <script src="{{asset('new/js/slick.js')}}"></script>
+    <script src="{{asset('new/js/custom.js')}}"></script>
+
+
+
+
+
+
+    {{-- Shakil Added End--}}
+
+
 
     <link rel="icon" href="" type="image/gif" sizes="">
     @yield('css')
@@ -55,6 +85,7 @@
             width: 100%;
             z-index: 1000;
         }
+
         body.chat-popup .pw-body {
             -webkit-filter: blur(4px);
             -moz-filter: blur(4px);
@@ -70,6 +101,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+
 <body>
     @include('sweetalert::alert')
     @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
@@ -80,33 +112,33 @@
 
 
 
-   
-<!-- Core -->
-<script src="{{asset('lightGallery/dist/js/lightgallery.min.js')}}"></script>
-<!-- Autoplay -->
-<script src="{{asset('lightGallery/modules/lg-autoplay.js')}}"></script>
-<!-- Fullscreen -->
-<script src="{{asset('lightGallery/modules/lg-fullscreen.js')}}"></script>
-<!-- Hashtag -->
-<script src="{{asset('lightGallery/modules/lg-hash.js')}}"></script>
-<!-- Pager -->
-<script src="{{asset('lightGallery/modules/lg-pager.js')}}"></script>
-<!-- Rotate -->
-<script src="{{asset('lightGallery/modules/lg-rotate.js')}}"></script>
-<!-- Social share -->
-<script src="{{asset('lightGallery/modules/lg-share.js')}}"></script>
-<!-- <a href="https://www.jqueryscript.net/tags.php?/Thumbnail/">Thumbnail</a> -->
-<script src="{{asset('lightGallery/modules/lg-thumbnail.js')}}"></script>
-<!-- HTML5/YOUTUBE/VIMEO Video -->
-<script src="{{asset('lightGallery/modules/lg-video.js')}}"></script>
-<!-- <a href="https://www.jqueryscript.net/zoom/">Zoom</a> -->
-<script src="{{asset('lightGallery/modules/lg-zoom.js')}}"></script>
 
-<script>
-   $(document).ready(function(e) {
+    <!-- Core -->
+    <script src="{{asset('lightGallery/dist/js/lightgallery.min.js')}}"></script>
+    <!-- Autoplay -->
+    <script src="{{asset('lightGallery/modules/lg-autoplay.js')}}"></script>
+    <!-- Fullscreen -->
+    <script src="{{asset('lightGallery/modules/lg-fullscreen.js')}}"></script>
+    <!-- Hashtag -->
+    <script src="{{asset('lightGallery/modules/lg-hash.js')}}"></script>
+    <!-- Pager -->
+    <script src="{{asset('lightGallery/modules/lg-pager.js')}}"></script>
+    <!-- Rotate -->
+    <script src="{{asset('lightGallery/modules/lg-rotate.js')}}"></script>
+    <!-- Social share -->
+    <script src="{{asset('lightGallery/modules/lg-share.js')}}"></script>
+    <!-- <a href="https://www.jqueryscript.net/tags.php?/Thumbnail/">Thumbnail</a> -->
+    <script src="{{asset('lightGallery/modules/lg-thumbnail.js')}}"></script>
+    <!-- HTML5/YOUTUBE/VIMEO Video -->
+    <script src="{{asset('lightGallery/modules/lg-video.js')}}"></script>
+    <!-- <a href="https://www.jqueryscript.net/zoom/">Zoom</a> -->
+    <script src="{{asset('lightGallery/modules/lg-zoom.js')}}"></script>
+
+    <script>
+        $(document).ready(function(e) {
         $("#lightGallery").lightGallery(e);
     });
-</script>
+    </script>
 
 
 </body>

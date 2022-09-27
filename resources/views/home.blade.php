@@ -1,59 +1,50 @@
 @extends('layouts.app')
 @section('css')
-@endsection
-
 <style>
-    .modal-open .modal {
-        background: transparent;
-    }
-
-    .modal.show #modal-dialog {
-        margin-right: 30px;
+    a {
+        text-decoration: none !important;
     }
 
     .select2-dropdown.increasezindex {
         z-index: 99999;
     }
 
-    a:link {
-        text-decoration: none;
+    .text_style {
+        background-color: transparent;
+        color: white;
+        border: none !important;
     }
 
-    .scrollable {
-        scrollbar-color: #6969dd #e0e0e0;
-        scrollbar-width: thin;
+    .text_style:hover {
+        border: 1px solid white;
     }
-
-    .scrollable::-webkit-scrollbar-thumb {
-        background-image: linear-gradient(180deg, #D0368A 0%, #708AD4 99%);
-        box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
-        border-radius: 100px;
-    }
-
-
 </style>
+@endsection
 
 @section('content')
 <div class="pw-body">
     @if (Auth::check())
     <div class="header_login">
-        <div style="display: inline-block">
-            <a href="" data-toggle="collapse" data-target="#demo"> {{ Auth::user()->name }} <i
+        <div class="header_inner">
+            <a href="" data-toggle="collapse" data-target="#demo"> Hi! {{ Auth::user()->name }} <i
                     class="fa fa-angle-down"></i></a>
             <div id="demo" class="collapse header-clp">
-                <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();">Log
-                    Out</a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
+                <ul>
+                    <li>
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log
+                            Out</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                </ul>
             </div>
         </div>
         {{-- <a class="header_edit" href="{{ route('dashboard') }}">Edit</a> --}}
     </div>
     @endif
     <div class="pw-left">
-
         <div class="headerContainerMobile">
             <div class="row">
                 <div class="col-md-12">
@@ -63,129 +54,147 @@
                             <div class="icon-bar"></div>
                             <div class="icon-bar"></div>
                         </div>
-                        <div class="logoArea">
+                        {{-- <div class="logoArea">
                             <h1><img src="{{ asset('images/kamal-sign.png') }}" /></h1>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 mt-5">
-            <input type="hidden" name="usernamefield" id="usernamefield" value="kamal kalra">
-            <i class="fa fa-filter" aria-hidden="true">
-
-                <a href="{{route('filterByposts',['authername'=>'kamal.kalra', 'type'=>'post'])}}">Post </a>
-                <a href="{{route('filterByposts',['authername'=>'kamal.kalra', 'type'=>'blog'])}}">Blog</a>
-                <a href="{{route('filterByposts',['authername'=>'kamal.kalra', 'type'=>'twitter'])}}">Twitter</a>
-                <a href="{{route('filterByposts',['authername'=>'kamal.kalra', 'type'=>'facebook'])}}">Facebook</a>
-                <a href="{{route('filterByposts',['authername'=>'kamal.kalra', 'type'=>'instagram'])}}">Instagram</a>
-                <a href="{{route('filterByposts',['authername'=>'kamal.kalra', 'type'=>'linkedin'])}}">LinkedIn</a>
-                <a href="{{route('home')}}" class="text-danger"> Reset Filter</a>
-            </i>
-
+        <div class="filter_wrap">
+            <button type="button" data-toggle="collapse" data-target="#filter_options" aria-expanded="false"
+                aria-controls="filter_options">
+                <i class="ti-filter"></i> Filter by
+            </button>
+            <div class="collapse filter_opt" id="filter_options">
+                <ul>
+                    <li> <a href="{{route('filterByposts',['authername'=>'kamal.kalra', 'type'=>'post'])}}">Post </a>
+                    </li>
+                    <li> <a href="{{route('filterByposts',['authername'=>'kamal.kalra', 'type'=>'blog'])}}">Blog</a>
+                    </li>
+                    <li><a
+                            href="{{route('filterByposts',['authername'=>'kamal.kalra', 'type'=>'twitter'])}}">Twitter</a>
+                    </li>
+                    <li><a
+                            href="{{route('filterByposts',['authername'=>'kamal.kalra', 'type'=>'facebook'])}}">Facebook</a>
+                    </li>
+                    <li><a
+                            href="{{route('filterByposts',['authername'=>'kamal.kalra', 'type'=>'instagram'])}}">Instagram</a>
+                    </li>
+                    <li><a
+                            href="{{route('filterByposts',['authername'=>'kamal.kalra', 'type'=>'linkedin'])}}">LinkedIn</a>
+                    </li>
+                    <li><a class="reset_filter" href="{{route('home')}}">Reset</a></li>
+                </ul>
+            </div>
         </div>
 
         <div class="mobileHeader">
             <div class="mobileHeader_inner">
-                <div class="helloSec">
-                    <div class="iContainer">
-                        <div class="hsLeft">
+                <div class="col-lg-12  col-md-12 col-sm-12 order-lg-12 order-md-12 order-sm-1 order-1">
+                    <div class="persrightsec88">
+                        <div class="toprightban458 padd01">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 order-lg-1 order-md-1  order-sm-12 order-12">
+                                    <div class="topritleftin45">
+                                        <span class="hello45">Hello! I am</span>
+                                        <h2>Vineet Agarwal</h2>
+
+                                        <ul class="qulify01">
+                                            <li>A Coder</li>
+                                            <li>An Entrepreneur</li>
+                                        </ul>
+
+                                        <p>
+                                            and my goal is to create 10 successful business products by 2031.
+                                        </p>
+
+                                        <div class="social45">
+                                            <a href="#" class="fa fa-instagram"></a>
+                                            <a href="#" class="fa fa-facebook"></a>
+                                            <a href="#" class="fa fa-whatsapp"></a>
+                                            <a href="#" class="fa fa-youtube-play"></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 order-lg-12 order-md-12 order-sm-1 order-1">
+                                    <div class="profileimg898">
+                                        <figure>
+                                            <image src="{{asset('new/images/proimage55.png')}}">
+                                        </figure>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="goalsection45 padd01">
+                            <h2>Steps towards to my goal</h2>
                             <p>
-                                An Engineer by Degree, an Executive by Profession and an Author by Passion.
+                                These are the Ideas, few lines about the products here will be nice to display.
                             </p>
-                            <div class="socialFooter">
-                                <ul>
-                                    <li><a href=""><i class="ti-twitter-alt"></i></a></li>
-                                    <li><a href=""><i class="ti-facebook"></i></a></li>
-                                    <li><a href=""><i class="ti-linkedin"></i></a></li>
-                                    <li><a href=""><i class="ti-youtube"></i></a></li>
-                                </ul>
+
+                            <div class="goalimgs45">
+                                <img src="{{asset('new/images/goals_img45.jpg')}}">
                             </div>
+
                         </div>
-                        <div class="hsRight">
-                            <img src="{{ asset('images/kamal-kalra.png') }}" />
+
+                        <div class="interest_section568 padd01">
+                            <h2>My Interests</h2>
+                            <p>What I Look forward to in my daily life</p>
+
+                            <ul class="interest_list55">
+                                <li><a href="">Mythology</a></li>
+                                <li><a href="">Self - Help</a> </li>
+                                <li><a href="">IT</a></li>
+                            </ul>
                         </div>
-                    </div>
-                </div>
-                <div class="bioSec">
-                    <div class="iContainer">
-                        <h3>Biography</h3>
-                        <p>I live in Faridabad, with my beautiful wife and two wonderful kids. I proudly call myself an
-                            “Intrapreneur”, what does it mean? Well, it means, that I have been an on the job
-                            Entrepreneur
-                            for last 15
-                            years. I love the process of making processes </p>
-                        <a href="{{ route('biographyDetails') }}" class="rmore">Know More</a>
-                    </div>
-                </div>
-                <div class="myProSec">
-                    <div class="iContainer">
-                        <div class="blockHead">
-                            <div class="bhLeft">
-                                <div class="titleTag">My Book</div>
-                                <h4>Leap Ahead</h4>
-                                <p class="titleDesco">A framework in
-                                    Operational Excellence</p>
-                            </div>
-                            <div class="bhRight">
-                                <img src="{{ asset('images/kk-book.png') }}" />
-                            </div>
+
+
+                        <div class="socalpart45 padd01">
+                            <h2>Skip to the good part</h2>
+                            <ul>
+                                <li>
+                                    <a href="#"><img src="{{asset('new/images/socialbox/social01.png')}}"></a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="{{asset('new/images/socialbox/social02.png')}}"></a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="{{asset('new/images/socialbox/social03.png')}}"></a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="{{asset('new/images/socialbox/social04.png')}}"></a>
+                                </li>
+                            </ul>
                         </div>
-                        <h5>Summary</h5>
-                        <p>Timeless principles to build excellence in business operations. You will learn ideas and
-                            techniques to
-                            not only improve your business but also to help you transform your life. Fragments of this
-                            framework can
-                            be seen in the lives of every successful human being, in religions and even in literature
-                            throughout the
-                            centuries. </p>
-                        <a href="" class="rmore">Buy Now</a>
-                    </div>
-                </div>
-                <div class="ctaSec">
-                    <div class="iContainer">
-                        <h4>Skip to the good part...</h4>
-                        <ul class="ctaList">
-                            <li><a href="">
-                                    <div class="ctaImage"><img src="{{ asset('images/cta1.jpg') }}" /></div>
-                                    <div class="ctaMatr"><i class="ti-twitter"></i>
-                                        <h5> My Tweets</h5>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><a href="">
-                                    <div class="ctaImage"><img src="{{ asset('images/cta2.jpg') }}" /></div>
-                                    <div class="ctaMatr"><i class="ti-write"></i>
-                                        <h5> Recent Posts</h5>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><a href="">
-                                    <div class="ctaImage"><img src="{{ asset('images/cta3.jpg') }}" /></div>
-                                    <div class="ctaMatr"><i class="ti-face-smile"></i>
-                                        <h5> Social Events</h5>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><a href="">
-                                    <div class="ctaImage"><img src="{{ asset('images/cta4.jpg') }}" /></div>
-                                    <div class="ctaMatr"><i class="ti-marker-alt"></i>
-                                        <h5>My Book</h5>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
+
                     </div>
                 </div>
             </div>
         </div>
         <div class="iContainer" id="mainDiv">
             <div class="postsDisplay">
-                @forelse ($post as $post)
-                <div class="col-lg-12 col-md-12 col-sm-12 embeded_post ">
-                    {{date('d-M-Y',strtotime($post->created_at))}} <br>
+                @forelse($post as $post)
+                <div class="col-lg-12 col-md-12 col-sm-12 embeded_post " id="main_post_div{{$post->id}}">
+                    <div class="post_remove">
+                        <span class="post_date">{{date('d F Y',strtotime($post->created_at))}}</span>
+                        @if(Auth::user())
+                        @if(Auth::user()->role=='owner')
+                        <a href="javaScript:void(0);" class="btn_remove_post" data-id="{{$post->id}}"><i
+                                class="ti-close"></i></a>
+                        @endif
+                        @endif
+                        {{-- <button class="btn_remove_post">
+                            <i class="ti-close"></i>
+                        </button> --}}
+                    </div>
                     @if(!empty($post->title))
-                    <h2><a href="{{route('postDetails',['id'=>$post->id])}}">{{ucfirst($post->title)}}</a></h2>
+                    <h3 class="post_title"><a
+                            href="{{route('postDetails',['id'=>$post->id])}}">{{ucfirst($post->title)}}</a></h3>
                     @endif
                     @if(!empty($post->sub_title))
                     <h4>{{ucfirst($post->sub_title)}}</h4>
@@ -195,22 +204,22 @@
                     @if(!empty($post->title))
                     @if (!empty($post['post_content']))
                     <?php
-                                    $rem_len = str_word_count($post['post_content']);
-                                    $extract_data = implode(' ', array_slice(explode(' ', $post['post_content']), 0, 50));
-                                  
-                                    ?>
+                    $rem_len = str_word_count($post['post_content']);
+                    $extract_data = implode(' ', array_slice(explode(' ', $post['post_content']), 0, 50));
+
+                    ?>
                     @if($rem_len > 50)
-                    <p>{!! $extract_data !!}
+                    <p class="post_details">{!! $extract_data !!}
                     </p>
-                    <a href="{{route('postDetails',['id'=>$post->id])}}" class=" mb-5"> Read more </a>
+                    <a href="{{route('postDetails',['id'=>$post->id])}}" class="post_read_more"> Read more </a>
                     @else
-                    {!! $post['post_content'] !!}
+                    <p class="post_details">{!! $post['post_content'] !!}</p>
                     @endif
 
                     @endif
 
                     @else
-                    {!! $post['post_content'] !!}
+                    <p class="post_details">{!! $post['post_content'] !!}</p>
                     @endif
                     @if(count($post->post_image) == 1)
                     <div class="light_gallery gitem" id="lightGallery">
@@ -284,7 +293,7 @@
                             <li>
 
 
-                                @if(!auth::user())
+                                @if(!Auth::user())
                                 <a href="javaScript:void(0);" onclick="goolgelogin()" id="likeremove{{$post['id']}}"
                                     title="like" class="likeremove{{$post['id']}} ">
                                     <i class="ti-heart"></i> <span> {{$post->likes}}</span>
@@ -326,44 +335,41 @@
                                     @if (is_array($post->categ) || is_object($post->categ))
                                     <i class="ti-flag-alt"></i>
                                     @foreach($post->categ as $val_tag)
-                                    <span> <a href="{{route('filterByCategory',['authername'=>'kamal.kalra','type'=>$val_tag])}}">{{ucfirst($val_tag)}}</a> </span> &nbsp;
+                                    <span> <a
+                                            href="{{route('filterByCategory',['authername'=>'kamal.kalra','type'=>$val_tag])}}">{{ucfirst($val_tag)}}</a>
+                                    </span> &nbsp;
                                     @endforeach
                                     @endif
 
                                 </a>
                             </li>
-                            <div id="comments_view{{$post['id']}}" class="collapse header-clp mt-5 mb-5">
-                                <div class="mt-3">
+                            <div id="comments_view{{$post['id']}}" class="collapse comment_box">
+                                <div>
                                     @if(!empty(Auth::user()))
-                                    <form action="" id="commet_form{{$post['id']}}" class="commet_form" method="POST">
-                                        <div class="row mb-2">
-                                            <div class="col-10">
-                                                <input type="hidden" name="post_new_id" id="post_new_id">
-                                                <input type="text" name="" id="comment_message{{$post['id']}}"
-                                                    class="form-control" placeholder="Write comments">
-                                            </div>
-                                            <div class="col-2">
-                                                <button type="submit" class="btn btn-outline-primary"
-                                                    onClick="submitForm(`{{$post->id}}`)">Send</button>
-                                            </div>
+                                    <form action="" id="commet_form{{$post['id']}}" class="comment_form" method="POST">
+                                        <div class="comment_input">
+                                            <input type="hidden" name="post_new_id" id="post_new_id">
+                                            <input type="text" name="" id="comment_message{{$post['id']}}"
+                                                class="form-control" placeholder="Write comments">
                                         </div>
+                                        <button type="submit" onClick="submitForm(`{{$post->id}}`)">
+                                            <i class="ti-location-arrow"></i>
+                                        </button>
                                     </form>
                                     @endif
                                     <div id="commentId-{{$post->id}}" class="comment_history">
                                         @forelse ($post['all_comments'] as $comm)
-                                        <div class="col-12 mb-3" style="" id="comment_row{{$post->id}}{{$comm->id}}">
-                                            {{$comm->user_name}} <br>
-                                            <div class="row">
-                                                <div class="col-6" style="word-wrap: break-word">
-                                                    <b>{{$comm->comments}}</b>
+                                        <div id="comment_row{{$post->id}}{{$comm->id}}">
+                                            <!-- <div class="row">
+                                                <div class="col-6">
+                                                    <p class="m-0 p-0">{{$comm->user_name}}</p>
+                                                    <span>{{$comm->comments}}</span>
                                                 </div>
                                                 <div class="col-2">
                                                     @if(Auth::user())
                                                     @if(Auth::user()->role=='owner')
-                                                    <a data-toggle="collapse" data-target="#reply_view{{$comm['id']}}"
-                                                        href="javaScript:void(0);" class="comment_icon "
-                                                        style="background: transparent;color:gray" title="Reply">
-                                                        <i class="ti-share-alt"></i>
+                                                    <a data-toggle="collapse" data-target="#reply_view{{$comm['id']}}" href="javaScript:void(0);" class="comment_icon " style="background: transparent;color:gray" title="Reply">
+                                                        Reply
                                                     </a>
                                                     @endif
                                                     @endif
@@ -376,46 +382,74 @@
                                                 @if(Auth::user())
                                                 @if(Auth::user()->role=='owner')
                                                 <div class="col-2">
-                                                    <a href="javaScript:void(0);" data-id="{{$comm->id}}"
-                                                        class="text-danger btn btn-outline-danger"
-                                                        onclick="deleteComment('{{$comm->id}},{{$post->id}}')">x</a>
+                                                    <a href="javaScript:void(0);" data-id="{{$comm->id}}" class="post_com_delete" onclick="deleteComment('{{$comm->id}},{{$post->id}}')">
+                                                        <i class="ti-trash"></i>
+                                                    </a>
                                                 </div>
                                                 @endif
                                                 @endif
+                                            </div> -->
+                                            <div class="com_inner" id="comment_row{{$post->id}}{{$comm->id}}">
+                                                <div class="com_user">
+                                                    <h4>{{$comm->user_name}}</h4>
+                                                    <p>{{$comm->comments}}</p>
+                                                </div>
+                                                @if(Auth::user())
+                                                @if(Auth::user()->role=='owner')
+                                                <a href="javaScript:void(0);" data-id="{{$comm->id}}"
+                                                    class="post_com_delete"
+                                                    onclick="deleteComment('{{$comm->id}},{{$post->id}}')">
+                                                    <i class="ti-close"></i>
+                                                </a>
+                                                @endif
+                                                @endif
+                                                <ul class="com_action">
+                                                    <li>
+                                                        {{-- {{moment($comm->created_at).startOf('hour').fromNow(); }}
+                                                        --}}
+                                                        {{$comm->created_at->diffForHumans()}}
+                                                    </li>
+                                                    @if(Auth::user())
+                                                    @if(Auth::user()->role=='owner')
+                                                    <li>
+                                                        <a data-toggle="collapse"
+                                                            data-target="#reply_view{{$comm['id']}}"
+                                                            href="javaScript:void(0);" title="Reply">
+                                                            Reply
+                                                        </a>
+                                                    </li>
+                                                    @endif
+                                                    @endif
+                                                </ul>
                                             </div>
-                                            <div class="co-12 collapse header-clp mb-3" id="reply_view{{$comm->id}}">
-                                                <form action="" id="reply{{$comm->id}}">
-                                                    <div class="row">
-                                                        <div class="col-8 ">
-                                                            <input type="hidden" name="reply_for_comment"
-                                                                id="reply_for_comment" value="{{$comm->id}}">
-                                                            <input type="text" name="reply_message"
-                                                                id="reply_message{{$comm->id}}" class="form-control"
-                                                                placeholder="Reply on comment">
-                                                        </div>
-                                                        <div class="col-4 text-right">
-                                                            <button type="submit" class="btn btn-outline-primary btn-sm"
-                                                                onclick="submitReply('{{$comm->id}}')">Reply</button>
-                                                        </div>
+                                            <div class="collapse com_inner" id="reply_view{{$comm->id}}">
+                                                <form class="comment_form reply_form" action="" id="reply{{$comm->id}}">
+                                                    <div class="comment_input">
+                                                        <input type="hidden" name="reply_for_comment"
+                                                            id="reply_for_comment" value="{{$comm->id}}">
+                                                        <input type="text" name="reply_message"
+                                                            id="reply_message{{$comm->id}}" class="form-control"
+                                                            placeholder="Reply on comment">
                                                     </div>
+                                                    <button type="submit" onclick="submitReply('{{$comm->id}}')">
+                                                        <i class="ti-location-arrow"></i>
+                                                    </button>
                                                 </form>
                                             </div>
-                                            <div class="col-12 mb-3 mt-0" id="replyview{{$comm->id}}">
-
+                                            <div id="replyview{{$comm->id}}" style="margin-left: 20px;">
                                                 @foreach($comm['all_reply'] as $reply)
-                                                <div class="mb-2">
-                                                    Reply by : <span><strong>{{$reply->user_name}}</strong></span>
-                                                    <div class="row">
-                                                        <div class="col-8" style="word-wrap: break-word">
-                                                            {{$reply->replys}}
-                                                        </div>
-                                                        <div class="col-4 text-right">
-                                                            {{$reply->created_at->diffForHumans()}}
-                                                        </div>
+                                                <div class="com_inner">
+                                                    <div class="com_user">
+                                                        <h4>Replied by : {{$comm->user_name}}</h4>
+                                                        <p>{{$reply->replys}}</p>
                                                     </div>
+                                                    <ul class="com_action">
+                                                        <li>
+                                                            {{$reply->created_at->diffForHumans()}}
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                                 @endforeach
-
                                             </div>
                                         </div>
                                         {{-- <div class="co-12 collapse header-clp mb-3" id="reply_view{{$comm->id}}">
@@ -463,15 +497,10 @@
                                     @if (is_array($post->tags) || is_object($post->tags))
                                     <i class="ti-tag"></i>
                                     @foreach($post->tags as $val_tag)
-                                  <a href="{{route('filterByTag',['authername'=>'kamal.kalra','type'=>$val_tag])}}"> <span> {{ucfirst($val_tag)}}</span> </a>  
+                                    <a href="{{route('filterByTag',['authername'=>'kamal.kalra','type'=>$val_tag])}}">
+                                        <span> {{ucfirst($val_tag)}}</span> </a>
                                     @endforeach
                                     @endif
-                                    {{-- <span>{{$post->tags}}</span> --}}
-                                    {{-- @for($i=0; $i<= $post->tags; $i++ )
-                                        {{$post->tags['0']}}
-
-                                        @endfor --}}
-
                                 </a>
                             </li>
                         </ul>
@@ -490,11 +519,97 @@
     @if (count($data) > 0)
     <div class="pw-right">
         <div class="pwRightInr">
-            @foreach ($data as $data)
+
+            <div class="col-lg-12 mt-5 col-md-12 col-sm-12 order-lg-12 order-md-12 order-sm-1 order-1">
+                <div class="persrightsec88">
+                    <div class="toprightban458 padd01">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 order-lg-1 order-md-1  order-sm-12 order-12">
+                                <div class="topritleftin45">
+                                    <span class="hello45">Hello! I am</span>
+                                    <h2>Vineet Agarwal</h2>
+
+                                    <ul class="qulify01">
+                                        <li>A Coder</li>
+                                        <li>An Entrepreneur</li>
+                                    </ul>
+
+                                    <p>
+                                        and my goal is to create 10 successful business products by 2031.
+                                    </p>
+
+                                    <div class="social45">
+                                        <a href="#" class="fa fa-instagram"></a>
+                                        <a href="#" class="fa fa-facebook"></a>
+                                        <a href="#" class="fa fa-whatsapp"></a>
+                                        <a href="#" class="fa fa-youtube-play"></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-12 order-lg-12 order-md-12 order-sm-1 order-1">
+                                <div class="profileimg898">
+                                    <figure>
+                                        <image src="{{asset('new/images/proimage55.png')}}">
+                                    </figure>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="goalsection45 padd01">
+                        <h2>Steps towards to my goal</h2>
+                        <p>
+                            These are the Ideas, few lines about the products here will be nice to display.
+                        </p>
+
+                        <div class="goalimgs45">
+                            <img src="{{asset('new/images/goals_img45.jpg')}}">
+                        </div>
+
+                    </div>
+
+                    <div class="interest_section568 padd01">
+                        <h2>My Interests</h2>
+                        <p>What I Look forward to in my daily life</p>
+
+                        <ul class="interest_list55">
+                            <li><a href="">Mythology</a></li>
+                            <li><a href="">Self - Help</a> </li>
+                            <li><a href="">IT</a></li>
+                        </ul>
+                    </div>
+
+
+                    <div class="socalpart45 padd01">
+                        <h2>Skip to the good part</h2>
+                        <ul>
+                            <li>
+                                <a href="#"><img src="{{asset('new/images/socialbox/social01.png')}}"></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="{{asset('new/images/socialbox/social02.png')}}"></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="{{asset('new/images/socialbox/social03.png')}}"></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="{{asset('new/images/socialbox/social04.png')}}"></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!------- @foreach ($data as $data)
             @if ($data['section_name'] == 'Intro')
             <div class="helloSec">
                 <div class="iContainer">
-                    @if(Auth::user())
+                    {{-- @if(Auth::user())
                     @if(Auth::user()->role=='owner')
                     <a href="javaScript:void(0);" type="button" id="edit1section" data-id="{{Auth::user()->id}}"
                         data-type="{{ $data['id'] }}">Edit {{ $data['id'] }}</a>
@@ -504,7 +619,7 @@
                         Item</a>
 
                     @endif
-                    @endif
+                    @endif --}}
                     <div class="hsLeft">
                         <p>
                             @foreach ($data['section_item'] as $item)
@@ -514,7 +629,7 @@
                         <form action="" id="greating_form">
                             <input type="hidden" name="greating_id" id="greating_id" value="{{$item['id']}}">
                             <input type="text" name="section_name" id="section_name"
-                                value="{{ $item['section_item_value'] }}">
+                                value="{{ $item['section_item_value'] }}" class="text_style">
                         </form>
                         @endif
                         @else
@@ -536,7 +651,7 @@
                         <form action="">
                             <input type="hidden" name="change_signature_id" id="change_signature_id"
                                 value="{{$item['id']}}">
-                            <input type="file" name="change_signature" id="change_signature" class="">
+                            {{-- <input type="file" name="change_signature" id="change_signature" class=""> --}}
                             <span class="text-danger text-left">
                                 <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" id="imgPreview" />
                             </span>
@@ -559,8 +674,8 @@
                         @if ($item['section_item_name'] == 'Degree')
                         <form action="">
                             <input type="hidden" name="section_descr_id" id="section_descr_id" value="{{$item['id']}}">
-                            <textarea name="section_descr" id="section_descr" cols="30"
-                                rows="5">{{ $item['section_item_value'] }}</textarea>
+                            <textarea name="section_descr" id="section_descr" cols="10" rows="5"
+                                class="text_style">{{ $item['section_item_value'] }}</textarea>
                         </form>
                         @endif
                         @else
@@ -581,7 +696,7 @@
                                 <li>
                                     <a href=""><i class="ti-twitter-alt"></i></a>
                                     @foreach ($data['section_item'] as $item)
-                                    @if(Auth::user())
+                                    {{-- @if(Auth::user())
                                     @if(Auth::user()->role=='owner')
                                     <form action="">
                                         @if ($item['section_item_name'] == 'Twitter_Link')
@@ -591,13 +706,13 @@
                                         @endif
                                     </form>
                                     @endif
-                                    @endif
+                                    @endif --}}
                                     @endforeach
                                 </li>
                                 <li>
                                     <a href=""><i class="ti-facebook"></i></a>
                                     @foreach ($data['section_item'] as $item)
-                                    @if(Auth::user())
+                                    {{-- @if(Auth::user())
                                     @if(Auth::user()->role=='owner')
                                     <form action="">
                                         @if ($item['section_item_name'] == 'Facebook_Link')
@@ -608,13 +723,13 @@
                                         @endif
                                     </form>
                                     @endif
-                                    @endif
+                                    @endif --}}
                                     @endforeach
                                 </li>
                                 <li>
                                     <a href=""><i class="ti-linkedin"></i></a>
                                     @foreach ($data['section_item'] as $item)
-                                    @if(Auth::user())
+                                    {{-- @if(Auth::user())
                                     @if(Auth::user()->role=='owner')
                                     <form action="">
                                         @if ($item['section_item_name'] == 'Linkdin_Link')
@@ -624,13 +739,13 @@
                                         @endif
                                     </form>
                                     @endif
-                                    @endif
+                                    @endif --}}
                                     @endforeach
                                 </li>
                                 <li>
                                     <a href=""><i class="ti-youtube"></i></a>
                                     @foreach ($data['section_item'] as $item)
-                                    @if(Auth::user())
+                                    {{-- @if(Auth::user())
                                     @if(Auth::user()->role=='owner')
                                     <form action="">
                                         @if ($item['section_item_name'] == 'Youtube_Link')
@@ -640,7 +755,7 @@
                                         @endif
                                     </form>
                                     @endif
-                                    @endif
+                                    @endif --}}
                                     @endforeach
                                 </li>
                             </ul>
@@ -651,8 +766,8 @@
                     <div class="hsRight">
                         @if(Auth::user())
                         @if(!empty(Auth::user()->role=='owner'))
-                        <a href="javaScript:void(0);" class="btn btn-sm btn-outline-light" data-toggle="modal"
-                            data-target="#profilemodal">Change Profile</a>
+                        {{-- <a href="javaScript:void(0);" class="btn btn-sm btn-outline-light" data-toggle="modal"
+                            data-target="#profilemodal">Change Profile</a> --}}
                         <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" id="profileimgPreview" />
                         @else
                         <img src="{{ asset('package') }}/{{ $item['section_item_value'] }}" />
@@ -790,7 +905,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div>-------------->
 
 
 
@@ -820,7 +935,7 @@
                             <figure>
                                 <img src="{{ asset('images/profile.jpg') }}" alt="">
                             </figure>
-                            <h4>Kamal Kalra</h4>
+                            <h4>Veenit Agarwal</h4>
                         </div>
                         <select class="user_post_type " name="postType" id="postType">
                             <option value="post">Post</option>
@@ -1147,21 +1262,17 @@
 @endsection
 
 @if(!Auth::user())
-<div class="modal fade" id="loginwithgooglemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal google_sign fade" id="loginwithgooglemodal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document" id="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Sign in with Google</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closemodal()"
-                    id="googleclosebutton">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
             <div class="modal-body">
-                <a href="{{ route('redirectToGoogle') }}"
-                    class="btn btn-outline-primary btn-block btn-lg google">Continue with &nbsp;<i
-                        class="fa-brands fa-google-plus-g"></i> &nbsp; </a>
+                <button type="button" class="btn_close" data-dismiss="modal" aria-label="Close" onclick="closemodal()">
+                    <i class="ti-close"></i>
+                </button>
+                <a href="{{ route('redirectToGoogle') }}" class="btn_google">
+                    <h5>Sign in with Google</h5><i class="fa-brands fa-google-plus-g"></i>
+                </a>
             </div>
 
         </div>
@@ -1178,58 +1289,85 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+    integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
 <script>
-    $('#filterdata').on('change',function(){
-        var type = $('#filterdata').val();
-        var usernamefield = $('#usernamefield').val();
-        var url = usernamefield+'/'+type;
-           $.ajax({
-            url:url,
-            type:'GET',
-            data:{
-                type:type,
-                usernamefield:usernamefield
-            },
-                success:function(res){
-                    $('#mainDiv').html(res);
-                },
-           });
+    $(document).on('click', '.btn_remove_post', function(e) {
+    e.preventDefault();
+    var post_id = $(this).data('id');
+    swal({
+        title: 'Are you sure?',
+        text: "You won't delete this post!",
+        icon: 'warning',
+        buttons: true,
+        buttonsStyling: false,
+        reverseButtons: true
+    }).then((confirm) => {
+        if (confirm) {
+            $.ajax({
+                type: "GET",
+                url: "{{route('deletePost')}}",
+                data: { id: post_id },
+                success: function(data) {
+                    swal({
+                        title: 'Success',
+                        text: "Deleted",
+                        icon: 'success',
+                        buttons: true,
+                        buttonsStyling: false,
+                        reverseButtons: true
+                    });
+                    $('#main_post_div' + post_id).hide();
+                }
+            });
+        }
+
     });
+
+});
 </script>
 
 <script>
-    function goolgelogin(){
+    function goolgelogin() {
         $('#loginwithgooglemodal').modal('show');
     }
 
-    function likes(postid){
-            // alert(postid);
-            var postid = postid;
-            $.ajax({
+    function likes(postid) {
+        // alert(postid);
+        var postid = postid;
+        $.ajax({
             type: "GET",
             url: "{{route('likes')}}",
-            data: {postid:postid},
-            success: function(res){
-               $('.likeshow'+postid).hide();
-               $('.likeremove'+postid).hide();
-               $('#datalike'+postid).html(res);
-               $('#datashow'+postid).show();
-           },
+            data: {
+                postid: postid
+            },
+            success: function(res) {
+                $('.likeshow' + postid).hide();
+                $('.likeremove' + postid).hide();
+                $('#datalike' + postid).html(res);
+                $('#datashow' + postid).show();
+            },
         });
     }
 
 
-    function deleteComment(ids){
-        
-        
-        var ids = ids.split(',');
-        var post_id = ids[1] ;
-        var comment_id = ids[0] ;
-        var counter = $('#commentCountbox'+post_id).val();
-        var desc = parseInt(counter) - 1 ;
+    function deleteComment(ids) {
 
-        $('#commentCount-'+post_id).html(desc);
-        $('#commentCountbox'+post_id).val(desc);
+
+        var ids = ids.split(',');
+        var post_id = ids[1];
+        var comment_id = ids[0];
+        var counter = $('#commentCountbox' + post_id).val();
+        var desc = parseInt(counter) - 1;
+
+        $('#commentCount-' + post_id).html(desc);
+        $('#commentCountbox' + post_id).val(desc);
 
 
 
@@ -1237,15 +1375,15 @@
         $.ajax({
             type: "GET",
             url: "{{route('deletesComment')}}",
-            data: {comment_id:comment_id},
-            success: function(res){
-               $('#comment_row'+post_id+comment_id).hide();
-             
-           },
+            data: {
+                comment_id: comment_id
+            },
+            success: function(res) {
+                $('#comment_row' + post_id + comment_id).hide();
+
+            },
         });
     }
-
-
 </script>
 
 <script>
@@ -1253,20 +1391,20 @@
         // Multiple images preview in browser
         var imagesPreview = function(input, placeToInsertImagePreview) {
 
-        if (input.files) {
-            var filesAmount = input.files.length;
+            if (input.files) {
+                var filesAmount = input.files.length;
 
-            for (i = 0; i < filesAmount; i++) {
-                var reader = new FileReader();
+                for (i = 0; i < filesAmount; i++) {
+                    var reader = new FileReader();
 
-                reader.onload = function(event) {
-                    $('.gallery').show();
-                    $($.parseHTML('<img style="width:100px;height:100px;margin:20px">')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                    reader.onload = function(event) {
+                        $('.gallery').show();
+                        $($.parseHTML('<img style="width:100px;height:100px;margin:20px">')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                    }
+
+                    reader.readAsDataURL(input.files[i]);
                 }
-
-                reader.readAsDataURL(input.files[i]);
             }
-        }
 
         };
 
@@ -1277,7 +1415,7 @@
     });
 
 
-    function removeImage(){
+    function removeImage() {
         $('#post_image').val('');
         $('.gallery').html('');
         $('.gallery').hide();
@@ -1288,13 +1426,13 @@
 
 <script>
     $(document).ready(() => {
-        $("#change_signature").change(function () {
+        $("#change_signature").change(function() {
             const file = this.files[0];
             if (file) {
                 let reader = new FileReader();
-                reader.onload = function (event) {
+                reader.onload = function(event) {
                     $("#imgPreview")
-                      .attr("src", event.target.result);
+                        .attr("src", event.target.result);
                 };
                 reader.readAsDataURL(file);
             }
@@ -1304,21 +1442,21 @@
             var form_data = {
                 "_token": "{{ csrf_token() }}",
                 id: $("#change_signature_id").val(),
-                type:'image',
-                value:$("#change_signature").val()
-              
-            };                   
-            
+                type: 'image',
+                value: $("#change_signature").val()
+
+            };
+
         });
 
 
-        $("#change_profile").change(function () {
+        $("#change_profile").change(function() {
             const file = this.files[0];
             if (file) {
                 let reader = new FileReader();
-                reader.onload = function (event) {
+                reader.onload = function(event) {
                     $("#profileimgPreview")
-                      .attr("src", event.target.result);
+                        .attr("src", event.target.result);
                 };
                 reader.readAsDataURL(file);
             }
@@ -1333,32 +1471,33 @@
 
 <script>
     $(document).ready(function() {
-        $('.select2').select2({dropdownCssClass:'increasezindex'});
+        $('.select2').select2({
+            dropdownCssClass: 'increasezindex'
+        });
     });
 
 
-    setTimeout(function () {
-            $(document).ready(function () {
+    setTimeout(function() {
+        $(document).ready(function() {
 
-                    $("#loginwithgooglemodal").modal('show');
-                    $('.modal-backdrop').remove();
-                }, 10000);
-        
-        $(".comment_icon").click(function (event) {
+            $("#loginwithgooglemodal").modal('show');
+            $('.modal-backdrop').remove();
+        }, 10000);
+
+        $(".comment_icon").click(function(event) {
             var id = $(this).data('id');
-            var first_value = $('#commentCount-'+id).text();
+            var first_value = $('#commentCount-' + id).text();
             var value = parseInt(first_value);
-            var counter = $('#commentCountbox'+id).val(value);
+            var counter = $('#commentCountbox' + id).val(value);
             $('#post_new_id').val(id);
         });
     });
 
-    $('#post_image').change(function(event){
+    $('#post_image').change(function(event) {
         $('#post_Image').modal('hide');
     });
 
-    function closemodal()
-    {
+    function closemodal() {
         $('#loginwithgooglemodal').modal('hide');
     }
 
@@ -1367,78 +1506,76 @@
 
     // }
 
-    function submitForm(id)
-        {
-            var counter = $('#commentCountbox'+id).val();
-            var incr = parseInt(counter) + 1 ;
+    function submitForm(id) {
+        var counter = $('#commentCountbox' + id).val();
+        var incr = parseInt(counter) + 1;
 
-            $('#commentCount-'+id).html(incr);
-            $('#commentCountbox'+id).val(incr);
-            
-            $("#commet_form"+id).submit(function (event) {
+        $('#commentCount-' + id).html(incr);
+        $('#commentCountbox' + id).val(incr);
+
+        $("#commet_form" + id).submit(function(event) {
             var formData = {
                 "_token": "{{ csrf_token() }}",
-                comment_message: $("#comment_message"+id).val(),
+                comment_message: $("#comment_message" + id).val(),
                 post_id: $("#post_new_id").val(),
             };
-           
+
             $.ajax({
                 type: "POST",
                 url: "{{route('sendComment')}}",
                 data: formData,
                 dataType: "json",
                 encode: true,
-                success: function(res){
-                if(res.success==true){ 
-                        $('#commentId-'+id).prepend(res.data);
-                        $('#comment_message'+id).val('');
-                        $('#nocomment-'+id).hide();
+                success: function(res) {
+                    if (res.success == true) {
+                        $('#commentId-' + id).prepend(res.data);
+                        $('#comment_message' + id).val('');
+                        $('#nocomment-' + id).hide();
                         //$('#commentCount-'+id).html(incr);
                         // $('#commentCountbox'+id).val(incr);
                     }
-                    
+
                 },
             });
             event.preventDefault();
             event.stopImmediatePropagation();
-            });
-        }
+        });
+    }
 
-        function submitReply(id){
-            $("#reply"+id).submit(function (event) {
+    function submitReply(id) {
+        $("#reply" + id).submit(function(event) {
             var formData = {
                 "_token": "{{ csrf_token() }}",
-                reply_message: $("#reply_message"+id).val(),
+                reply_message: $("#reply_message" + id).val(),
                 comment_id: id,
             };
             // alert(formData.reply_message);
             // alert(formData.comment_id);
-           
+
             $.ajax({
                 type: "POST",
                 url: "{{route('sendReply')}}",
                 data: formData,
                 dataType: "json",
                 encode: true,
-                success: function(res){
-                if(res.success==true){ 
-                        $('#replyview'+id).prepend(res.data);
-                        $('#reply_message'+id).val('');
+                success: function(res) {
+                    if (res.success == true) {
+                        $('#replyview' + id).prepend(res.data);
+                        $('#reply_message' + id).val('');
                     }
-                    
+
                 },
             });
             event.preventDefault();
             event.stopImmediatePropagation();
-            });
-        }
-   
+        });
+    }
 </script>
 
 
 
 <script>
-    $("#section_name").blur(function (event) {
+    $("#section_name").blur(function(event) {
         var formData = {
             "_token": "{{ csrf_token() }}",
             id: $("#greating_id").val(),
@@ -1451,7 +1588,7 @@
             data: formData,
             dataType: "json",
             encode: true,
-            success: function(res){
+            success: function(res) {
                 alert('Save changes.');
             },
         });
@@ -1459,7 +1596,7 @@
         event.stopImmediatePropagation();
     });
 
-    $("#section_descr").blur(function (event) {
+    $("#section_descr").blur(function(event) {
         var formData = {
             "_token": "{{ csrf_token() }}",
             id: $("#section_descr_id").val(),
@@ -1472,7 +1609,7 @@
             data: formData,
             dataType: "json",
             encode: true,
-            success: function(res){
+            success: function(res) {
                 alert('Save changes.');
             },
         });
@@ -1480,7 +1617,7 @@
         event.stopImmediatePropagation();
     });
 
-    $("#twitter_link").blur(function (event) {
+    $("#twitter_link").blur(function(event) {
         var formData = {
             "_token": "{{ csrf_token() }}",
             id: $("#twitter_id").val(),
@@ -1493,7 +1630,7 @@
             data: formData,
             dataType: "json",
             encode: true,
-            success: function(res){
+            success: function(res) {
                 alert('Save changes.');
             },
         });
@@ -1501,7 +1638,7 @@
         event.stopImmediatePropagation();
     });
 
-    $("#facebook_link").blur(function (event) {
+    $("#facebook_link").blur(function(event) {
         var formData = {
             "_token": "{{ csrf_token() }}",
             id: $("#facebook_id").val(),
@@ -1514,7 +1651,7 @@
             data: formData,
             dataType: "json",
             encode: true,
-            success: function(res){
+            success: function(res) {
                 alert('Save changes.');
             },
         });
@@ -1522,7 +1659,7 @@
         event.stopImmediatePropagation();
     });
 
-    $("#linkdin_link").blur(function (event) {
+    $("#linkdin_link").blur(function(event) {
         var formData = {
             "_token": "{{ csrf_token() }}",
             id: $("#linkdin_id").val(),
@@ -1535,7 +1672,7 @@
             data: formData,
             dataType: "json",
             encode: true,
-            success: function(res){
+            success: function(res) {
                 alert('Save changes.');
             },
         });
@@ -1543,7 +1680,7 @@
         event.stopImmediatePropagation();
     });
 
-    $("#youtube_link").blur(function (event) {
+    $("#youtube_link").blur(function(event) {
         var formData = {
             "_token": "{{ csrf_token() }}",
             id: $("#youtube_id").val(),
@@ -1556,14 +1693,13 @@
             data: formData,
             dataType: "json",
             encode: true,
-            success: function(res){
+            success: function(res) {
                 alert('Save changes.');
             },
         });
         event.preventDefault();
         event.stopImmediatePropagation();
     });
-
 </script>
 
 
@@ -1627,13 +1763,12 @@
                 $("#postEditor").hide();
                 $("#otherEditor").hide();
                 console.log(postType);
-            }else if(postType == "post"){
+            } else if (postType == "post") {
                 $("#postEditor").show();
                 $("#blogEditor").hide();
                 $("#otherEditor").hide();
 
-            }
-            else {
+            } else {
                 $("#blogEditor").hide();
                 $("#postEditor").hide();
                 $("#otherEditor").show();
